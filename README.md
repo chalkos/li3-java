@@ -11,9 +11,8 @@ http://java.sun.com/blueprints/code/projectconventions.html
 http://www.svnforum.org/threads/32331-Best-practices-project-structure (mais resumido)
 
 ###IDE?
-O BlueJ é bom, mas é muito limitado para projectos grandes... Pensei em usar netbeans, mas ainda não testei nada.
-
-Parece que existe uma integração com git http://stackoverflow.com/questions/4477259/is-there-a-way-to-work-with-netbeans-and-github-synchronize-them
+Estou a editar isto usando o netbeans... Parece-me bom. E a integração com o github funciona muito bem.
+Tens de seguir o tutorial do github para criar a ssh key, se ainda nao seguiste.
 
 ###TODO
 * Ler o enunciado :D
