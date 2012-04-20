@@ -14,5 +14,8 @@ http://www.svnforum.org/threads/32331-Best-practices-project-structure (mais res
 Estou a editar isto usando o netbeans... Parece-me bom. E a integração com o github funciona muito bem.
 Tens de seguir o tutorial do github para criar a ssh key, se ainda nao seguiste.
 
+Já fiz aquele commit. Basicamente só precisas de ir a Team->git e configurar as cenas.
+depois o menu de team fica muito maior com as cenas do git. é tudo o que fazias com comandos.. só que agora é com menus, submenus e janelas.. só custa a principio.
+
 ###TODO
 * Ler o enunciado :D
