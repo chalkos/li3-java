@@ -17,5 +17,9 @@ Tens de seguir o tutorial do github para criar a ssh key, se ainda nao seguiste.
 Já fiz aquele commit. Basicamente só precisas de ir a Team->git e configurar as cenas.
 depois o menu de team fica muito maior com as cenas do git. é tudo o que fazias com comandos.. só que agora é com menus, submenus e janelas.. só custa a principio.
 
+Vê este link, dá uma ajuda... http://netbeans.org/kb/docs/ide/git.html
+
+O que tens de fazer é configurar uma directoria com o git, fazer clone, adicionar um projecto do netbeans (dizes que ja existe). E depois acho que ele deve configurar as cenas bem...
+
 ###TODO
 * Ler o enunciado :D
