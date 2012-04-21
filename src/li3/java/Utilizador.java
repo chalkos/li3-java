@@ -94,4 +94,16 @@ public class Utilizador {
     public int compareNome(Utilizador u){
         return (this.getNome().compareTo(u.getNome()));
     }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder("{");
+        sb.append(this.getNif());
+        sb.append(" | ");
+        sb.append(this.getNome());
+        sb.append(" | ");
+        sb.append(this.getMorada());
+        sb.append("}");
+        return sb.toString();
+    }
 }
