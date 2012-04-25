@@ -1,5 +1,7 @@
 package li3.java;
 
+import java.util.Comparator;
+
 public class Utilizador {
     private String nome;
     private String morada;
@@ -106,4 +108,20 @@ public class Utilizador {
         sb.append("}");
         return sb.toString();
     }
+}
+
+class comparadorNome implements Comparator<Utilizador>{
+    @Override
+    public int compare(Utilizador primeiro, Utilizador segundo){
+        return primeiro.compareNome(segundo);
+    }
+   
+}
+
+class comparadorNif implements Comparator<Utilizador>{
+    @Override
+    public int compare(Utilizador primeiro, Utilizador segundo){
+        return primeiro.compareNif(segundo);
+    }
+   
 }
