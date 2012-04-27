@@ -33,7 +33,7 @@ public class Li3Java {
         Iterator itr;
         int comparacao = new Integer(-1);
         
-        //recolher os dados
+        //recolher os dados 
         startTimer();
         ArrayList<Utilizador> usersNome;
         ArrayList<Utilizador> usersNif;
