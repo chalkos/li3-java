@@ -1,4 +1,4 @@
-package li3.java;
+package li3java;
 
 public class Localidade {
     

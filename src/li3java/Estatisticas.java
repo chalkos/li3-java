@@ -1,25 +1,45 @@
-package li3.java;
-
+package li3java;
 
 import java.util.*;
 
-
-public class Li3Java {
-    private static GregorianCalendar timer;
-    private static StringBuilder estatisticas;
-    private static long tempos[];
+/**
+ * Calcula e imprime as estatísticas pedidas para a primeira fase do projecto
+ */
+public class Estatisticas {
+    private StringBuilder estatisticas;
+    private Cronometro cronometro;
+    private int repeticoes;
+    private Integer quantidades[];
     
     /**
-     * @param args argumentos da linha de comandos
+     * Inicializa um novo objecto da classe Estatisticas
+     * @param repeticoes Número de repetições para cada acção
+     * @param rapido Se verdadeiro, apenas importa 5 valores. Se falso, importa 5000, 10000, 15000 e 1800 valores.
      */
-    public static void main(String[] args) {
-        tempos = new long[5]; //número de tempos medidos (ler, inserir, procurar nome, procurar nif, imprimir)
+    Estatisticas(int repeticoes, boolean rapido){
+        this.repeticoes = repeticoes;
         
-        //Integer quantidades[] = {5};
-        Integer quantidades[] = {5000, 10000, 15000, 18000}; //quantidade de dados a inserir para cada teste de desempenho
-        int repeticoes = 60; // numero de vezes que se repetem os testes
+        //quantidade de dados a inserir para cada teste de desempenho
+        if(rapido){
+            quantidades = new Integer[1];
+            quantidades[0] = 5;
+        }else{
+            quantidades = new Integer[4];
+            quantidades[0] = 5000;
+            quantidades[1] = 10000;
+            quantidades[2] = 15000;
+            quantidades[3] = 18000;
+        }
         
-        estatisticas = new StringBuilder(String.format("\nEstatisticas de Utilizadores (tempo médio, em milisegundos, de %d repetições)\n",repeticoes));
+    }
+    
+    public void comecar(){
+        cronometro = new Cronometro(5); //ler, inserir, p.nome, p.nif, imprimir = 5 tempos diferentes
+        cronometro.limpaTempo();
+        
+        estatisticas = new StringBuilder(
+            String.format("\nEstatisticas de Utilizadores (tempo médio, em milisegundos, de %d repetições)\n",repeticoes)
+        );
         
         estatisticas.append("                               | Ler  | Inserir | P. Nome | P. Nif | Imprimir |\n");
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
@@ -29,13 +49,8 @@ public class Li3Java {
             estatisticas.append(String.format(" 2 ArrayLists (%5d)          |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayList(quantidade);
-           estatisticas.append(String.format(" %4d |", tempos[0]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[1]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[2]/repeticoes));
-           estatisticas.append(String.format(" %6d |", tempos[3]/repeticoes));
-           estatisticas.append(String.format(" %8d |\n", tempos[4]/repeticoes));
-           limpaTempo();
-           System.out.print(":");
+            imprimeTempos();
+            System.out.print("X");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
         
@@ -43,13 +58,9 @@ public class Li3Java {
             estatisticas.append(String.format(" ArrayList/Linked List (%5d) |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayLinked(quantidade);
-           estatisticas.append(String.format(" %4d |", tempos[0]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[1]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[2]/repeticoes));
-           estatisticas.append(String.format(" %6d |", tempos[3]/repeticoes));
-           estatisticas.append(String.format(" %8d |\n", tempos[4]/repeticoes));
-           limpaTempo();
-           System.out.print(".");
+            imprimeTempos();
+            cronometro.limpaTempo();
+            System.out.print("X");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
         
@@ -57,13 +68,9 @@ public class Li3Java {
             estatisticas.append(String.format(" HashMap (%5d)               |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresHashMap(quantidade);
-           estatisticas.append(String.format(" %4d |", tempos[0]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[1]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[2]/repeticoes));
-           estatisticas.append(String.format(" %6d |", tempos[3]/repeticoes));
-           estatisticas.append(String.format(" %8d |\n", tempos[4]/repeticoes));
-           limpaTempo();
-           System.out.print(":");
+            imprimeTempos();
+            cronometro.limpaTempo();
+            System.out.print("X");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
         
@@ -71,47 +78,52 @@ public class Li3Java {
             estatisticas.append(String.format(" TreeMap (%5d)               |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresTreeMap(quantidade);
-           estatisticas.append(String.format(" %4d |", tempos[0]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[1]/repeticoes));
-           estatisticas.append(String.format(" %7d |", tempos[2]/repeticoes));
-           estatisticas.append(String.format(" %6d |", tempos[3]/repeticoes));
-           estatisticas.append(String.format(" %8d |\n", tempos[4]/repeticoes));
-           limpaTempo();
-           System.out.print(".");
+            imprimeTempos();
+            cronometro.limpaTempo();
+            System.out.print("X");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------'\n");
         System.out.print(estatisticas);
     }
     
+    private void imprimeTempos(){
+            cronometro.calculaMedias(repeticoes);
+            estatisticas.append(String.format(" %4d |", cronometro.getTempo(0)));
+            estatisticas.append(String.format(" %7d |", cronometro.getTempo(1)));
+            estatisticas.append(String.format(" %7d |", cronometro.getTempo(2)));
+            estatisticas.append(String.format(" %6d |", cronometro.getTempo(3)));
+            estatisticas.append(String.format(" %8d |\n", cronometro.getTempo(4)));
+            cronometro.limpaTempo();
+    }
+    
     /**
      * Função que faz o teste de desempenho com ArrayList
      * @param numDados Número de dados que devem ser lidos
-     * @param posQ Indice do array de quantidades
      */
-    public static void utilizadoresArrayList(int numDados){
+    private void utilizadoresArrayList(int numDados){
         Iterator itr;
         int comparacao = new Integer(-1);
         
         //recolher os dados
-        startTimer();
+        cronometro.startTimer();
         ArrayList<Utilizador> usersNome;
         ArrayList<Utilizador> usersNif;
         usersNif = ficheiro.getUtilizadoresArrayList(numDados);
         usersNome = (ArrayList<Utilizador>)usersNif.clone();
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
-        adicionarTempo(0);
+        cronometro.adicionarTempo(0);
         
         //inserir um novo registo
-        startTimer();
+        cronometro.startTimer();
         usersNif.add(new Utilizador(123456789, "Joaquim", "Rua das flores"));
         usersNome.add( usersNif.get(usersNif.size()-1) );// = (ArrayList<Utilizador>)usersNif.clone();
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
-        adicionarTempo(1);
+        cronometro.adicionarTempo(1);
         
         //procurar por nome
-        startTimer();
+        cronometro.startTimer();
         Utilizador procura = new Utilizador("Não existe");
         for( Utilizador tmp : usersNome ){
             comparacao = procura.compareNome(tmp);
@@ -123,10 +135,10 @@ public class Li3Java {
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(2);
+        cronometro.adicionarTempo(2);
         
         //procurar por nif
-        startTimer();
+        cronometro.startTimer();
         procura = new Utilizador(123456789);
         for( Utilizador tmp : usersNif ){
             comparacao = procura.compareNif(tmp);
@@ -138,10 +150,10 @@ public class Li3Java {
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(3);
+        cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
-        startTimer();
+        cronometro.startTimer();
         itr = usersNif.iterator();
         
         //System.out.println("Por nif:");
@@ -154,38 +166,37 @@ public class Li3Java {
         while(itr.hasNext())
             //System.out.println(itr.next().toString());
             itr.next().toString();
-        adicionarTempo(4);
+        cronometro.adicionarTempo(4);
     }
     
     /**
      * Função que faz o teste de desempenho com ArrayList com uma LinkedList auxiliar
      * @param numDados Número de dados que devem ser lidos
-     * @param posQ Indice do array de quantidades
      */
-    public static void utilizadoresArrayLinked(int numDados){
+    private void utilizadoresArrayLinked(int numDados){
         Iterator itr;
         int comparacao = new Integer(-1);
         
         //recolher os dados
-        startTimer();
+        cronometro.startTimer();
         ArrayList<Utilizador> usersNif;
         usersNif = ficheiro.getUtilizadoresArrayList(numDados);
         LinkedList<Utilizador> usersNome = new LinkedList<Utilizador>(usersNif);
         
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
-        adicionarTempo(0);
+        cronometro.adicionarTempo(0);
         
         //inserir um novo registo
-        startTimer();
+        cronometro.startTimer();
         usersNif.add(new Utilizador(123456789, "Joaquim", "Rua das flores"));
         usersNome.addFirst(usersNif.get(usersNif.size()-1));
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
-        adicionarTempo(1);
+        cronometro.adicionarTempo(1);
         
         //procurar por nome
-        startTimer();
+        cronometro.startTimer();
         Utilizador procura = new Utilizador("Não existe");
         for( Utilizador tmp : usersNome ){
             comparacao = procura.compareNome(tmp);
@@ -197,10 +208,10 @@ public class Li3Java {
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(2);
+        cronometro.adicionarTempo(2);
         
         //procurar por nif
-        startTimer();
+        cronometro.startTimer();
         procura = new Utilizador(123456789);
         for( Utilizador tmp : usersNif ){
             comparacao = procura.compareNif(tmp);
@@ -212,10 +223,10 @@ public class Li3Java {
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(3);
+        cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
-        startTimer();
+        cronometro.startTimer();
         itr = usersNif.iterator();
         
         //System.out.println("Por nif:");
@@ -228,20 +239,19 @@ public class Li3Java {
         while(itr.hasNext())
             //System.out.println(itr.next().toString());
             itr.next().toString();
-        adicionarTempo(4);
+        cronometro.adicionarTempo(4);
     }
     
     /**
      * Função que faz o teste de desempenho com HashMap
      * @param numDados Número de dados que devem ser lidos
-     * @param posQ Indice do array de quantidades
      */
-    public static void utilizadoresHashMap(int numDados){
+    private void utilizadoresHashMap(int numDados){
         Iterator itr;
         int comparacao = new Integer(-1);
         
         //recolher os dados
-        startTimer();
+        cronometro.startTimer();
         HashMap<Integer, Utilizador> usersNif;
         HashMap<String, Utilizador> usersNome = new HashMap<String, Utilizador>(numDados*2);
         usersNif = ficheiro.getUtilizadoresHashMap(numDados);
@@ -250,36 +260,36 @@ public class Li3Java {
         for( Utilizador user : users ){
             usersNome.put(user.getNome(), user);
         }
-        adicionarTempo(0);
+        cronometro.adicionarTempo(0);
         
         //inserir um novo registo
-        startTimer();
+        cronometro.startTimer();
         Integer novo_nif = 123456789;
         String novo_nome = "Joaquim";
         Utilizador novo_user = new Utilizador(novo_nif, novo_nome, "Rua das flores");
         usersNif.put(novo_nif, novo_user);
         usersNome.put(novo_nome, novo_user);
         
-        adicionarTempo(1);
+        cronometro.adicionarTempo(1);
         
         //procurar por nome
-        startTimer();
+        cronometro.startTimer();
         if( usersNome.containsKey("Joaquim") )
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(2);
+        cronometro.adicionarTempo(2);
         
         //procurar por nif
-        startTimer();
+        cronometro.startTimer();
         if( usersNif.containsKey( 123456789 ) )
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(3);
+        cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
-        startTimer();
+        cronometro.startTimer();
         
         ArrayList<Utilizador> usersNifOrdenado = new ArrayList<Utilizador>(usersNif.values());
         ArrayList<Utilizador> usersNomeOrdenado = new ArrayList<Utilizador>(usersNome.values());
@@ -299,19 +309,19 @@ public class Li3Java {
         while(itr.hasNext())
             //System.out.println(itr.next().toString());
             itr.next().toString();
-        adicionarTempo(4);
+        cronometro.adicionarTempo(4);
     }
     
     /**
      * Função que faz o teste de desempenho com TreeMap
      * @param numDados Número de dados que devem ser lidos
      */
-    public static void utilizadoresTreeMap(int numDados){
+    private void utilizadoresTreeMap(int numDados){
         Iterator itr;
         int comparacao = new Integer(-1);
         
         //recolher os dados
-        startTimer();
+        cronometro.startTimer();
         TreeMap<Integer, Utilizador> usersNif;
         TreeMap<String, Utilizador> usersNome = new TreeMap<String, Utilizador>();
         usersNif = ficheiro.getUtilizadoresTreeMap(numDados);
@@ -321,37 +331,37 @@ public class Li3Java {
             usersNome.put(user.getNome(), user);
         }
         
-        adicionarTempo(0);
+        cronometro.adicionarTempo(0);
         
         //inserir um novo registo
-        startTimer();
+        cronometro.startTimer();
         Integer novo_nif = 123456789;
         String novo_nome = "Joaquim";
         Utilizador novo_user = new Utilizador(novo_nif, novo_nome, "Rua das flores");
         usersNif.put(novo_nif, novo_user);
         usersNome.put(novo_nome, novo_user);
         
-        adicionarTempo(1);
+        cronometro.adicionarTempo(1);
         
         
         //procurar por nome
-        startTimer();
+        cronometro.startTimer();
         if( usersNome.containsKey("Joaquim") )
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(2);
+        cronometro.adicionarTempo(2);
         
         //procurar por nif
-        startTimer();
+        cronometro.startTimer();
         if( usersNif.containsKey( 123456789 ) )
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
-        adicionarTempo(3);
+        cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
-        startTimer();
+        cronometro.startTimer();
         
         itr = usersNif.keySet().iterator();
         
@@ -365,35 +375,6 @@ public class Li3Java {
         while(itr.hasNext())
             //System.out.println(usersNome.get( itr.next() ).toString());
             usersNome.get( itr.next() ).toString();
-        adicionarTempo(4);
-    }
-    
-    /**
-     * Começa a cronometrar
-     */
-    public static void startTimer(){
-        timer = new GregorianCalendar();
-    }
-    
-    /**
-     * Obter o tempo desde o inicio do cronómetro
-     * @return Tempo, em milisegundos, desde que se começou a cronometrar
-     */
-    public static long stopTimer(){
-        GregorianCalendar now = new GregorianCalendar();
-        return now.getTimeInMillis()-timer.getTimeInMillis();
-    }
-    
-    /**
-     * Adiciona tempo ao array de tempos
-     * @param accao Accao cronometrada
-     * @param valor milisegundos a adicionar
-     */
-    public static void adicionarTempo(int accao){
-        tempos[accao] += stopTimer();
-    }
-    
-    public static void limpaTempo(){
-        tempos = new long[5];
+        cronometro.adicionarTempo(4);
     }
 }
