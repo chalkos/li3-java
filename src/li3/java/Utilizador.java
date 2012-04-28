@@ -97,6 +97,10 @@ public class Utilizador {
         return (this.getNome().compareTo(u.getNome()));
     }
     
+    public void changeMorada(String morada){
+        this.morada = morada;
+    }
+    
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder("{");
