@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public class ficheiro {
+public class Ficheiro {
     private static final String nome_ficheiro_utilizadores = "/sample_utilizadores.txt";
     private static final String nome_ficheiro_localidades = "/sample_localidades.txt";
     private static final String nome_ficheiro_ligacoes = "/sample_ligacoes.txt";

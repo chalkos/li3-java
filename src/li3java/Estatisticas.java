@@ -118,7 +118,7 @@ public class Estatisticas {
         cronometro.startTimer();
         ArrayList<Utilizador> usersNome;
         ArrayList<Utilizador> usersNif;
-        usersNif = ficheiro.getUtilizadoresArrayList(numDados);
+        usersNif = Ficheiro.getUtilizadoresArrayList(numDados);
         usersNome = (ArrayList<Utilizador>)usersNif.clone();
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
@@ -190,7 +190,7 @@ public class Estatisticas {
         //recolher os dados
         cronometro.startTimer();
         ArrayList<Utilizador> usersNif;
-        usersNif = ficheiro.getUtilizadoresArrayList(numDados);
+        usersNif = Ficheiro.getUtilizadoresArrayList(numDados);
         LinkedList<Utilizador> usersNome = new LinkedList<Utilizador>(usersNif);
         
         Collections.sort(usersNif,new comparadorNif());
@@ -264,7 +264,7 @@ public class Estatisticas {
         cronometro.startTimer();
         HashMap<Integer, Utilizador> usersNif;
         HashMap<String, Utilizador> usersNome = new HashMap<String, Utilizador>(numDados*2);
-        usersNif = ficheiro.getUtilizadoresHashMap(numDados);
+        usersNif = Ficheiro.getUtilizadoresHashMap(numDados);
         
         Collection<Utilizador> users = usersNif.values();
         for( Utilizador user : users ){
@@ -334,7 +334,7 @@ public class Estatisticas {
         cronometro.startTimer();
         TreeMap<Integer, Utilizador> usersNif;
         TreeMap<String, Utilizador> usersNome = new TreeMap<String, Utilizador>();
-        usersNif = ficheiro.getUtilizadoresTreeMap(numDados);
+        usersNif = Ficheiro.getUtilizadoresTreeMap(numDados);
         
         Collection<Utilizador> users = usersNif.values();
         for( Utilizador user : users ){
