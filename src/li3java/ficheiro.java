@@ -13,6 +13,11 @@ public class ficheiro {
     private static final String nome_ficheiro_localidades = "/sample_localidades.txt";
     private static final String nome_ficheiro_ligacoes = "/sample_ligacoes.txt";
     
+    /**
+     * Importa dados dos Utilizadores para um ArrayList
+     * @param maxItens Número de utilizadores a importar
+     * @return Os utilizadores importados
+     */
     public static ArrayList<Utilizador> getUtilizadoresArrayList(int maxItens){
         ArrayList<Utilizador> lista = new ArrayList<Utilizador>(maxItens);
         String []partes;
@@ -29,6 +34,11 @@ public class ficheiro {
         return lista;
     }
     
+    /**
+     * Importa dados dos Utilizadores para um HashMap
+     * @param maxItens Número de utilizadores a importar
+     * @return Os utilizadores importados
+     */
     public static HashMap<Integer, Utilizador> getUtilizadoresHashMap(int maxItens){
         HashMap<Integer, Utilizador> hash = new HashMap<Integer, Utilizador>(maxItens*2);
         String []partes;
@@ -46,6 +56,11 @@ public class ficheiro {
         return hash;
     }
     
+    /**
+     * Importa dados dos Utilizadores para um TreeMap
+     * @param maxItens Número de utilizadores a importar
+     * @return Os utilizadores importados
+     */
     public static TreeMap<Integer, Utilizador> getUtilizadoresTreeMap(int maxItens){
         TreeMap<Integer, Utilizador> hash = new TreeMap<Integer, Utilizador>();
         String []partes;

@@ -33,6 +33,9 @@ public class Estatisticas {
         
     }
     
+    /**
+     * Realiza as acções pretendidas e a cronometra-as
+     */
     public void comecar(){
         cronometro = new Cronometro(5); //ler, inserir, p.nome, p.nif, imprimir = 5 tempos diferentes
         cronometro.limpaTempo();
@@ -44,49 +47,56 @@ public class Estatisticas {
         estatisticas.append("                               | Ler  | Inserir | P. Nome | P. Nif | Imprimir |\n");
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
         
-        System.out.print("Progresso ");
+        System.out.print("Progresso:\n2 ArrayLists");
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" 2 ArrayLists (%5d)          |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayList(quantidade);
-            imprimeTempos();
-            System.out.print("X");
+            imprimeTemposUtilizador();
+            System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
+        System.out.print("OK\nArrayList/Linked List");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" ArrayList/Linked List (%5d) |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayLinked(quantidade);
-            imprimeTempos();
+            imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print("X");
+            System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
+        System.out.print("OK\nHashMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" HashMap (%5d)               |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresHashMap(quantidade);
-            imprimeTempos();
+            imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print("X");
+            System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
+        System.out.print("OK\nTreeMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" TreeMap (%5d)               |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresTreeMap(quantidade);
-            imprimeTempos();
+            imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print("X");
+            System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------'\n");
+        System.out.println("OK");
         System.out.print(estatisticas);
     }
     
-    private void imprimeTempos(){
+    /**
+     * Imprime os tempos médios das várias acções e re-inicializa o cornometro
+     */
+    private void imprimeTemposUtilizador(){
             cronometro.calculaMedias(repeticoes);
             estatisticas.append(String.format(" %4d |", cronometro.getTempo(0)));
             estatisticas.append(String.format(" %7d |", cronometro.getTempo(1)));

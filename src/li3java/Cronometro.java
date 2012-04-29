@@ -52,12 +52,16 @@ public class Cronometro {
     
     /**
      * Obtem o tempo actual para determinada operação
-     * @param posicao 
+     * @param posicao Especifica a operação
      */
     public long getTempo(int posicao){
         return this.tempos[posicao];
     }
     
+    /**
+     * Calcula as medias de todas as repetições realizadas
+     * @param repeticoes numero de repeticoes
+     */
     public void calculaMedias(int repeticoes){
         for( int i=0; i<tempos.length; i++ ){
             tempos[i] /= repeticoes;

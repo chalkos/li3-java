@@ -2,29 +2,49 @@ package li3java;
 
 import java.util.Comparator;
 
+/**
+ * Classe que permite gerir um utilizador
+ */
 public class Utilizador {
     private String nome;
     private String morada;
     private int nif;
     
+    /**
+     * Inicializa um novo utilizador com dados inúteis
+     */
     Utilizador(){
         this.nome="";
         this.morada="";
         this.nif=-1;
     }
     
+    /**
+     * Inicializa um novo utilizador com os dados fornecidos
+     * @param nif O número de contribuinte do utilizador
+     * @param nome O nome do Utilizador
+     * @param morada A morada do Utilizador
+     */
     Utilizador(int nif, String nome, String morada){
         this.nif = nif;
         this.nome = nome;
         this.morada = morada;
     }
     
+    /**
+     * Inicializa um novo utilizador com o nif indicado
+     * @param nif O número de contribuinte do utilizador
+     */
     Utilizador(int nif){
         this.morada = "";
         this.nome = "";
         this.nif = nif;
     }
     
+    /**
+     * Inicializa um novo utilizador com o nome indicado
+     * @param nome O nome do utilizador
+     */
     Utilizador(String nome){
         this.morada="";
         this.nif=-1;
@@ -97,10 +117,18 @@ public class Utilizador {
         return (this.getNome().compareTo(u.getNome()));
     }
     
+    /**
+     * Muda a morada do utilizador para a indicada
+     * @param morada A nova morada do utilizador
+     */
     public void changeMorada(String morada){
         this.morada = morada;
     }
     
+    /**
+     * Obtém uma representação simplista da informação sobre o utilizador
+     * @return A informação do utilizador
+     */
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder("{");
@@ -114,6 +142,9 @@ public class Utilizador {
     }
 }
 
+/**
+ * Classe que permite comparar Utilizadores pelo nome
+ */
 class comparadorNome implements Comparator<Utilizador>{
     @Override
     public int compare(Utilizador primeiro, Utilizador segundo){
@@ -122,6 +153,9 @@ class comparadorNome implements Comparator<Utilizador>{
    
 }
 
+/**
+ * Classe que permite comparar Utilizadores pelo nif
+ */
 class comparadorNif implements Comparator<Utilizador>{
     @Override
     public int compare(Utilizador primeiro, Utilizador segundo){

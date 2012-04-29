@@ -11,7 +11,7 @@ public class Li3Java {
      */
     public static void main(String[] args) {
         Estatisticas estatistica = new Estatisticas(1, true); //testes
-        //Estatisticas estatistica = new Estatisticas(60, false); //avaliação de desempenho
+        //Estatisticas estatistica = new Estatisticas(10, false); //avaliação de desempenho
         estatistica.comecar();
     }
     
