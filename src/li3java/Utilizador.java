@@ -137,25 +137,3 @@ public class Utilizador {
         return sb.toString();
     }
 }
-
-/**
- * Classe que permite comparar Utilizadores pelo nome
- */
-class comparadorNome implements Comparator<Utilizador>{
-    @Override
-    public int compare(Utilizador primeiro, Utilizador segundo){
-        return primeiro.compareNome(segundo);
-    }
-   
-}
-
-/**
- * Classe que permite comparar Utilizadores pelo nif
- */
-class comparadorNif implements Comparator<Utilizador>{
-    @Override
-    public int compare(Utilizador primeiro, Utilizador segundo){
-        return primeiro.compareNif(segundo);
-    }
-   
-}
