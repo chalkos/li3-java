@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class Utilizador {
     private String nome;
     private String morada;
-    private int nif;
+    private String nif;
     
     /**
      * Inicializa um novo utilizador com dados inúteis
@@ -16,7 +16,7 @@ public class Utilizador {
     Utilizador(){
         this.nome="";
         this.morada="";
-        this.nif=-1;
+        this.nif="";
     }
     
     /**
@@ -25,30 +25,26 @@ public class Utilizador {
      * @param nome O nome do Utilizador
      * @param morada A morada do Utilizador
      */
-    Utilizador(int nif, String nome, String morada){
+    Utilizador(String nif, String nome, String morada){
         this.nif = nif;
         this.nome = nome;
         this.morada = morada;
     }
     
     /**
-     * Inicializa um novo utilizador com o nif indicado
-     * @param nif O número de contribuinte do utilizador
+     * Inicializa um novo utilizador com o nif/nome indicado
+     * @param n O número de contribuinte do utilizador
+     * @param nif Verdade se n é um numero de contribuinte, false se n é um nome
      */
-    Utilizador(int nif){
+    Utilizador(String n, boolean nif){
         this.morada = "";
-        this.nome = "";
-        this.nif = nif;
-    }
-    
-    /**
-     * Inicializa um novo utilizador com o nome indicado
-     * @param nome O nome do utilizador
-     */
-    Utilizador(String nome){
-        this.morada="";
-        this.nif=-1;
-        this.nome = nome;
+        if(nif){
+            this.nome = "";
+            this.nif = n;
+        }else{
+            this.nome = n;
+            this.nif = "";
+        }
     }
     
     /**
@@ -71,7 +67,7 @@ public class Utilizador {
      * Obter o nif do Utilizador
      * @return O nif do Utilizador
      */
-    int getNif(){
+    String getNif(){
         return this.nif;
     }
     
@@ -103,7 +99,7 @@ public class Utilizador {
      * @return >0 Se o nif do primeiro utilizador for maior que o do segundo
      */
     public int compareNif(Utilizador u){
-        return this.getNif() - u.getNif();
+        return (this.getNif().compareTo(u.getNif()));
     }
     
     /**
