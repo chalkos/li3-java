@@ -18,6 +18,28 @@ public class Ficheiro {
     private static final String nome_ficheiro_ligacoes = "/sample_ligacoes.txt";
     
     /**
+     * Importa dados dos Utilizadores
+     * @param maxItens Número de utilizadores a importar
+     * @return Os utilizadores importados
+     */
+    public static Utilizadores getUtilizadores(Utilizadores utilizadores){
+        String []partes;
+        try {
+            InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_utilizadores);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            for(int i=0;i<utilizadores.getNumDados(); i++){
+                 partes = br.readLine().split(":");
+                 utilizadores.insere(new Utilizador(partes[0], partes[1], partes[2]));
+            }
+            is.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        
+        return utilizadores;
+    }
+    
+    /**
      * Importa dados dos Utilizadores para um ArrayList
      * @param maxItens Número de utilizadores a importar
      * @return Os utilizadores importados
@@ -32,6 +54,7 @@ public class Ficheiro {
                  partes = br.readLine().split(":");
                  lista.add(new Utilizador( partes[0], partes[1], partes[2]));
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -54,6 +77,7 @@ public class Ficheiro {
                  partes = br.readLine().split(":");
                  hash.put( partes[0], new Utilizador( partes[0], partes[1], partes[2]) );
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -76,6 +100,7 @@ public class Ficheiro {
                  
                  hash.put( partes[0], new Utilizador( partes[0], partes[1], partes[2]) );
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -89,6 +114,7 @@ public class Ficheiro {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             for(int i=0;i<maxItens; i++)
                  loc.add(new LocalidadeArrayList(br.readLine()));
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -108,6 +134,7 @@ public class Ficheiro {
                     break;
                 }
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -120,6 +147,7 @@ public class Ficheiro {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             for(int i=0;i<maxItens; i++)
                 loc.add(new LocalidadeHashSet(br.readLine()));
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -138,6 +166,7 @@ public class Ficheiro {
                     break;
                 }
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -150,6 +179,7 @@ public class Ficheiro {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             for(int i=0;i<maxItens; i++)
                 loc.put(br.readLine(), new HashMap<String, String>(8));
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -170,6 +200,7 @@ public class Ficheiro {
                     loc.get(key).put(partes[1], null);
                 }
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -182,6 +213,7 @@ public class Ficheiro {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             for(int i=0;i<maxItens; i++)
                 loc.put(br.readLine(), new TreeMap<String, String>());
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -202,6 +234,7 @@ public class Ficheiro {
                     loc.get(key).put(partes[1], null);
                 }
             }
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

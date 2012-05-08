@@ -68,27 +68,27 @@ public class Estatisticas {
         estatisticas.append("                               | Ler  | Inserir | P. Nome | P. Nif | Imprimir |\n");
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
         
-        System.out.print("Progresso (Utilizadores):\n2 ArrayLists");
+        //System.out.print("Progresso (Utilizadores):\n2 ArrayLists");
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" 2 ArrayLists (%5d)          |", quantidade));
-            for( int j=0; j<repeticoes; j++ )
+            //for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayList(quantidade);
             imprimeTemposUtilizador();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
-        System.out.print("OK\nArrayList/Linked List");
-        
+        //System.out.print("OK\nArrayList/Linked List");
+        /*
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" ArrayList/Linked List (%5d) |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayLinked(quantidade);
             imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
-        System.out.print("OK\nHashMap");
+        //System.out.print("OK\nHashMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" HashMap (%5d)               |", quantidade));
@@ -96,10 +96,10 @@ public class Estatisticas {
                 utilizadoresHashMap(quantidade);
             imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------|\n");
-        System.out.print("OK\nTreeMap");
+        //System.out.print("OK\nTreeMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" TreeMap (%5d)               |", quantidade));
@@ -107,10 +107,10 @@ public class Estatisticas {
                 utilizadoresTreeMap(quantidade);
             imprimeTemposUtilizador();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("-------------------------------+------+---------+---------+--------+----------'\n");
-        System.out.println("OK\n\n");
+        //System.out.println("OK\n\n");
         
         // começar a estatistica de localidades
         cronometro = new Cronometro(5); //ler, inserir local, inserir ligacao, procurar ligacoes, imprimir
@@ -123,16 +123,16 @@ public class Estatisticas {
         estatisticas.append("                            | Ler  | Ins. Local | Ins. Lig. | P. Lig. | Imprimir |\n");
         estatisticas.append("----------------------------+------+------------+-----------+---------+----------|\n");
         
-        System.out.print("Progresso (Localidades):\n2 ArrayLists");
+        //System.out.print("Progresso (Localidades):\n2 ArrayLists");
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" 2 ArrayList (%5d)        |", quantidade));
             for( int j=0; j<repeticoes; j++ )
                 localidadesArrayList(quantidade);
             imprimeTemposLocalidade();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("----------------------------+------+------------+-----------+---------+----------|\n");
-        System.out.print("OK\nArrayList/Hash Set");
+        //System.out.print("OK\nArrayList/Hash Set");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" ArrayList/Hash Set (%5d) |", quantidade));
@@ -140,10 +140,10 @@ public class Estatisticas {
                 localidadesHashSet(quantidade);
             imprimeTemposLocalidade();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("----------------------------+------+------------+-----------+---------+----------|\n");
-        System.out.print("OK\n2 HashMap");
+        //System.out.print("OK\n2 HashMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" 2 HashMap (%5d)          |", quantidade));
@@ -151,10 +151,10 @@ public class Estatisticas {
                 localidadesHashMap(quantidade);
             imprimeTemposLocalidade();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("----------------------------+------+------------+-----------+---------+----------|\n");
-        System.out.print("OK\n2 TreeMap");
+        //System.out.print("OK\n2 TreeMap");
         
         for( int quantidade : quantidades ){
             estatisticas.append(String.format(" 2 TreeMap (%5d)          |", quantidade));
@@ -162,10 +162,10 @@ public class Estatisticas {
                 utilizadoresTreeMap(quantidade);
             imprimeTemposLocalidade();
             cronometro.limpaTempo();
-            System.out.print(".");
+            //System.out.print(".");
         }
         estatisticas.append("----------------------------+------+------------+-----------+---------+----------'\n");
-        System.out.println("OK");
+        //System.out.println("OK");*/
         System.out.print(estatisticas);
     }
     
@@ -200,78 +200,51 @@ public class Estatisticas {
      * @param numDados Número de dados que devem ser lidos
      */
     private void utilizadoresArrayList(int numDados){
-        Iterator itr;
-        int comparacao = new Integer(-1);
+        Utilizadores utilizadores = new UtilizadoresArrayList(numDados);
         
         //recolher os dados
         cronometro.startTimer();
-        ArrayList<Utilizador> usersNome;
-        ArrayList<Utilizador> usersNif;
-        usersNif = Ficheiro.getUtilizadoresArrayList(numDados);
-        usersNome = (ArrayList<Utilizador>)usersNif.clone();
-        Collections.sort(usersNif,new comparadorNif());
-        Collections.sort(usersNome, new comparadorNome());
+        for(int i=0; i<this.repeticoes; i++)
+            utilizadores = Ficheiro.getUtilizadores(utilizadores);
         cronometro.adicionarTempo(0);
         
         //inserir um novo registo
         cronometro.startTimer();
-        usersNif.add(new Utilizador("123456789", "Joaquim", "Rua das flores"));
-        usersNome.add( usersNif.get(usersNif.size()-1) );
-        Collections.sort(usersNif,new comparadorNif());
-        Collections.sort(usersNome, new comparadorNome());
+        for(int i=0; i<this.repeticoes; i++)
+            utilizadores.insere(new Utilizador("23456789", "Zoaquim", "Rua das flores"));
         cronometro.adicionarTempo(1);
         
         //procurar por nome
         cronometro.startTimer();
-        Utilizador procura = new Utilizador("Joaquim", false); //novo utilziador com o nome Carlos
-        for( Utilizador tmp : usersNome ){
-            comparacao = procura.compareNome(tmp);
-            if( comparacao >= 0 )
-                break;
+        String procura;
+        for(int i=0; i<this.repeticoes; i++){
+            procura = Integer.valueOf(i).toString();
+
+            if( utilizadores.procuraNome(procura) != null )
+                output.append("[Por Nome]O utilizador ").append(procura).append(" existe\n");
+            else
+                output.append("[Por Nome]O utilizador ").append(procura).append(" não existe\n");
         }
-        
-        if( comparacao == 0 )
-            output.append("[Por Nome]O utilizador ")
-                    .append(procura.toString())
-                    .append(" existe\n");
-        else
-            output.append("[Por Nome]O utilizador ")
-                    .append(procura.toString())
-                    .append(" não existe\n");
-        
         cronometro.adicionarTempo(2);
         
         //procurar por nif
         cronometro.startTimer();
-        procura = new Utilizador("123456789", true);
-        for( Utilizador tmp : usersNif ){
-            comparacao = procura.compareNif(tmp);
-            if( comparacao >= 0 )
-                break;
-        }
+        for(int i=0; i<this.repeticoes; i++){
+            procura = Integer.valueOf(i).toString();
         
-        if( comparacao == 0 )
-            output.append("[Por Nif ]O utilizador ")
-                    .append(procura.toString())
-                    .append(" existe\n");
-        else
-            output.append("[Por Nif ]O utilizador ")
-                    .append(procura.toString())
-                    .append(" não existe\n");
+            if( utilizadores.procuraNif(procura) != null )
+                output.append("[Por Nif ]O nif ").append(procura).append(" existe\n");
+            else
+                output.append("[Por Nif ]O nif ").append(procura).append(" não existe\n");
+        }
         cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
         cronometro.startTimer();
-        itr = usersNif.iterator();
-        
-        output.append("Por nif:\n");
-        while(itr.hasNext())
-            output.append(itr.next().toString()).append("\n");
-        
-        itr = usersNome.iterator();
-        output.append("Por nome:\n");
-        while(itr.hasNext())
-            output.append(itr.next().toString()).append("\n");
+        for(int i=0; i<this.repeticoes; i++){
+            output.append("Por nif:\n").append(utilizadores.toStringNif());
+            output.append("Por nome:\n").append(utilizadores.toStringNome());
+        }
         imprime();
         cronometro.adicionarTempo(4);
     }

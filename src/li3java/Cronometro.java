@@ -63,7 +63,7 @@ public class Cronometro {
      * @param repeticoes numero de repeticoes
      */
     public void calculaMedias(int repeticoes){
-        for( int i=0; i<tempos.length; i++ ){
+        for( int i=1; i<tempos.length; i++ ){
             tempos[i] /= repeticoes;
         }
     }

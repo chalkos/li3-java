@@ -11,6 +11,10 @@ public abstract class Utilizadores {
         this.numDados = numDados;
     }
     
+    public int getNumDados(){
+        return this.numDados;
+    }
+    
     public abstract void insere(Utilizador novo);
     public abstract Utilizador procuraNif(String nif);
     public abstract Utilizador procuraNome(String nome);

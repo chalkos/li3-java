@@ -97,6 +97,7 @@ public class Utilizador {
                 && this.getNome().contentEquals(u.getNome())
                 && this.getMorada().contentEquals(u.getMorada()));
     }
+    
     /**
      * Compara dois numeros de contribuinte.
      * @param u O segundo Utilizador
@@ -109,6 +110,17 @@ public class Utilizador {
     }
     
     /**
+     * Compara dois numeros de contribuinte.
+     * @param u O segundo numero de contribuinte
+     * @return <0 Se o nif do primeiro utilizador for menor que o do segundo
+     * @return  0 Se os nif forem iguais
+     * @return >0 Se o nif do primeiro utilizador for maior que o do segundo
+     */
+    public int compareNif(String nif){
+        return (this.getNif().compareTo(nif));
+    }
+    
+    /**
      * Compara dois nomes de utilizador.
      * @param u O segundo Utilizador
      * @return <0 Se o nome do primeiro utilizador for considerado menor que o do segundo
@@ -117,6 +129,17 @@ public class Utilizador {
      */
     public int compareNome(Utilizador u){
         return (this.getNome().compareTo(u.getNome()));
+    }
+    
+    /**
+     * Compara dois nomes de utilizador.
+     * @param u O segundo nome de utilizador
+     * @return <0 Se o nome do primeiro utilizador for considerado menor que o do segundo
+     * @return  0 Se os nomes forem iguais
+     * @return >0 Se o nome do primeiro utilizador for considerado maior que o do segundo
+     */
+    public int compareNome(String nome){
+        return (this.getNome().compareTo(nome));
     }
     
     /**
@@ -133,6 +156,6 @@ public class Utilizador {
      */
     @Override
     public String toString(){
-        return String.format("{ %s | %s | %s }", this.getNif(), this.getNif(), this.getMorada());
+        return String.format("{ %s | %s | %s }", this.getNif(), this.getNome(), this.getMorada());
     }
 }
