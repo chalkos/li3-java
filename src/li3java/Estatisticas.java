@@ -56,13 +56,13 @@ public class Estatisticas {
      * Realiza as acções pretendidas e a cronometra-as
      */
     public void comecar(){
-        cronometro = new Cronometro(5); //ler, inserir, p.nome, p.nif, imprimir = 5 tempos diferentes
+        cronometro = new Cronometro(); //ler, inserir, p.nome, p.nif, imprimir = 5 tempos diferentes
         cronometro.limpaTempo();
         
         output = new StringBuilder(200);
         
         estatisticas = new StringBuilder(
-            String.format("\nEstatisticas de Utilizadores (tempo médio, em milisegundos, de %d repetições)\n",repeticoes)
+            String.format("\nEstatisticas de Utilizadores (tempo, em milisegundos, de %d repetições)\n",repeticoes)
         );
         
         estatisticas.append("                               | Ler  | Inserir | P. Nome | P. Nif | Imprimir |\n");
@@ -70,6 +70,7 @@ public class Estatisticas {
         
         //System.out.print("Progresso (Utilizadores):\n2 ArrayLists");
         for( int quantidade : quantidades ){
+            System.out.println(quantidade);
             estatisticas.append(String.format(" 2 ArrayLists (%5d)          |", quantidade));
             //for( int j=0; j<repeticoes; j++ )
                 utilizadoresArrayList(quantidade);
@@ -173,7 +174,7 @@ public class Estatisticas {
      * Imprime os tempos médios das várias acções sobre Utilizadores e re-inicializa o cronometro
      */
     private void imprimeTemposUtilizador(){
-            cronometro.calculaMedias(repeticoes);
+            //cronometro.calculaMedias(repeticoesDemoradas);
             estatisticas.append(String.format(" %4d |", cronometro.getTempo(0)));
             estatisticas.append(String.format(" %7d |", cronometro.getTempo(1)));
             estatisticas.append(String.format(" %7d |", cronometro.getTempo(2)));
@@ -186,7 +187,7 @@ public class Estatisticas {
      * Imprime os tempos médios das várias acções sobre Localidades e re-inicializa o cornometro
      */
     private void imprimeTemposLocalidade(){
-            cronometro.calculaMedias(repeticoes);
+            //cronometro.calculaMedias(repeticoesDemoradas);
             estatisticas.append(String.format(" %4d |", cronometro.getTempo(0)));
             estatisticas.append(String.format(" %10d |", cronometro.getTempo(1)));
             estatisticas.append(String.format(" %9d |", cronometro.getTempo(2)));
@@ -204,16 +205,17 @@ public class Estatisticas {
         
         //recolher os dados
         cronometro.startTimer();
-        for(int i=0; i<this.repeticoes; i++)
-            utilizadores = Ficheiro.getUtilizadores(utilizadores);
+        utilizadores = Ficheiro.getUtilizadores(utilizadores);
         cronometro.adicionarTempo(0);
         
+        System.out.println(".");
         //inserir um novo registo
         cronometro.startTimer();
         for(int i=0; i<this.repeticoes; i++)
             utilizadores.insere(new Utilizador("23456789", "Zoaquim", "Rua das flores"));
         cronometro.adicionarTempo(1);
         
+        System.out.println(".");
         //procurar por nome
         cronometro.startTimer();
         String procura;
@@ -227,6 +229,7 @@ public class Estatisticas {
         }
         cronometro.adicionarTempo(2);
         
+        System.out.println(".");
         //procurar por nif
         cronometro.startTimer();
         for(int i=0; i<this.repeticoes; i++){
@@ -239,12 +242,12 @@ public class Estatisticas {
         }
         cronometro.adicionarTempo(3);
         
+        System.out.println(".");
         //imprimir os dados dos utilizadores
         cronometro.startTimer();
-        for(int i=0; i<this.repeticoes; i++){
-            output.append("Por nif:\n").append(utilizadores.toStringNif());
-            output.append("Por nome:\n").append(utilizadores.toStringNome());
-        }
+        output.append("Por nif:\n").append(utilizadores.toStringNif());
+        output.append("Por nome:\n").append(utilizadores.toStringNome());
+        System.out.println("-");
         imprime();
         cronometro.adicionarTempo(4);
     }

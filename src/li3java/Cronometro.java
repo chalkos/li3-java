@@ -14,8 +14,8 @@ public class Cronometro {
      * Inicializar um novo cronómetro
      * @param tamanho O número de tempos diferentes
      */
-    Cronometro(int tamanho){
-        this.tamanho = tamanho;
+    Cronometro(){
+        this.tamanho = 5;
         tempos = new long[tamanho];
     }
     
@@ -47,7 +47,7 @@ public class Cronometro {
      * Reinicia o array de tempos
      */
     public void limpaTempo(){
-        tempos = new long[5];
+        tempos = new long[this.tamanho];
     }
     
     /**
@@ -64,7 +64,10 @@ public class Cronometro {
      */
     public void calculaMedias(int repeticoes){
         for( int i=1; i<tempos.length; i++ ){
-            tempos[i] /= repeticoes;
+            if( i == 0 || i == 4 )
+                tempos[i] /= repeticoes;
+            /*else
+                tempos[i] /= repeticoes;*/
         }
     }
 }
