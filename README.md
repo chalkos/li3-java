@@ -1,6 +1,32 @@
 #LI3-JAVA
 Segundo Projecto de LI3, grupo 42
 
+##Estado da aplicação
+    Progresso ::::....::::....
+    Estatisticas de Utilizadores (tempo médio, em milisegundos, de 60 repetições)
+                                   | Ler  | Inserir | P. Nome | P. Nif | Imprimir |
+    -------------------------------+------+---------+---------+--------+----------|
+     2 ArrayLists ( 5000)          |   48 |      12 |       0 |      0 |       13 |
+     2 ArrayLists (10000)          |   42 |       5 |       0 |      0 |       20 |
+     2 ArrayLists (15000)          |   64 |      10 |       0 |      0 |       31 |
+     2 ArrayLists (18000)          |   74 |      11 |       0 |      0 |       35 |
+    -------------------------------+------+---------+---------+--------+----------|
+     ArrayList/Linked List ( 5000) |   16 |       2 |       0 |      0 |        8 |
+     ArrayList/Linked List (10000) |   42 |       8 |       0 |      0 |       21 |
+     ArrayList/Linked List (15000) |   61 |      12 |       0 |      0 |       30 |
+     ArrayList/Linked List (18000) |   72 |      15 |       0 |      0 |       36 |
+    -------------------------------+------+---------+---------+--------+----------|
+     HashMap ( 5000)               |   18 |       0 |       0 |      0 |       21 |
+     HashMap (10000)               |   30 |       0 |       0 |      0 |       43 |
+     HashMap (15000)               |   43 |       0 |       0 |      0 |       64 |
+     HashMap (18000)               |   53 |       0 |       0 |      0 |       81 |
+    -------------------------------+------+---------+---------+--------+----------|
+     TreeMap ( 5000)               |   22 |       0 |       0 |      0 |       14 |
+     TreeMap (10000)               |   40 |       0 |       0 |      0 |       26 |
+     TreeMap (15000)               |   60 |       0 |       0 |      0 |       37 |
+     TreeMap (18000)               |   70 |       0 |       0 |      0 |       43 |
+    -------------------------------+------+---------+---------+--------+----------'
+
 ##Notas para o Grupo
 ###Enunciado do Projecto
 http://dl.dropbox.com/u/6013254/projecto_Java_LI3_1112.pdf
@@ -10,16 +36,8 @@ http://java.sun.com/blueprints/code/projectconventions.html
 
 http://www.svnforum.org/threads/32331-Best-practices-project-structure (mais resumido)
 
-###IDE?
-Estou a editar isto usando o netbeans... Parece-me bom. E a integração com o github funciona muito bem.
-Tens de seguir o tutorial do github para criar a ssh key, se ainda nao seguiste.
 
-Já fiz aquele commit. Basicamente só precisas de ir a Team->git e configurar as cenas.
-depois o menu de team fica muito maior com as cenas do git. é tudo o que fazias com comandos.. só que agora é com menus, submenus e janelas.. só custa a principio.
-
-Vê este link, dá uma ajuda... http://netbeans.org/kb/docs/ide/git.html
-
-O que tens de fazer é configurar uma directoria com o git, fazer clone, adicionar um projecto do netbeans (dizes que ja existe). E depois acho que ele deve configurar as cenas bem...
 
 ###TODO
-* Ler o enunciado :D
+* Fazer o cálculo do desempenho para localidades
+* Iniciar a segunda fase
