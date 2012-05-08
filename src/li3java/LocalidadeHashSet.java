@@ -1,24 +1,24 @@
 package li3java;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Classe de Localidades que implementa HashSet para as adjacencias
  */
 public class LocalidadeHashSet extends Localidade{
-    private HashSet<String> adjacencias;
+    private HashSet<Ligacao> adjacencias;
     
     LocalidadeHashSet(String nome){
-        this.nome = nome;
-        adjacencias = new HashSet<String>(8);
+        super(nome);
+        adjacencias = new HashSet<Ligacao>(8);
     }
     
-    public HashSet<String> getAdjacencias(){
-        return adjacencias;
+    public Iterator<Ligacao> getIterator(){
+        return adjacencias.iterator();
     }
     
-    public void novaAdjacencia(String nova){
-        if( !adjacencias.contains(nova) )
-            adjacencias.add(nova);
+    public void novaAdjacencia(Ligacao nova){
+        adjacencias.add(nova);
     }
 }

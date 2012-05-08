@@ -20,6 +20,16 @@ public class Utilizador {
     }
     
     /**
+     * Inicializa um novo utilizador com dados de um utilizador existente
+     * @param existente 
+     */
+    Utilizador(Utilizador existente){
+        this.nome = existente.getNome();
+        this.morada = existente.getMorada();
+        this.nif = existente.getNif();
+    }
+    
+    /**
      * Inicializa um novo utilizador com os dados fornecidos
      * @param nif O número de contribuinte do utilizador
      * @param nome O nome do Utilizador
@@ -47,6 +57,11 @@ public class Utilizador {
         }
     }
     
+    @Override
+    public Utilizador clone(){
+        return new Utilizador(this);
+    }
+    
     /**
      * Obter o nome do Utilizador
      * @return O nome do Utilizador
@@ -69,15 +84,6 @@ public class Utilizador {
      */
     String getNif(){
         return this.nif;
-    }
-    
-    /**
-     * Clona um Utilizador
-     * @return Um utilizador com os mesmos conteúdos do original
-     */
-    @Override
-    public Utilizador clone(){
-        return new Utilizador(this.getNif(), this.getNome(), this.getMorada());
     }
     
     /**
@@ -127,13 +133,6 @@ public class Utilizador {
      */
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder("{");
-        sb.append(this.getNif());
-        sb.append(" | ");
-        sb.append(this.getNome());
-        sb.append(" | ");
-        sb.append(this.getMorada());
-        sb.append("}");
-        return sb.toString();
+        return String.format("{ %s | %s | %s }", this.getNif(), this.getNif(), this.getMorada());
     }
 }

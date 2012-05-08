@@ -1,11 +1,18 @@
 package li3java;
 
 /**
- * Classe que permite gerir uma localidade
+ * Localidade (abstracta)
  */
-public class Localidade {
-    protected String nome;
+public abstract class Localidade {
+    private String nome;
     
+    Localidade(){
+        this.nome="";
+    }
+    
+    Localidade(String nome){
+        this.nome=nome;
+    }
     
     public String getNome(){
         return this.nome;

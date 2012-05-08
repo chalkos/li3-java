@@ -1,24 +1,32 @@
 package li3java;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Classe de Localidades que implementa ArrayList para as adjacencias
  */
 public class LocalidadeArrayList extends Localidade{
-    private ArrayList<String> adjacencias;
+    private ArrayList<Ligacao> adjacencias;
     
     LocalidadeArrayList(String nome){
-        this.nome = nome;
-        adjacencias = new ArrayList<String>(8);
+        super(nome);
+        adjacencias = new ArrayList<Ligacao>(8);
     }
     
-    public ArrayList<String> getAdjacencias(){
-        return adjacencias;
+    public Iterator<Ligacao> getIterator(){
+        return adjacencias.iterator();
     }
     
-    public void novaAdjacencia(String nova){
-        if( !adjacencias.contains(nova) )
-            adjacencias.add(nova);
+    public void novaAdjacencia(Ligacao nova){
+        boolean encontrou = false;
+        for( Ligacao adjacencia : adjacencias ){
+            if( adjacencia.getNome().compareToIgnoreCase(nova.getNome()) == 0){
+                encontrou = true;
+                break;
+            }
+        }
+        if(!encontrou)
+            adjacencias.add(nova.clone());
     }
 }

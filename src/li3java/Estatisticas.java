@@ -7,9 +7,11 @@ import java.util.*;
  */
 public class Estatisticas {
     private StringBuilder estatisticas;
+    private StringBuilder output;
     private Cronometro cronometro;
     private int repeticoes;
     private Integer quantidades[];
+    private boolean imprime;
     
     /**
      * Inicializa um novo objecto da classe Estatisticas
@@ -18,6 +20,7 @@ public class Estatisticas {
      */
     Estatisticas(int repeticoes, boolean rapido){
         this.repeticoes = repeticoes;
+        this.imprime = false;
         
         //quantidade de dados a inserir para cada teste de desempenho
         if(rapido){
@@ -34,11 +37,29 @@ public class Estatisticas {
     }
     
     /**
+     * Força a flag de impressão de texto de debug a ser verdade
+     */
+    public void forceImprime(){
+        this.imprime = true;
+    }
+    
+    /**
+     * Escreve o output de debug da aplicação
+     */
+    private void imprime(){
+        if( this.imprime )
+            System.out.print(output);
+        output = new StringBuilder(200);
+    }
+    
+    /**
      * Realiza as acções pretendidas e a cronometra-as
      */
     public void comecar(){
         cronometro = new Cronometro(5); //ler, inserir, p.nome, p.nif, imprimir = 5 tempos diferentes
         cronometro.limpaTempo();
+        
+        output = new StringBuilder(200);
         
         estatisticas = new StringBuilder(
             String.format("\nEstatisticas de Utilizadores (tempo médio, em milisegundos, de %d repetições)\n",repeticoes)
@@ -195,14 +216,14 @@ public class Estatisticas {
         //inserir um novo registo
         cronometro.startTimer();
         usersNif.add(new Utilizador("123456789", "Joaquim", "Rua das flores"));
-        usersNome.add( usersNif.get(usersNif.size()-1) );// = (ArrayList<Utilizador>)usersNif.clone();
+        usersNome.add( usersNif.get(usersNif.size()-1) );
         Collections.sort(usersNif,new comparadorNif());
         Collections.sort(usersNome, new comparadorNome());
         cronometro.adicionarTempo(1);
         
         //procurar por nome
         cronometro.startTimer();
-        Utilizador procura = new Utilizador("Não existe", false);
+        Utilizador procura = new Utilizador("Joaquim", false); //novo utilziador com o nome Carlos
         for( Utilizador tmp : usersNome ){
             comparacao = procura.compareNome(tmp);
             if( comparacao >= 0 )
@@ -210,9 +231,14 @@ public class Estatisticas {
         }
         
         if( comparacao == 0 )
-            ;//System.out.println("existe");
+            output.append("[Por Nome]O utilizador ")
+                    .append(procura.toString())
+                    .append(" existe\n");
         else
-            ;//System.out.println("não existe");
+            output.append("[Por Nome]O utilizador ")
+                    .append(procura.toString())
+                    .append(" não existe\n");
+        
         cronometro.adicionarTempo(2);
         
         //procurar por nif
@@ -225,25 +251,28 @@ public class Estatisticas {
         }
         
         if( comparacao == 0 )
-            ;//System.out.println("existe");
+            output.append("[Por Nif ]O utilizador ")
+                    .append(procura.toString())
+                    .append(" existe\n");
         else
-            ;//System.out.println("não existe");
+            output.append("[Por Nif ]O utilizador ")
+                    .append(procura.toString())
+                    .append(" não existe\n");
         cronometro.adicionarTempo(3);
         
         //imprimir os dados dos utilizadores
         cronometro.startTimer();
         itr = usersNif.iterator();
         
-        //System.out.println("Por nif:");
+        output.append("Por nif:\n");
         while(itr.hasNext())
-            //System.out.println(itr.next().toString());
-            itr.next().toString();
+            output.append(itr.next().toString()).append("\n");
         
         itr = usersNome.iterator();
-        //System.out.println("Por nome:");
+        output.append("Por nome:\n");
         while(itr.hasNext())
-            //System.out.println(itr.next().toString());
-            itr.next().toString();
+            output.append(itr.next().toString()).append("\n");
+        imprime();
         cronometro.adicionarTempo(4);
     }
     
@@ -267,6 +296,9 @@ public class Estatisticas {
         
         //inserir um novo registo
         cronometro.startTimer();
+        
+        
+        
         usersNif.add(new Utilizador("123456789", "Joaquim", "Rua das flores"));
         usersNome.addFirst(usersNif.get(usersNif.size()-1));
         Collections.sort(usersNif,new comparadorNif());
@@ -432,7 +464,7 @@ public class Estatisticas {
         
         //procurar por nif
         cronometro.startTimer();
-        if( usersNif.containsKey( 123456789 ) )
+        if( usersNif.containsKey( "123456789" ) )
             ;//System.out.println("existe");
         else
             ;//System.out.println("não existe");
@@ -457,6 +489,8 @@ public class Estatisticas {
     }
     
     private void localidadesArrayList(int numDados){
+        Ligacao lnova;
+        
         //recolher os dados
         cronometro.startTimer();
         ArrayList<LocalidadeArrayList> locs = Ficheiro.getLocalidadesArrayList(numDados);
@@ -470,9 +504,10 @@ public class Estatisticas {
         
         //nova ligacao
         cronometro.startTimer();
+        lnova = new Ligacao("Taipa", 10, 20);
         for(int i=0; i<locs.size();i++)
             if(locs.get(i).getNome().equals("Marte")){
-                locs.get(i).novaAdjacencia("Taipa");
+                locs.get(i).novaAdjacencia(lnova);
                 break;
             }
         cronometro.adicionarTempo(2);
@@ -481,7 +516,7 @@ public class Estatisticas {
         cronometro.startTimer();
         for(int i=0; i<locs.size();i++)
             if(locs.get(i).getNome().equals("Marte")){
-                for( String lig : locs.get(i).getAdjacencias() )
+                for(Iterator<Ligacao> itr = locs.get(i).getIterator(); itr.hasNext(); lnova = itr.next() )
                     ;//fazer qualquer coisa com as adjacencias que encontrou
             }
         cronometro.adicionarTempo(3);
@@ -491,7 +526,7 @@ public class Estatisticas {
         for(LocalidadeArrayList local : locs){
             //System.out.print(local.getNome());
             local.getNome();
-            for(String ligacao : local.getAdjacencias())
+            for(Iterator<Ligacao> itr = local.getIterator(); itr.hasNext(); lnova = itr.next() )
                 ;//System.out.print(String.format(":%s", ligacao));
             //System.out.println();
         }
@@ -499,6 +534,8 @@ public class Estatisticas {
     }
     
     private void localidadesHashSet(int numDados){
+        Ligacao lnova;
+        
         //recolher os dados
         cronometro.startTimer();
         ArrayList<LocalidadeHashSet> locs = Ficheiro.getLocalidadesHashSet(numDados);
@@ -514,7 +551,7 @@ public class Estatisticas {
         cronometro.startTimer();
         for(int i=0; i<locs.size();i++)
             if(locs.get(i).getNome().equals("Marte")){
-                locs.get(i).novaAdjacencia("Taipa");
+                locs.get(i).novaAdjacencia(new Ligacao("Taipa", 10, 200));
                 break;
             }
         cronometro.adicionarTempo(2);
@@ -523,7 +560,7 @@ public class Estatisticas {
         cronometro.startTimer();
         for(int i=0; i<locs.size();i++)
             if(locs.get(i).getNome().equals("Marte")){
-                for( String lig : locs.get(i).getAdjacencias() )
+                for(Iterator<Ligacao> itr = locs.get(i).getIterator(); itr.hasNext(); lnova = itr.next() )
                     ;//fazer qualquer coisa com as adjacencias que encontrou
             }
         cronometro.adicionarTempo(3);
@@ -533,7 +570,7 @@ public class Estatisticas {
         for(LocalidadeHashSet local : locs){
             //System.out.print(local.getNome());
             local.getNome();
-            for(String ligacao : local.getAdjacencias())
+            for(Iterator<Ligacao> itr = local.getIterator(); itr.hasNext(); lnova = itr.next() )
                 ;//System.out.print(String.format(":%s", ligacao));
             //System.out.println();
         }

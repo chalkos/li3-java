@@ -100,10 +100,12 @@ public class Ficheiro {
         try {
             InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_ligacoes);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            //origem, destino, km, custo
             for(int i=0;i<loc.size(); i++){
-                for(int j=0;j<8;j++){
-                    partes = br.readLine().split(":");
-                    loc.get(i).novaAdjacencia(partes[1]);
+                partes = br.readLine().split(":");
+                if(loc.get(i).getNome().compareTo(partes[0]) == 0){
+                    loc.get(i).novaAdjacencia(new Ligacao(partes[1], Integer.decode(partes[2]).intValue(), Integer.decode(partes[3]).intValue()));
+                    break;
                 }
             }
         } catch (IOException ioe) {
@@ -130,9 +132,10 @@ public class Ficheiro {
             InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_ligacoes);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             for(int i=0;i<loc.size(); i++){
-                for(int j=0;j<8;j++){
-                    partes = br.readLine().split(":");
-                    loc.get(i).novaAdjacencia(partes[1]);
+                partes = br.readLine().split(":");
+                if(loc.get(i).getNome().compareTo(partes[0]) == 0){
+                    loc.get(i).novaAdjacencia(new Ligacao(partes[1], Integer.decode(partes[2]).intValue(), Integer.decode(partes[3]).intValue()));
+                    break;
                 }
             }
         } catch (IOException ioe) {
