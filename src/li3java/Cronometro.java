@@ -11,11 +11,19 @@ public class Cronometro {
     private int tamanho;
     
     /**
-     * Inicializar um novo cronómetro
-     * @param tamanho O número de tempos diferentes
+     * Inicializar um novo cronómetro com capacidade para 5 tempos diferentes
      */
     Cronometro(){
         this.tamanho = 5;
+        tempos = new long[tamanho];
+    }
+    
+    /**
+     * Inicializar um novo cronómetro
+     * @param tamanho O número de tempos diferentes
+     */
+    Cronometro(int tamanho){
+        this.tamanho = tamanho;
         tempos = new long[tamanho];
     }
     
@@ -56,18 +64,5 @@ public class Cronometro {
      */
     public long getTempo(int posicao){
         return this.tempos[posicao];
-    }
-    
-    /**
-     * Calcula as medias de todas as repetições realizadas
-     * @param repeticoes numero de repeticoes
-     */
-    public void calculaMedias(int repeticoes){
-        for( int i=1; i<tempos.length; i++ ){
-            if( i == 0 || i == 4 )
-                tempos[i] /= repeticoes;
-            /*else
-                tempos[i] /= repeticoes;*/
-        }
     }
 }

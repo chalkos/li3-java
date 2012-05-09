@@ -15,10 +15,6 @@ public class Li3Java {
         
         //estatistica.forceImprime();
         estatistica.comecar();
-        
-        
-        estatistica = new Estatisticas(1000, false); //avaliação de desempenho
-        estatistica.comecar();
     }
     
     
