@@ -1,32 +1,33 @@
 package li3java;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class UtilizadoresArrayList extends Utilizadores{
+public class UtilizadoresArrayLinked extends Utilizadores{
     ArrayList<Utilizador> nif;
-    ArrayList<Utilizador> nome;
+    LinkedList<Utilizador> nome;
     
     /**
      * Inicializacao da colecção
      */
     private void criar(){
         this.nif = new ArrayList<Utilizador>(super.getNumDados());
-        this.nome = new ArrayList<Utilizador>(super.getNumDados());
+        this.nome = new LinkedList<Utilizador>();
     }
     
     /**
-     * Cria um novo objecto UtilizadoresArrayList
+     * Cria um novo objecto UtilizadoresArrayLinked
      * @param numDados quantidade de dados com que a colecção vai ser iniciada
      */
-    public UtilizadoresArrayList(int numDados) {
+    public UtilizadoresArrayLinked(int numDados) {
         super(numDados);
         criar();
     }
     
     /**
-     * Cria um novo objecto UtilizadoresArrayList com espaço inicial para 5 utilizadores
+     * Cria um novo objecto UtilizadoresArrayLinked com espaço inicial para 5 utilizadores
      */
-    public UtilizadoresArrayList() {
+    public UtilizadoresArrayLinked() {
         super();
         criar();
     }

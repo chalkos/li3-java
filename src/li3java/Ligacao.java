@@ -50,7 +50,21 @@ public class Ligacao {
         return false;
     }
     
+    @Override
     public Ligacao clone(){
         return new Ligacao(this);
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+        str.append("{ ")
+                .append(this.getNome())
+                .append("(nome), ")
+                .append(this.getDistancia())
+                .append("(dist), ")
+                .append(this.getCusto())
+                .append("(custo) }");
+        return str.toString();
     }
 }

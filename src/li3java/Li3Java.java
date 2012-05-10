@@ -10,8 +10,10 @@ public class Li3Java {
      * @param args argumentos da linha de comandos
      */
     public static void main(String[] args) {
-        Estatisticas estatistica = new Estatisticas(1, true); //testes
-        //Estatisticas estatistica = new Estatisticas(10, false); //avaliação de desempenho
+        //Estatisticas estatistica = new Estatisticas(400, true); //testes
+        Estatisticas estatistica = new Estatisticas(300, false); //avaliação de desempenho
+        
+        //estatistica.forceImprime();
         estatistica.comecar();
     }
     
