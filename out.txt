@@ -1,0 +1,200 @@
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+São Pedro do Estoril
+Carnide do Meio
+Vale Grande
+Praia de Porto Chão
+Rendufas do Meio
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+São Pedro do Estoril
+Carnide do Meio
+Vale Grande
+Praia de Porto Chão
+Rendufas do Meio
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 tem ligação a { lig0(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig1(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig2(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig3(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+    { lig0(nome), 0.0(dist), 0.0(custo) }
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+lig0
+São Pedro do Estoril
+Carnide do Meio
+Vale Grande
+Praia de Porto Chão
+Rendufas do Meio
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+lig0
+São Pedro do Estoril
+Carnide do Meio
+Vale Grande
+Praia de Porto Chão
+Rendufas do Meio
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
+A localidade lig0 não tem ligação a { lig4(nome), 0.0(dist), 0.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 10.0(dist), 1.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 20.0(dist), 2.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 30.0(dist), 3.0(custo) }
+A localidade lig0 não tem ligação a { lig4(nome), 40.0(dist), 4.0(custo) }
+Carnide do Meio
+Praia de Porto Chão
+Rendufas do Meio
+São Pedro do Estoril
+Vale Grande
+lig0
+
