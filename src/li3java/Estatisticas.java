@@ -296,8 +296,6 @@ public class Estatisticas {
     private void localidades(int numDados, int tipo){
         Localidades locs = null;
         
-        locs = new LocalidadesArrayList(numDados, 0);
-        
         switch(tipo){
             case 0 : locs = new LocalidadesArrayList(numDados, 0); break;
             case 1 : locs = new LocalidadesArrayList(numDados, 1); break;
