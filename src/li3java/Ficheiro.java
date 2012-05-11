@@ -35,6 +35,11 @@ public class Ficheiro {
         return utilizadores;
     }
     
+    /**
+     * Importa dados das Localidades
+     * @param maxItens Número de localidades a importar
+     * @return Os localidades importados
+     */
     public static Localidades getLocalidades(Localidades locs){
         try {
             InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_localidades);
@@ -47,6 +52,12 @@ public class Ficheiro {
         }
         return locs;
     }
+    
+    /**
+     * Importa dados das Ligações
+     * @param maxItens Número de utilizadores a importar
+     * @return Os utilizadores importados
+     */
     public static Localidades getLigacoes(Localidades locs){
         String []partes;
         try {
