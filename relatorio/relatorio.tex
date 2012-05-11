@@ -1,0 +1,194 @@
+%
+% Modelo LaTeX baseado no modelo A5L
+% Adaptação para LaTeX por Bruno Ferreira
+
+% Nota: usar /newpage com 1 coluna
+%       usar /clearpage com 2 colunas
+%       o /newpage com duas colunas escreve na próxima 
+\documentclass[a5paper,twocolumn, 11pt]{article}
+\usepackage[landscape]{geometry}
+
+%Sample text
+%\usepackage{lipsum}
+
+%escrever acentos e coisas do género sem que o latex se desoriente
+\usepackage[utf8]{inputenc}
+
+%hifenização e titulos em português
+\usepackage[portuges]{babel}
+
+%para ter a informação de quantas páginas tem o documento
+\usepackage{lastpage}
+
+%importar cores predefinidas
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGray}{gray}{0.40}
+
+%usar multirow e multicolumn
+\usepackage{multirow}
+
+%para ter imagens, depois define a directoria de imagens
+\usepackage{graphicx}
+\graphicspath{{./imagens/}}
+
+%definir o cabeçalho e rodapé
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{
+    \small{
+        \textcolor{DarkGray}{
+            \textbf{Uminho 2012 - LI3 --- Transitários LEI}
+        }
+    }
+}
+\fancyhead[R]{
+    \small{
+        \textcolor{DarkGray}{
+            \textbf{Pág. \thepage\ /\pageref{LastPage}}
+        }
+    }
+}
+\fancyfoot[C]{}
+
+%definir regras de hifenização
+\hyphenation{
+chaining
+Hash
+}
+
+%definir comando \hyph{}, necessário para n\hyph{}dimensionais
+\def\hyph{-\penalty0\hskip0pt\relax}
+
+\begin{document}
+
+\onecolumn
+\thispagestyle{empty}
+\begin{tabular}{ll}
+    \multirow{7}{*}{ \includegraphics[height=90pt]{logo.jpeg} }
+    &\\
+    & \textcolor{DarkGray}{\Large{\textbf{Escola de Engenharia}}} \\
+    &\\
+    & \large{Departamento de Informática}\\
+    &\\
+    &\\
+    & \large{Licenciatura em Engenharia Informática}\\
+\end{tabular}
+\begin{center}
+    \Large{\textbf{Projecto de Laboratórios de Informática III}}\\
+    \vspace{20pt}
+    \Large{\textbf{``Transistários LEI --- Projecto 2: Parte I''}}\\
+    \vspace{15pt}
+    \begin{tabular}{r@{, }l}
+        Bruno Ferreira&A61055\\
+        Daniel Carvalho&A61008\\
+    \end{tabular}
+    
+    \vspace{5pt}
+    \emph{Grupo 42}\\\vspace{15pt}
+    \large{\textbf{Braga, Maio de 2012}}
+\end{center}
+
+\newpage
+\twocolumn
+\tableofcontents
+\newpage
+\listoffigures
+
+\newpage
+\section{Resumo}
+Neste relatório encontram-se explicitados dados relativos ao desempenho do uso de colecções de Java para o mesmo tipo de problema do projecto anterior realizado nesta unidade curricular. Tem-se como objectivo medir o desempenho das várias colecções aplicadas aos mesmos dados de forma a ser possível recolher informação que permita avaliar e obter conclusões concretas relativamente à comparação entre o uso das ditas colecções. O factor de medição é o tempo dispendido nas operações implementadas para as diversas colecções a avaliar. A exposição do desempenho das colecções a usar será exposto neste relatório com o suporte de gráficos e análises estatisticas contendo médias, desvios padrão, etc.
+De forma a garantir a precisão dessa medição de desempenho são feitas 10 medições para várias grandezas de informação, dessa forma é possível proceder à ánalise dos dados com um maior leque de resultados.
+
+
+\clearpage
+\section{Introdução}
+De forma a comparar o desempenho entre as estruturas de dados usadas no primeiro projecto e aquelas que podem ser usadas em Java são registados os tempos das operções que serão enunciadas de seguida tendo em conta a  estrutura de utilizadores e localidades. Para as operações são considerados diferentes patamares de número de elementos: 5000, 10000, 15000, 18000. 
+As operações sobre utilizadores a efectuar são:
+\begin{itemize}
+    \item{1. carregar base de dados de utilizadores a partir de um ficheiro;}
+    \item{2. inserir o registo de um novo utilizador;}
+    \item{3. procurar um utilizador por nome e nif;}
+    \item{4. percorrer (visitar) a estrutura e imprimir os dados dos utilizadores.}
+\end{itemize}
+As operações sobre utilizadores a efectuar são:
+\begin{itemize}
+    \item{1. carregar base de dados de utilizadores a partir de um ficheiro;}
+    \item{2. inserir o registo de um novo utilizador;}
+    \item{3. procurar um utilizador por nome e nif;}
+    \item{4. percorrer (visitar) a estrutura e imprimir os dados dos utilizadores.}
+\end{itemize}
+As operações sobre localidades e respectivas ligações a efectuar são:
+As operações sobre utilizadores a efectuar são:
+\begin{itemize}
+    \item{ carregar base de dados de localidades e ligações a outras localidades a
+partir de um ficheiro;}
+    \item{2. inserir o registo de uma nova localidade;}
+    \item{3. inserir o registo de uma ligação a uma localidade;}
+    \item{4. procurar as ligações de uma localidade;}
+    \item{5. percorrer (visitar) a estrutura e imprimir os dados das localidades.}
+\end{itemize}
+
+No que respeita às diferentes configurações para a estrutura de dados sobre utilizadores,
+são testadas e registadas informações relativas ao desempenho sobre:
+\begin{itemize}
+    \item{1. uma estrutura baseada em ArrayList, para fazer a ordenação pelos
+dois critérios: nome e nif;}
+    \item{2. uma estrutura baseada em ArrayList, para fazer a ordenação por nome
+e uma estrutura auxiliar em LinkedList para a ordenação por nif;}
+    \item{3. uma estrutura baseada em HashMap, para utilizadores;}
+    \item{4. uma estrutura baseada em TreeMap, para utilizadores.}
+\end{itemize}
+No que respeita às diferentes configurações para a estrutura de dados sobre localidades,
+são testadas e registadas informações relativas ao desempenho sobre:
+\begin{itemize}
+    \item{1. uma estrutura baseada em ArrayList, para fazer a gestão das localidades e um ArrayList para as localidades relacionadas;}
+    \item{2. uma estrutura baseada em ArrayList, para fazer a gestão das localidades e um HashSet para as localidades relacionadas;}
+    \item{3. uma estrutura baseada em HashMap, para localidades com um HashMap
+para as localidades relacionadas;}
+    \item{4. uma estrutura baseada em TreeMap, para localidades com um TreeMap
+para as localidades relacionadas.}
+\end{itemize}
+\clearpage
+\newpage
+\section{Conteúdo}
+\subsection{Configurações para estrutura de dados}
+No seguimento deste relatório constam informações individuais e detalhadas sobre o desempenho das operações a efectuar sobre utilizadores e localidades nas diversas configurações da estrutura de dados. De forma a uniformizar os resultados, todos os testes foram efectuados na mesma máquina. As especificações técnicas dessa máquina são as seguintes:\\
+Sistema Operativo: Windows 7 64bit\\
+Modelo: Portátil Acer BA50-MV\\
+Processador: Intel Pentium T4400 Dual-Core @ 2.2GHz\\
+Caches:\\
+Cache L1-D 2x32Kb\\
+Cache L1-I 2x32Kb\\
+Cache L2 1024Kb\\
+Memória: RAM 2x2048MB 533MHz\\
+
+Os testes sobre utilizadores são executados da seguinte forma:
+Inicialmente é executada uma vez o conjunto de operações designadamente ler utilizadores do ficheiro, inserir dados de teste, pesquisar por NIF e por nome e escrever utilizadores para ficheiro. Após esta fase inicial são executados dez vezes o conjunto de operações e através dessa execução são obtidos os tempos dispendidos para tal de onde se retiram dados como média de tempo e desvio padrão.
+Os testes sobre localidades são executados da seguinte forma:
+Inicialmente é executada uma vez o conjunto de operações designadamente ler localidades e ligações do ficheiro, inserir dados de teste, pesquisar localidades e imprimir informações de localidades. Após esta fase inicial são executados dez vezes o conjunto de operações e através dessa execução são obtidos os tempos dispendidos para tal de onde se retiram dados como média de tempo e desvio padrão.
+De notar que cada um destes testes é efectuado para diferentes patamares de número de elementos: 5000, 10000, 15000, 18000.\\
+
+Para facilitar o uso das diferentes configurações de estrutura de dados é usado uma classe abstracta de utilizadores para podermos simplificar os métodos de cronometragem e leitura de ficheiros. Assim ao  aumentar o nível de abstração sobre a classe de utilizadores é possível proceder a uma implementação mais genérica e legível.
+\subsubsection{Utilizadores: ArrayList}
+\subsubsection{Utilizadores: ArrayList com LinkedList}
+\subsubsection{Utilizadores: HashMap}
+\subsubsection{Utilizadores: TreeMap}
+\subsubsection{Localidades: ArrayList}
+\subsubsection{Localidades: ArrayList com HashSet}
+\subsubsection{Localidades: HashMap}
+\subsubsection{Localidades: TreeSet}
+\clearpage
+\subsection{Estatísticas????}
+\clearpage
+\subsection{Estatísticas}
+\subsubsection{Estatísticas gerais: Utilizadores}
+\subsubsection{Estatísticas gerais: Localidades}
+
+
+
+\clearpage
+\section{Conclusão}
+...
+\clearpage
+
+\end{document}
