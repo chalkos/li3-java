@@ -132,6 +132,12 @@ M0.0  DP0.0
 M0.1  DP0.31622776601683794
 M116.7  DP5.755190893638735
 -------------------------------------------------------------------------------------------------------
+Tempo de Inserção (ficheiro) (ms)
+Tempo de Inserção (localidades geradas) (ms)
+Tempo de Inserção (ligações geradas) (ms)
+Tempo de Pesquisar Ligações (ms)
+Tempo de Imprimir (ms)
+
 
 
 Estatisticas de Localidades
