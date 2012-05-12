@@ -153,6 +153,8 @@ para as localidades relacionadas.}
 
 A resolução do relógio usado (tempo mínimo que o cronómetro consegue cronometrar) é de 1 milisegundo. Então recorreu-se à execução de 400 repetições dos procedimentos de inserção de informação e de pesquisa de informação, visto que uma execução dessas operações demoraria menos de 1 milisegundo. Desta forma é possível obter valores médios com maior exactidão.
 
+Assim, note-se ainda que na fase de impressão não são imprimidos 5000, 10000, 15000 ou 18000 valores no ecrã, devido aos 400 valores extra que são inseridos para poder obter valores respeitantes aos tempos de inserção.
+
 De forma a uniformizar os resultados, todos os testes foram efectuados na mesma máquina. As especificações técnicas dessa máquina são as seguintes:\\
 \\
 \begin{tabular}{ | r  | p{2.8cm} | }
@@ -209,7 +211,7 @@ Utilizar dois ArrayList para guardar os Utilizadores (sendo que um deles está o
 
 Os tempos de leitura e inserção de dados crescem exponencialmente, significando que, embora pareça uma solução aceitável até às 5000 inserções, torna-se extremamente ineficiente para uma quantidade de dados superior a poucos milhares.
 
-Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente. A escrita segue o mesmo modelo e também não é muito ineficiente.
+Os tempos de pesquisa têm um crescimento linear, assim sendo não é muito ineficiente. A escrita segue o mesmo modelo e também não é muito ineficiente.
 \clearpage
 \onecolumn
 \begin{center}
@@ -271,8 +273,10 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection[Utilizadores:\\ArrayList e LinkedList]{Utilizadores: \vbox{ArrayList e LinkedList}}
+Utilizar um ArrayList para guardar os Utilizadores ordenados por nif e um LinkedList para guardar os mesmos dados ordenados por nome, é ainda mais ineficiente que usar 2 arraylist.
 
-
+Os tempos são extremamente altos no que diz respeito às inserções, além disso são variações na forma exponencial, logo tendem a crescer ainda mais.
+Quanto às outras variações, estas assumem uma forma mais próxima do linear.
 
 \clearpage
 \onecolumn
@@ -338,7 +342,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection{Utilizadores: HashMap}
+Ter 2 HashMap (cujas chaves são o número de contribuinte e o nome, respectivamente) é uma solução excelente.
+A variação dos tempos de inserção aproxima a forma logarítmica, e as pesquisas aproximam uma recta constante e muito próxima de 0ms.
+O problema do HashMap é a sua travessia ``não natural'', que, por ser uma implementação de força bruta, demora, em média, um pouco mais que as outras operações. A impressão dos dados com HashMap segue uma variação linear.
 
+Assim sendo, está é a melhor solução até agora, mesmo com a pequena desvantagem da impressão à base de força bruta.
 \clearpage
 \onecolumn
     \begin{table}[h!b!t!]
@@ -391,7 +399,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection{Utilizadores: TreeMap}
+Ter 2 TreeMap (cujas chaves são o número de contribuinte e o nome, respectivamente) é uma excelente solução.
+A variação dos tempos de inserção aproxima a forma linear, e as pesquisas aproximam uma recta constante e muito próxima de 0ms.
+A variação do tempo de impressão dos dados aproxima a forma linear.
 
+Assim sendo, está é uma das melhores soluções para trabalhar os dados relativos a utilizadores.
 
 \clearpage
 \onecolumn
@@ -451,7 +463,16 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 
 \subsubsection[Utilizadores:\\Comparação]{Utilizadores: Comparação}
+Como já foi antes visto (e pode ser verificado pela observação dos gráficos que comparam as várias configurações, abaixo), usar a configuração de 2 ArrayList é mau, e usar a configuração de ArrayList com um LinkedList auxiliar é ainda pior.
 
+Ficam então o HashMap e o TreeMap.
+
+A vantagem natural de uma árvore face a uma tabela de procura é a possibilidade de poder percorrer todos os nodos de uma árvore. Isto porque segundo o conceito de tabela de procura, esta só pode ser iterada usando um método de força-bruta, que obriga a percorrer todas as posições da tabela de procura, mesmo as que não têm interesse.
+A grande desvantagem da árvore é a forma muito complexa como os nodos são inseridos na árvore, que obriga a uma grande quantidade de cálculos para que a árvore se mantenha balanceada.
+
+Ao observar de novo os gráficos relativos à implementação de HashMap e de TreeMap, conclui-se que o tempo ganho ao usar HashMap (que tem maior vantagem na inserção) é bastante superior ao TreeMap (que apenas tem uma pequena vantagem face ao HashMap no que diz respeito à iteração).
+
+Assim sendo, conclui-se que a implementação de 2 HashMap é melhor que qualquer outra das implementações cronometradas.
 
 \clearpage
 \onecolumn
@@ -503,7 +524,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 
 
 \subsubsection{Localidades: ArrayList}
+A implementação de 2 ArrayList para manusear dados relativos a localidades é uma solução extremamente lenta, independentemente de ser, ou não, eficiente.
 
+Aparentemente, os tempos das inserções a partir de um ficheiro seguem uma norma exponencial, mas depois verifica-se, ao inserir valores com base nos dados gerados pelo programa, que a variação de tempo destes últimos aproxima a forma linear.
+
+A variação dos tempos de impressão dos dados segue uma forma exponencial.
 \clearpage
 \onecolumn
 \begin{center}
@@ -566,9 +591,9 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection[Localidades:\\ArrayList e HashSet]{Localidades: \vbox{ArrayList e HashSet}}
+A implementação de ArrayList e HashSet para manusear dados relativos a localidades é uma solução extremamente lenta, à semelhança da implementação anterior (2 ArrayList).
 
-
-
+Todos os tempos desta configuração variam de forma próxima à forma linear.
 \clearpage
 \onecolumn
 \begin{center}
@@ -633,7 +658,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection{Localidades: HashMap}
+A configuração que usa um HashMap para as localidades e um HashMap para as ligações é uma solução muito rápida, comparativamente às anteriores.
 
+Os tempos de inserção de localidades são praticamente constantes e muito próximos de zero. Os tempos de inserção de ligações também aparentam ser constantes e muito próximos dos tempos das pesquisas, de onde se pode concluir que o atraso observado na inserção de ligações deve-se à necessidade de pesquisar a tabela de procura pelo nome da localidade antes de inserir a ligação.
+
+Os tempos da impressão dos dados parecem tomar uma forma exponencial, mas mesmo assim a tabela de procura não deixa de ser rápida, sendo que o seu pior tempo de escrita é de 712ms (quando escreve mais de 18000 localidades e ligações). 
 \clearpage
 \onecolumn
     \begin{table}[h!b!t!]
@@ -686,7 +715,9 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 \twocolumn
 \subsubsection{Localidades: TreeMap}
+A configuração que usa um TreeMap para as localidades e um TreeMap para as ligações é uma solução muito rápida.
 
+As variações de tempos nos gráficos de tempos da configuração TreeMap são muito semelhantes ao HashMap, excepto que a inserção no TreeMap é mais demorada e segue uma variação linear.
 
 \clearpage
 \onecolumn
@@ -745,8 +776,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \newpage
 
 \subsubsection[Localidades:\\Comparação]{Localidades: Comparação}
+De todas as implementações, o ArrayList e o ArrayList com HashSet auxiliar são postos de parte por serem extremamente lentos.
 
+Quanto à escolha entre tabelas de procura e árvores não há dúvidas (como existiram na comparação das implementações para utilizadores). Neste caso o TreeMap não tem qualquer vantagem face ao HashMap.
 
+Assim sendo, conclui-se que a implementação de 2 HashMap é melhor que qualquer outra das implementações cronometradas, no que diz respeito ao manuseamento de Localidades.
 \clearpage
 \onecolumn
 \begin{figure}[h!b!t!]
@@ -781,27 +815,11 @@ Quanto à pesquisa, parece ter um crescimento linear e não é muito ineficiente
 \end{figure}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \clearpage
 \section{Conclusão}
-texto
+Depois da criação de uma aplicação de testes de desempenho e da avaliação dos resultados produzidos pela aplicação, chega-se à conclusão que a melhor implementação para ambos Utilizadores e Localidades é o HashMap.
 
-Durante a fase de trabalhos do grupo recorreu-se ao git devido à sua capacidade de controlo de versões.
+Mesmo sendo ligeiramente menos eficiente no que diz respeito à listagem dos seus elementos, o HashMap mantém os melhores tempos de inserção e procura de dados. Assim sendo é a implementação escolhida para manuseamento de Utilizadores e Localidades.
 
 \clearpage
 \onecolumn
