@@ -1,25 +1,25 @@
-package li3java;
+package localidade;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
-public class LocalidadesTreeMap extends Localidades{
-    TreeMap<String, Localidade> localidades;
+public class LocalidadesHashMap extends Localidades{
+    HashMap<String, Localidade> localidades;
     
     private void criar(){
-        this.localidades = new TreeMap<String, Localidade>();
+        this.localidades = new HashMap<String, Localidade>(super.getNumDados());
     }
     
-    public LocalidadesTreeMap(int numDados) {
+    public LocalidadesHashMap(int numDados) {
         super(numDados);
         criar();
     }
     
-    public LocalidadesTreeMap(int numDados, int tipoLigacoes) {
+    public LocalidadesHashMap(int numDados, int tipoLigacoes) {
         super(numDados, tipoLigacoes);
         criar();
     }
     
-    public LocalidadesTreeMap() {
+    public LocalidadesHashMap() {
         super();
         criar();
     }

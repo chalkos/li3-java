@@ -1,5 +1,8 @@
 package li3java;
 
+import localidade.*;
+import utilizador.*;
+
 /**
  * Calcula e imprime as estatísticas pedidas para a primeira fase do projecto
  */

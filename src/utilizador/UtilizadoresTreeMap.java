@@ -1,25 +1,25 @@
-package li3java;
+package utilizador;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.TreeMap;
 
-public class UtilizadoresHashMap extends Utilizadores{
-    HashMap<String, Utilizador> nif;
-    HashMap<String, Utilizador> nome;
+public class UtilizadoresTreeMap extends Utilizadores {
+    TreeMap<String, Utilizador> nif;
+    TreeMap<String, Utilizador> nome;
     
     /**
      * Inicializacao da colecção
      */
     private void criar(){
-        this.nif = new HashMap<String, Utilizador>(super.getNumDados());
-        this.nome = new HashMap<String, Utilizador>(super.getNumDados());
+        this.nif = new TreeMap<String, Utilizador>();
+        this.nome = new TreeMap<String, Utilizador>();
     }
     
     /**
      * Cria um novo objecto UtilizadoresArrayList
      * @param numDados quantidade de dados com que a colecção vai ser iniciada
      */
-    public UtilizadoresHashMap(int numDados) {
+    public UtilizadoresTreeMap(int numDados) {
         super(numDados);
         criar();
     }
@@ -27,7 +27,7 @@ public class UtilizadoresHashMap extends Utilizadores{
     /**
      * Cria um novo objecto UtilizadoresArrayList com espaço inicial para 5 utilizadores
      */
-    public UtilizadoresHashMap() {
+    public UtilizadoresTreeMap() {
         super();
         criar();
     }
@@ -79,5 +79,4 @@ public class UtilizadoresHashMap extends Utilizadores{
         }
         return str;
     }
-    
 }

@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import localidade.Ligacao;
+import localidade.Localidade;
+import localidade.Localidades;
+import utilizador.Utilizador;
+import utilizador.Utilizadores;
 
 /**
  * Faz importações de dados a partir de ficheiros

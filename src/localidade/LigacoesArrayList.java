@@ -1,5 +1,7 @@
-package li3java;
+package localidade;
 
+import localidade.Ligacoes;
+import localidade.Ligacao;
 import java.util.ArrayList;
 
 public class LigacoesArrayList extends Ligacoes{

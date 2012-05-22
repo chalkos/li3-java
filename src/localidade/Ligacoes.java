@@ -1,4 +1,4 @@
-package li3java;
+package localidade;
 
 public abstract class Ligacoes {
     public abstract void insere(Ligacao lig);

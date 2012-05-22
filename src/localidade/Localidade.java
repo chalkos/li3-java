@@ -1,4 +1,4 @@
-package li3java;
+package localidade;
 
 /**
  * Localidade
@@ -7,17 +7,17 @@ public class Localidade {
     private String nome;
     private Ligacoes ligacoes;
     
-    Localidade(){
+    public Localidade(){
         this.nome="";
         this.ligacoes = null;
     }
     
-    Localidade(String nome){
+    public Localidade(String nome){
         this.nome=nome;
         this.ligacoes = null;
     }
     
-    Localidade(String nome, int tipoLigs){
+    public Localidade(String nome, int tipoLigs){
         this.nome=nome;
         this.ligacoes = null;
         switch( tipoLigs ){
@@ -28,7 +28,7 @@ public class Localidade {
         }
     }
     
-    Localidade(Localidade loc){
+    public Localidade(Localidade loc){
         this.nome = loc.getNome();
         this.ligacoes = loc.ligacoes.clone();
     }

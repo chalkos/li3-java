@@ -1,4 +1,4 @@
-package li3java;
+package utilizador;
 
 public abstract class Utilizadores {
     private int numDados;

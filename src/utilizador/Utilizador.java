@@ -1,6 +1,4 @@
-package li3java;
-
-import java.util.Comparator;
+package utilizador;
 
 /**
  * Classe que permite gerir um utilizador
@@ -13,7 +11,7 @@ public class Utilizador {
     /**
      * Inicializa um novo utilizador com dados inúteis
      */
-    Utilizador(){
+    public Utilizador(){
         this.nome="";
         this.morada="";
         this.nif="";
@@ -23,7 +21,7 @@ public class Utilizador {
      * Inicializa um novo utilizador com dados de um utilizador existente
      * @param existente 
      */
-    Utilizador(Utilizador existente){
+    public Utilizador(Utilizador existente){
         this.nome = existente.getNome();
         this.morada = existente.getMorada();
         this.nif = existente.getNif();
@@ -35,7 +33,7 @@ public class Utilizador {
      * @param nome O nome do Utilizador
      * @param morada A morada do Utilizador
      */
-    Utilizador(String nif, String nome, String morada){
+    public Utilizador(String nif, String nome, String morada){
         this.nif = nif;
         this.nome = nome;
         this.morada = morada;
@@ -46,7 +44,7 @@ public class Utilizador {
      * @param n O número de contribuinte do utilizador
      * @param nif Verdade se n é um numero de contribuinte, false se n é um nome
      */
-    Utilizador(String n, boolean nif){
+    public Utilizador(String n, boolean nif){
         this.morada = "";
         if(nif){
             this.nome = "";
