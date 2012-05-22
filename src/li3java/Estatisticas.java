@@ -240,8 +240,7 @@ public class Estatisticas {
         }
         
         //recolher os dados
-        cronometro.startTimer();
-        utilizadores = Ficheiro.getUtilizadores(utilizadores);
+        utilizadores = Ficheiro.getUtilizadores(utilizadores, "/sample_utilizadores.txt");
         cronometro.adicionarTempo(0);
         
         System.out.print(".");
@@ -308,8 +307,8 @@ public class Estatisticas {
         
         //recolher os dados
         cronometro.startTimer();
-        locs = Ficheiro.getLocalidades(locs);
-        locs = Ficheiro.getLigacoes(locs);
+        locs = Ficheiro.getLocalidades(locs, "/sample_localidades.txt");
+        locs = Ficheiro.getLigacoes(locs, "/sample_ligacoes.txt");
         cronometro.adicionarTempo(0);
         System.out.print(".");
         

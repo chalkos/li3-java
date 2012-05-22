@@ -14,21 +14,18 @@ import utilizador.Utilizadores;
  * Faz importações de dados a partir de ficheiros
  */
 public class Ficheiro {
-    private static final String nome_ficheiro_utilizadores = "/sample_utilizadores.txt";
-    private static final String nome_ficheiro_localidades = "/sample_localidades.txt";
-    private static final String nome_ficheiro_ligacoes = "/sample_ligacoes.txt";
-    
     /**
      * Importa dados dos Utilizadores
      * @param maxItens Número de utilizadores a importar
      * @return Os utilizadores importados
      */
-    public static Utilizadores getUtilizadores(Utilizadores utilizadores){
+    public static Utilizadores getUtilizadores(Utilizadores utilizadores, String nomeFicheiro){
         String []partes;
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_utilizadores);
+            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            for(int i=0;i<utilizadores.getNumDados(); i++){
+            
+            while( br.ready() ){
                  partes = br.readLine().split(":");
                  utilizadores.insere(new Utilizador(partes[0], partes[1], partes[2]));
             }
@@ -45,11 +42,11 @@ public class Ficheiro {
      * @param maxItens Número de localidades a importar
      * @return Os localidades importados
      */
-    public static Localidades getLocalidades(Localidades locs){
+    public static Localidades getLocalidades(Localidades locs, String nomeFicheiro){
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_localidades);
+            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            for(int i=0;i<locs.getNumDados(); i++)
+            while( br.ready() )
                  locs.insere(new Localidade(br.readLine(), locs.getTipoLigacoes()));
             is.close();
         } catch (IOException ioe) {
@@ -63,10 +60,10 @@ public class Ficheiro {
      * @param maxItens Número de utilizadores a importar
      * @return Os utilizadores importados
      */
-    public static Localidades getLigacoes(Localidades locs){
+    public static Localidades getLigacoes(Localidades locs, String nomeFicheiro){
         String []partes;
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nome_ficheiro_ligacoes);
+            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             //origem, destino, km, custo
             while( br.ready() ){
