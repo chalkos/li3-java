@@ -4,6 +4,10 @@ package localidade;
  * Localidade
  */
 public class Localidade {
+    public static final int LIGACOES_ARRAYLIST = 0;
+    public static final int LIGACOES_HASHSET = 1;
+    public static final int LIGACOES_HASHMAP = 2;
+    public static final int LIGACOES_TREEMAP = 3;
     private String nome;
     private Ligacoes ligacoes;
     
@@ -20,12 +24,15 @@ public class Localidade {
     public Localidade(String nome, int tipoLigs){
         this.nome=nome;
         this.ligacoes = null;
-        switch( tipoLigs ){
-            case 0 : this.ligacoes = new LigacoesArrayList(); break;
-            case 1 : this.ligacoes = new LigacoesHashSet(); break;
-            case 2 : this.ligacoes = new LigacoesHashMap(); break;
-            case 3 : this.ligacoes = new LigacoesTreeMap(); break;
-        }
+        
+        if( tipoLigs == LIGACOES_ARRAYLIST )
+            this.ligacoes = new LigacoesArrayList();
+        else if( tipoLigs == LIGACOES_HASHSET )
+            this.ligacoes = new LigacoesHashSet();
+        else if( tipoLigs == LIGACOES_HASHMAP )
+            this.ligacoes = new LigacoesHashMap();
+        else if( tipoLigs == LIGACOES_TREEMAP )
+            this.ligacoes = new LigacoesTreeMap();
     }
     
     public Localidade(Localidade loc){

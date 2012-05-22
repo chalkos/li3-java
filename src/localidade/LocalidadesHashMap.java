@@ -25,17 +25,22 @@ public class LocalidadesHashMap extends Localidades{
     }
 
     @Override
-    public void insere(Localidade novo) {
-        if( !this.localidades.containsKey(novo.getNome()) )
+    public boolean insere(Localidade novo) {
+        if( !this.localidades.containsKey(novo.getNome()) ){
             this.localidades.put(novo.getNome(), novo.clone());
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void insereLigacao(Localidade loc, Ligacao lig) {
+    public boolean insereLigacao(Localidade loc, Ligacao lig) {
         Localidade l = this.localidades.get(loc.getNome());
         if( l != null && this.localidades.get(lig.getNome()) != null){
             l.insereLigacao(lig);
+            return true;
         }
+        return false;
     }
 
     @Override

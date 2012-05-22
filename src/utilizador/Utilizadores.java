@@ -15,7 +15,7 @@ public abstract class Utilizadores {
         return this.numDados;
     }
     
-    public abstract void insere(Utilizador novo);
+    public abstract boolean insere(Utilizador novo);
     public abstract Utilizador procuraNif(String nif);
     public abstract Utilizador procuraNome(String nome);
     public abstract StringBuilder toStringNif();

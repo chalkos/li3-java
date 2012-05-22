@@ -33,13 +33,15 @@ public class UtilizadoresHashMap extends Utilizadores{
     }
 
     @Override
-    public void insere(Utilizador novo) {
+    public boolean insere(Utilizador novo) {
         novo = novo.clone();
         
         if( !this.nif.containsKey(novo.getNif()) && !this.nome.containsKey(novo.getNome()) ){
             this.nif.put(novo.getNif(), novo);
             this.nome.put(novo.getNome(), novo);
+            return true;
         }
+        return false;
     }
 
     @Override

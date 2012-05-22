@@ -33,7 +33,7 @@ public class UtilizadoresArrayLinked extends Utilizadores{
     }
     
     @Override
-    public void insere(Utilizador novo) {
+    public boolean insere(Utilizador novo) {
         boolean existe = false;
         boolean inseriu = false;
         novo = novo.clone();
@@ -75,10 +75,13 @@ public class UtilizadoresArrayLinked extends Utilizadores{
                             inseriu = true;
                             break;
                         }
-                    if( !inseriu )
+                    if( !inseriu ){
                         this.nome.add(novo);
+                        inseriu = true;
+                    }
             }
         }
+        return inseriu;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class LocalidadesArrayList extends Localidades{
     }
     
     @Override
-    public void insere(Localidade novo) {
+    public boolean insere(Localidade novo) {
         boolean existe = false;
         boolean inseriu = false;
         novo = novo.clone();
@@ -44,18 +44,24 @@ public class LocalidadesArrayList extends Localidades{
                     break;
                 }
             
-            if( !inseriu )
+            if( !inseriu ){
                 this.localidades.add(novo);
+                inseriu = true;
+            }
         }
+        return inseriu;
     }
 
     @Override
-    public void insereLigacao(Localidade loc, Ligacao lig) {
+    public boolean insereLigacao(Localidade loc, Ligacao lig) {
         for( int i = 0; i<this.localidades.size(); i++ )
             if( this.localidades.get(i).getNome().compareTo(loc.getNome()) == 0)
                 for( int j = 0; j<this.localidades.size(); j++ )
-                    if( this.localidades.get(j).getNome().compareTo(lig.getNome()) == 0)
+                    if( this.localidades.get(j).getNome().compareTo(lig.getNome()) == 0){
                         this.localidades.get(i).insereLigacao(lig);
+                        return true;
+                    }
+        return false;
     }
 
     @Override

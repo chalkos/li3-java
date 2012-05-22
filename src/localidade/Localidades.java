@@ -26,15 +26,15 @@ public abstract class Localidades {
         return this.tipoLigs;
     }
     
-    public abstract void insere(Localidade novo);
-    public void insere(String nome){
-        this.insere( new Localidade(nome, this.getTipoLigacoes()));
+    public abstract boolean insere(Localidade novo);
+    public boolean insere(String nome){
+        return this.insere( new Localidade(nome, this.getTipoLigacoes()));
     }
-    public abstract void insereLigacao(Localidade loc, Ligacao lig);
+    public abstract boolean insereLigacao(Localidade loc, Ligacao lig);
     
-    public void insereLigacao(String nome, Ligacao lig){
+    public boolean insereLigacao(String nome, Ligacao lig){
         Localidade loc = new Localidade(nome);
-        insereLigacao(loc, lig);
+        return insereLigacao(loc, lig);
     }
     
     public abstract Ligacao procuraLig(Localidade loc, Ligacao lig);
