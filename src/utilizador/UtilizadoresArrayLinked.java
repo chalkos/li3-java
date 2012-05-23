@@ -34,6 +34,7 @@ public class UtilizadoresArrayLinked extends Utilizadores{
     
     @Override
     public boolean insere(Utilizador novo) {
+        if( !novo.isValid() ) return false;
         boolean existe = false;
         boolean inseriu = false;
         novo = novo.clone();
@@ -118,6 +119,16 @@ public class UtilizadoresArrayLinked extends Utilizadores{
             str.append(utilizador.toString()).append("\n");
         
         return str;
+    }
+
+    @Override
+    public String[][] contains(String valor, int campo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void remove(String nif) {
+	throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

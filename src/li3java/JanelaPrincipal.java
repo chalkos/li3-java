@@ -1,10 +1,14 @@
 package li3java;
 
-import javax.swing.JDialog;
+import java.awt.Dimension;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import localidade.Localidades;
 import localidade.LocalidadesHashMap;
+import utilizador.Utilizador;
 import utilizador.Utilizadores;
 import utilizador.UtilizadoresHashMap;
 
@@ -31,27 +35,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         NomeOuNif = new javax.swing.ButtonGroup();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jTPane = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTFNome = new javax.swing.JTextField();
+        jTFnif = new javax.swing.JTextField();
+        jTFmorada = new javax.swing.JTextField();
+        jBadicionarUtilizador = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField4 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        btnSeleccionarTudo = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jRBnif = new javax.swing.JRadioButton();
+        jRBnome = new javax.swing.JRadioButton();
+        jTFpesquisarUtilizadores = new javax.swing.JTextField();
+        jSPutilizadores = new javax.swing.JScrollPane();
+        jTutilizadores = new li3java.CustomJTable();
+        jBseleccionarUtilizadores = new javax.swing.JButton();
+        jBapagarUtilizadores = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jBlistarTodosUtilizadores = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -64,12 +67,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Transitários LEI");
+        setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-        jTabbedPane2.addTab("Estatísticas", jPanel1);
-
+        jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jPanel2ComponentResized(evt);
+            }
+        });
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
-        jPanel2Layout.columnWidths = new int[] {100, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel2Layout.columnWidths = new int[] {150, 5, 120, 5, 0, 5, 0, 5, 0};
         jPanel2Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 10, 5, 0, 5, 0, 5, 0, 5, 250, 5, 0};
         jPanel2.setLayout(jPanel2Layout);
 
@@ -106,21 +125,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel2.add(jLabel4, gridBagConstraints);
+
+        jTFNome.setNextFocusableComponent(jTFnif);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(jTFNome, gridBagConstraints);
+
+        jTFnif.setNextFocusableComponent(jTFmorada);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jTextField2, gridBagConstraints);
+        jPanel2.add(jTFnif, gridBagConstraints);
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(200, 28));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTFmorada.setNextFocusableComponent(jBadicionarUtilizador);
+        jTFmorada.setPreferredSize(new java.awt.Dimension(200, 28));
+        jTFmorada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTFmoradaActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -128,14 +152,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jTextField3, gridBagConstraints);
+        jPanel2.add(jTFmorada, gridBagConstraints);
 
-        jButton1.setText("Adicionar");
+        jBadicionarUtilizador.setText("Adicionar");
+        jBadicionarUtilizador.setNextFocusableComponent(jTFpesquisarUtilizadores);
+        jBadicionarUtilizador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBadicionarUtilizadorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel2.add(jButton1, gridBagConstraints);
+        jPanel2.add(jBadicionarUtilizador, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 15)); // NOI18N
         jLabel5.setText("Pesquisa de Utilizadores");
@@ -146,35 +176,62 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(jLabel5, gridBagConstraints);
 
-        NomeOuNif.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Contribuinte");
+        NomeOuNif.add(jRBnif);
+        jRBnif.setSelected(true);
+        jRBnif.setText("Contribuinte");
+        jRBnif.setNextFocusableComponent(jRBnome);
+        jRBnif.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRBnifStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel2.add(jRadioButton1, gridBagConstraints);
+        jPanel2.add(jRBnif, gridBagConstraints);
 
-        NomeOuNif.add(jRadioButton2);
-        jRadioButton2.setText("Nome");
+        NomeOuNif.add(jRBnome);
+        jRBnome.setText("Nome");
+        jRBnome.setNextFocusableComponent(jTutilizadores);
+        jRBnome.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRBnomeStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanel2.add(jRadioButton2, gridBagConstraints);
+        jPanel2.add(jRBnome, gridBagConstraints);
+
+        jTFpesquisarUtilizadores.setNextFocusableComponent(jRBnif);
+        jTFpesquisarUtilizadores.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFpesquisarUtilizadoresChanged();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFpesquisarUtilizadoresChanged();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jTextField4, gridBagConstraints);
+        jPanel2.add(jTFpesquisarUtilizadores, gridBagConstraints);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jSPutilizadores.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jSPutilizadores.setAutoscrolls(true);
+        jSPutilizadores.setFocusable(false);
+
+        jTutilizadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Joaquim", "987654321", "Rua das Flores"},
-                {"José", "876487264", "Rua de baixo"},
-                {"João", "927361838", "Rua de cima"},
-                {"Samuel", "817389374", "Rua dos Trinta"}
+
             },
             new String [] {
                 "Nome", "Nº Contribuinte", "Morada"
@@ -184,7 +241,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -195,34 +252,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setFillsViewportHeight(true);
-        jTable1.setPreferredSize(new java.awt.Dimension(150, 500));
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTutilizadores.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTutilizadores.setFillsViewportHeight(true);
+        jTutilizadores.setNextFocusableComponent(jBseleccionarUtilizadores);
+        jTutilizadores.getTableHeader().setReorderingAllowed(false);
+        jSPutilizadores.setViewportView(jTutilizadores);
+        jTutilizadores.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
         gridBagConstraints.gridwidth = 9;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel2.add(jScrollPane1, gridBagConstraints);
+        jPanel2.add(jSPutilizadores, gridBagConstraints);
 
-        jButton2.setText("Pesquisar");
-        jButton2.setEnabled(false);
-        jButton2.setMinimumSize(new java.awt.Dimension(0, 0));
-        jButton2.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel2.add(jButton2, gridBagConstraints);
-
-        btnSeleccionarTudo.setText("Seleccionar Tudo");
-        btnSeleccionarTudo.addActionListener(new java.awt.event.ActionListener() {
+        jBseleccionarUtilizadores.setText("Seleccionar Tudo");
+        jBseleccionarUtilizadores.setNextFocusableComponent(jBapagarUtilizadores);
+        jBseleccionarUtilizadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarTudoActionPerformed(evt);
+                jBseleccionarUtilizadoresActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -230,15 +278,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridy = 16;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(btnSeleccionarTudo, gridBagConstraints);
+        jPanel2.add(jBseleccionarUtilizadores, gridBagConstraints);
 
-        jButton5.setText("Apagar Seleccionados");
+        jBapagarUtilizadores.setText("Apagar Seleccionados");
+        jBapagarUtilizadores.setNextFocusableComponent(jTPane);
+        jBapagarUtilizadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBapagarUtilizadoresActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 16;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(jButton5, gridBagConstraints);
+        jPanel2.add(jBapagarUtilizadores, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -246,7 +300,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(jSeparator1, gridBagConstraints);
 
-        jTabbedPane2.addTab("Utilizadores", jPanel2);
+        jBlistarTodosUtilizadores.setText("Listar Tudo");
+        jBlistarTodosUtilizadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBlistarTodosUtilizadoresActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        jPanel2.add(jBlistarTodosUtilizadores, gridBagConstraints);
+
+        jTPane.addTab("Utilizadores", jPanel2);
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton4.setText("jButton4");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +324,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(jButton4);
 
-        jTabbedPane2.addTab("Localidades", jPanel3);
+        jTPane.addTab("Localidades", jPanel3);
 
         jMenu1.setText("Ficheiro");
 
@@ -302,23 +370,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTFmoradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFmoradaActionPerformed
         
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTFmoradaActionPerformed
 
-    private void btnSeleccionarTudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarTudoActionPerformed
-        jTable1.selectAll();
-    }//GEN-LAST:event_btnSeleccionarTudoActionPerformed
+    private void jBseleccionarUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBseleccionarUtilizadoresActionPerformed
+        jTutilizadores.selectAll();
+    }//GEN-LAST:event_jBseleccionarUtilizadoresActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
@@ -329,7 +403,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
-            JOptionPane.showMessageDialog(this, Ficheiro.getUtilizadores(utilizadores, fc.getSelectedFile()) + " utilizadores importados!");
+            JOptionPane.showMessageDialog(this, Ficheiro.getUtilizadores(utilizadores, fc.getSelectedFile()) + " utilizadores importados!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+	
+	jTFpesquisarUtilizadoresChanged();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -337,7 +413,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
-            JOptionPane.showMessageDialog(this, Ficheiro.getLocalidades(localidades, fc.getSelectedFile()) + " localidades importadas!");
+            JOptionPane.showMessageDialog(this, Ficheiro.getLocalidades(localidades, fc.getSelectedFile()) + " localidades importadas!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -345,8 +421,101 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
-            JOptionPane.showMessageDialog(this, Ficheiro.getLigacoes(localidades, fc.getSelectedFile()) + " ligações importadas!");
+            JOptionPane.showMessageDialog(this, Ficheiro.getLigacoes(localidades, fc.getSelectedFile()) + " ligações importadas!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jBadicionarUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBadicionarUtilizadorActionPerformed
+        if( utilizadores.insere(new Utilizador(jTFnif.getText(), jTFNome.getText(), jTFmorada.getText())) ){
+            JOptionPane.showMessageDialog(this, msgDialog.utilizador_novo_sucesso_msg, msgDialog.utilizador_novo_sucesso_titulo, msgDialog.utilizador_novo_sucesso_tipo);
+            jTFNome.setText("");
+            jTFmorada.setText("");
+            jTFnif.setText("");
+        }else
+            JOptionPane.showMessageDialog(this, msgDialog.utilizador_novo_insucesso_msg, msgDialog.utilizador_novo_insucesso_titulo, msgDialog.utilizador_novo_insucesso_tipo);
+        
+        jTFNome.requestFocusInWindow();
+        
+        jTFpesquisarUtilizadoresChanged();
+    }//GEN-LAST:event_jBadicionarUtilizadorActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_formComponentResized
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        
+    }//GEN-LAST:event_formAncestorResized
+
+    private void jPanel2ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentResized
+        
+    }//GEN-LAST:event_jPanel2ComponentResized
+
+    private void jRBnifStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRBnifStateChanged
+	jTFpesquisarUtilizadoresChanged();
+    }//GEN-LAST:event_jRBnifStateChanged
+
+    private void jRBnomeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRBnomeStateChanged
+	jTFpesquisarUtilizadoresChanged();
+    }//GEN-LAST:event_jRBnomeStateChanged
+
+    private void jBapagarUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBapagarUtilizadoresActionPerformed
+	int []seleccionadas = jTutilizadores.getSelectedRows();
+	
+	for(int row : seleccionadas)
+	    //utilizadores.remove( (String)jTutilizadores.getCellEditor(row, 1).getCellEditorValue() );
+	    utilizadores.remove( (String)jTutilizadores.getValueAt(row, 1) );
+	
+	jTFpesquisarUtilizadoresChanged();
+    }//GEN-LAST:event_jBapagarUtilizadoresActionPerformed
+
+    private void jBlistarTodosUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlistarTodosUtilizadoresActionPerformed
+	jTFpesquisarUtilizadores.setText("[todos]");
+    }//GEN-LAST:event_jBlistarTodosUtilizadoresActionPerformed
+    
+    private void jTFpesquisarUtilizadoresChanged(){
+	Object [][]dados;
+	
+	String texto = jTFpesquisarUtilizadores.getText();
+        
+        String []nomesColunas = new String[jTutilizadores.getModel().getColumnCount()];
+        for(int i=0; i<nomesColunas.length; i++)
+            nomesColunas[i] = jTutilizadores.getModel().getColumnName(i);
+        
+
+	
+        
+        DefaultTableModel tmpModel = new DefaultTableModel(null, nomesColunas);
+	DefaultTableModel model;
+        jTutilizadores.setModel(tmpModel);
+        
+        if( jTFpesquisarUtilizadores.getText().isEmpty() || (!jRBnif.isSelected() && !jRBnome.isSelected()))
+            return;
+        
+	jTutilizadores.getColumnModel().getColumn(0).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTutilizadores.getColumnModel().getColumn(1).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTutilizadores.getColumnModel().getColumn(2).setCellRenderer(new StatusColumnCellRenderer(0));
+	
+        tmpModel.addRow(new Object[]{"... Aguarde ...","... Aguarde ...","... Aguarde ..."});
+        
+	if (texto.equals(jTFpesquisarUtilizadores.getText())) {
+	    if (jRBnif.isSelected()) {
+		dados = utilizadores.contains(jTFpesquisarUtilizadores.getText(), Utilizadores.CAMPO_NIF);
+	    } else {
+		dados = utilizadores.contains(jTFpesquisarUtilizadores.getText(), Utilizadores.CAMPO_NOME);
+	    }
+	    
+	    if (texto.equals(jTFpesquisarUtilizadores.getText())){
+		model = new DefaultTableModel(dados, nomesColunas);
+		jTutilizadores.setModel(model);
+	    }
+	}
+	
+	jTutilizadores.setPreferredSize( new Dimension(jTutilizadores.getPreferredSize().width,
+		jTutilizadores.getRowCount()*jTutilizadores.getRowHeight()) );
+        
+        
+    }
     
     /**
      * @param args the command line arguments
@@ -398,11 +567,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup NomeOuNif;
-    private javax.swing.JButton btnSeleccionarTudo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBadicionarUtilizador;
+    private javax.swing.JButton jBapagarUtilizadores;
+    private javax.swing.JButton jBlistarTodosUtilizadores;
+    private javax.swing.JButton jBseleccionarUtilizadores;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -416,18 +585,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton jRBnif;
+    private javax.swing.JRadioButton jRBnome;
+    private javax.swing.JScrollPane jSPutilizadores;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTFNome;
+    private javax.swing.JTextField jTFmorada;
+    private javax.swing.JTextField jTFnif;
+    private javax.swing.JTextField jTFpesquisarUtilizadores;
+    private javax.swing.JTabbedPane jTPane;
+    private li3java.CustomJTable jTutilizadores;
     // End of variables declaration//GEN-END:variables
 }
+
+
+

@@ -1,6 +1,8 @@
 package utilizador;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class UtilizadoresHashMap extends Utilizadores{
@@ -34,6 +36,7 @@ public class UtilizadoresHashMap extends Utilizadores{
 
     @Override
     public boolean insere(Utilizador novo) {
+        if( !novo.isValid() ) return false;
         novo = novo.clone();
         
         if( !this.nif.containsKey(novo.getNif()) && !this.nome.containsKey(novo.getNome()) ){
@@ -80,6 +83,63 @@ public class UtilizadoresHashMap extends Utilizadores{
             str.append(u.toString()).append("\n");
         }
         return str;
+    }
+
+    @Override
+    public String[][] contains(String valor, int campo) {
+        String[][] valores;
+        ArrayList<Utilizador> lista = new ArrayList<Utilizador>();
+        Collection<Utilizador> col;
+                
+        if( campo != CAMPO_NIF && campo != CAMPO_NOME )
+            return null;
+        
+        if( campo == CAMPO_NOME )
+            col = this.nome.values();
+        else
+            col = this.nif.values();
+        
+	if (valor.equals("[todos]")) {
+	    for (Utilizador u : col)
+		lista.add(u);
+	} else {
+	    //os seguintes if estão assim porque o java entra no
+	    //segundo termo de um AND cujo primeiro termo é falso (assim é mais eficiente)
+	    for (Utilizador u : col) {
+		if (campo == CAMPO_NIF) {
+		    if (u.getNif().toUpperCase().contains(valor.toUpperCase())) {
+			lista.add(u);
+		    }
+		} else if (campo == CAMPO_NOME) {
+		    if (u.getNome().toUpperCase().contains(valor.toUpperCase())) {
+			lista.add(u);
+		    }
+		}
+	    }
+	}
+
+        if( campo == CAMPO_NIF )
+            Collections.sort(lista, new ComparadorNif());        
+        else
+            Collections.sort(lista, new ComparadorNome());  
+	
+        valores = new String[lista.size()][3];
+        for(int i=0; i<lista.size(); i++){
+            valores[i][0] = lista.get(i).getNome();
+            valores[i][1] = lista.get(i).getNif();
+            valores[i][2] = lista.get(i).getMorada();
+        }
+        
+        return valores;
+    }
+
+    @Override
+    public void remove(String nif) {
+	Utilizador remover = this.nif.get(nif);
+	if( remover != null ){
+	    this.nome.remove(remover.getNome());
+	    this.nif.remove(nif);
+	}
     }
     
 }

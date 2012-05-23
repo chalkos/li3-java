@@ -19,8 +19,8 @@ public class Ficheiro {
     public static Utilizadores getUtilizadores(Utilizadores utilizadores, String nomeFicheiro){
         String []partes;
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	    InputStream is = JanelaPrincipal.class.getResourceAsStream(nomeFicheiro);
+	    BufferedReader br = new BufferedReader(new InputStreamReader(is));
             
             while( br.ready() ){
                  partes = br.readLine().split(":");
@@ -98,7 +98,7 @@ public class Ficheiro {
      */
     public static Localidades getLocalidades(Localidades locs, String nomeFicheiro){
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
+	    InputStream is = JanelaPrincipal.class.getResourceAsStream(nomeFicheiro);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             while( br.ready() )
                  locs.insere(new Localidade(br.readLine(), locs.getTipoLigacoes()));
@@ -117,7 +117,7 @@ public class Ficheiro {
     public static Localidades getLigacoes(Localidades locs, String nomeFicheiro){
         String []partes;
         try {
-            InputStream is = Li3Java.class.getResourceAsStream(nomeFicheiro);
+            InputStream is = JanelaPrincipal.class.getResourceAsStream(nomeFicheiro);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             //origem, destino, km, custo
             while( br.ready() ){

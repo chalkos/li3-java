@@ -96,6 +96,8 @@ public class Utilizador {
                 && this.getMorada().contentEquals(u.getMorada()));
     }
     
+    
+    
     /**
      * Compara dois numeros de contribuinte.
      * @param u O segundo Utilizador
@@ -149,6 +151,18 @@ public class Utilizador {
     }
     
     /**
+     * Verifica se um utilizador é considerado válido
+     * @return True/False caso seja/não seja válido.
+     */
+    public boolean isValid(){
+        if( !this.getNome().isEmpty() &&
+                !this.getNif().isEmpty() &&
+                !this.getMorada().isEmpty() )
+            return true;
+        return false;
+    }
+    
+    /**
      * Obtém uma representação simplista da informação sobre o utilizador
      * @return A informação do utilizador
      */
@@ -157,3 +171,7 @@ public class Utilizador {
         return String.format("{ %s | %s | %s }", this.getNif(), this.getNome(), this.getMorada());
     }
 }
+
+
+
+

@@ -1,6 +1,8 @@
 package utilizador;
 
 public abstract class Utilizadores {
+    public static final int CAMPO_NIF = 0;
+    public static final int CAMPO_NOME = 1;
     private int numDados;
     
     Utilizadores(){
@@ -20,5 +22,6 @@ public abstract class Utilizadores {
     public abstract Utilizador procuraNome(String nome);
     public abstract StringBuilder toStringNif();
     public abstract StringBuilder toStringNome();
-    
+    public abstract String[][] contains(String valor, int campo);
+    public abstract void remove(String nif);
 }

@@ -34,6 +34,7 @@ public class UtilizadoresTreeMap extends Utilizadores {
 
     @Override
     public boolean insere(Utilizador novo) {
+        if( !novo.isValid() ) return false;
         novo = novo.clone();
         
         if( !this.nif.containsKey(novo.getNif()) && !this.nome.containsKey(novo.getNome()) ){
@@ -80,5 +81,15 @@ public class UtilizadoresTreeMap extends Utilizadores {
             str.append(u.toString()).append("\n");
         }
         return str;
+    }
+
+    @Override
+    public String[][] contains(String valor, int campo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void remove(String nif) {
+	throw new UnsupportedOperationException("Not supported yet.");
     }
 }
