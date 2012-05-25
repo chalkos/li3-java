@@ -87,6 +87,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jBlistarOrigensLigs = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -604,6 +605,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {}
         });
+        jTFpesquisarLigs.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFpesquisarLigsFocusGained(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -658,7 +664,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jTlocListarDestino);
-        jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(30);
+        jTlocListarDestino.getColumnModel().getColumn(0).setPreferredWidth(120);
+        jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTlocListarDestino.getColumnModel().getColumn(2).setPreferredWidth(30);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -692,6 +699,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel1.add(jBlistarOrigensLigs, gridBagConstraints);
 
         jTPane.addTab("Listar Ligações", jPanel1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 593, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+
+        jTPane.addTab("Calcular Caminhos", jPanel4);
 
         jMenu1.setText("Ficheiro");
 
@@ -739,14 +759,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+                .addComponent(jTPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -946,6 +966,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	if( jLlocListarOrigem.getSelectedIndices().length == 1 )
 	    popularListaLigacoes();
     }//GEN-LAST:event_jLlocListarOrigemValueChanged
+
+    private void jTFpesquisarLigsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFpesquisarLigsFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFpesquisarLigsFocusGained
     
     private void jTFpesquisarUtilizadoresChanged(){
 	Object [][]dados;
@@ -1075,16 +1099,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         for(int i=0; i<nomesColunas.length; i++)
             nomesColunas[i] = jTlocListarDestino.getModel().getColumnName(i);
         
-
-	
-        
         DefaultTableModel tmpModel = new DefaultTableModel(null, nomesColunas);
 	DefaultTableModel model;
         jTlocListarDestino.setModel(tmpModel);
         
 	jTlocListarDestino.getColumnModel().getColumn(0).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTlocListarDestino.getColumnModel().getColumn(0).setPreferredWidth(120);
 	jTlocListarDestino.getColumnModel().getColumn(1).setCellRenderer(new StatusColumnCellRenderer(0));
-	jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(30);
+	jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(80);
 	jTlocListarDestino.getColumnModel().getColumn(2).setCellRenderer(new StatusColumnCellRenderer(0));
 	jTlocListarDestino.getColumnModel().getColumn(2).setPreferredWidth(30);
 	
@@ -1225,6 +1247,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRBnif;
     private javax.swing.JRadioButton jRBnome;
     private javax.swing.JScrollPane jSPutilizadores;
