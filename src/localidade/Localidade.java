@@ -59,4 +59,8 @@ public class Localidade {
     public String[][] listaLigacoes(){
 	return ligacoes.listaLigacoes();
     }
+    
+    Ligacoes Ligacoes(){
+	return this.ligacoes;
+    }
 }

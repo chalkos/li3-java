@@ -3,6 +3,7 @@ package localidade;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class LocalidadeGraphAlg extends LocalidadeGraph {
     HashMap<String, LocalidadeGraph> graph;
@@ -58,8 +59,8 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
         int naOrla= 1;
         do{
             proxVertice = chooseNextVertice(null);
-            for(Ligacao ligacao : localidades.get(proxVertice.getNome()).getLigacoes.values()) // metodo que retorne HashMap de ligações
-                naOrla=buildPath(ligacao, proxVertice, naOrla);
+	    for (Iterator<Ligacao> it = localidades.get(proxVertice.getNome()).Ligacoes().getLigacoes().iterator(); it.hasNext();)
+		naOrla=buildPath(it.next(), proxVertice, naOrla);
             proxVertice.setEstado(VISITADO);
             naOrla--;
         }while(naOrla>0 && (proxVertice.getNome().compareTo(nomeDestino))!=0);

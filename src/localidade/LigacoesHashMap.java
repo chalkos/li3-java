@@ -61,5 +61,10 @@ public class LigacoesHashMap extends Ligacoes{
 	
 	return strs.toArray(new String[0][0]); //para o toArray dar strings e nao objects
     }
+
+    @Override
+    Collection<Ligacao> getLigacoes() {
+	return this.ligacoes.values();
+    }
     
 }

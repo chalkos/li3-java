@@ -1,5 +1,7 @@
 package localidade;
 
+import java.util.Collection;
+
 public abstract class Ligacoes {
     public abstract boolean insere(Ligacao lig);
     public boolean insere(String nome, double distancia, double custo){
@@ -14,4 +16,6 @@ public abstract class Ligacoes {
     
     @Override
     public abstract Ligacoes clone();
+    
+    abstract Collection<Ligacao> getLigacoes();
 }
