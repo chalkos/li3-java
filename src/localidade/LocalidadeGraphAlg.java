@@ -9,7 +9,7 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
     
     private void criar()
     {
-        this.graph = new HashMap<String,LocalidadeGraph>(20000);
+        this.graph = new HashMap<String,LocalidadeGraph>();
     }
 
    public LocalidadeGraphAlg() {
@@ -51,21 +51,22 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
     
     public int buildGraph(HashMap<String, Localidade> localidades, String nomeOrigem, String nomeDestino)
     {
+        criar();
         LocalidadeGraph origem = new LocalidadeGraph(nomeOrigem);
+        LocalidadeGraph proxVertice;
         this.graph.put(nomeOrigem, origem);
         int naOrla= 1;
         do{
-            LocalidadeGraph proxVertice = chooseNextVertice(null);
-            Localidade auxL = localidades.get(proxVertice.getNome()).clone();//
-            Ligacoes lig = auxL.ligacoes.clone(); // Preciso iterar sobre as ligações
-            for(Ligacao ligacao :  lig)
+            proxVertice = chooseNextVertice(null);
+            for(Ligacao ligacao : localidades.get(proxVertice.getNome()).getLigacoes.values()) // metodo que retorne HashMap de ligações
                 naOrla=buildPath(ligacao, proxVertice, naOrla);
             proxVertice.setEstado(VISITADO);
             naOrla--;
-        }while(naOrla>0 && proxVertice.getNome()!= nomeDestino);
+        }while(naOrla>0 && (proxVertice.getNome().compareTo(nomeDestino))==0);
   
         if(this.graph.containsKey(nomeDestino))
             return this.graph.get(nomeDestino).getDistancia();
-        else return 0;
+        return 0;
+
     }
 }
