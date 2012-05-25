@@ -1,11 +1,12 @@
 package localidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class LocalidadesHashMap extends Localidades{
+public class LocalidadesHashMap extends Localidades implements Serializable{
     HashMap<String, Localidade> localidades;
     
     private void criar(){
@@ -78,6 +79,25 @@ public class LocalidadesHashMap extends Localidades{
     public String[][] listaLigacoes(String origem) {
 	Localidade l = this.localidades.get(origem);
 	return l.listaLigacoes();
+    }
+
+    @Override
+    HashMap<String, Localidade> getLocalidades() {
+	return localidades;
+    }
+
+    @Override
+    public String escritaLocalidades() {
+	StringBuilder str = new StringBuilder(50);
+	for(Localidade l:localidades.values()){
+	    str.append(l.toSDOString()).append("\n");
+	}
+	return str.toString();
+    }
+
+    @Override
+    public String escritaLigacoes() {
+	throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

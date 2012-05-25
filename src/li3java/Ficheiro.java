@@ -1,17 +1,12 @@
 package li3java;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import localidade.Ligacao;
 import localidade.Localidade;
 import localidade.Localidades;
 import utilizador.Utilizador;
 import utilizador.Utilizadores;
 
-/**
- * Faz importações de dados a partir de ficheiros
- */
 public class Ficheiro {
     public static int getUtilizadores(Utilizadores utilizadores, File ficheiro){
         String []partes;
@@ -68,5 +63,48 @@ public class Ficheiro {
         }
         
         return c;
+    }
+    
+    public static void escreverSDO(File file, Localidades localidades, Utilizadores utilizadores){
+	ObjectOutputStream out;
+	FileOutputStream fos;
+	try {
+	    fos = new FileOutputStream(file);
+	    out = new ObjectOutputStream(fos);
+	    out.writeObject(localidades);
+	    out.writeObject(utilizadores);
+	    out.close();
+	} catch (IOException ex) {
+	    
+	}
+    }
+    
+    public static void lerSDO(File file, Localidades localidades, Utilizadores utilizadores){
+	ObjectOutputStream out;
+	FileOutputStream fos;
+	try {
+	    fos = new FileOutputStream(file);
+	    out = new ObjectOutputStream(fos);
+	    out.writeObject(localidades);
+	    out.writeObject(utilizadores);
+	    out.close();
+	} catch (IOException ex) {
+	    
+	}
+    }
+    
+    public static void escreverEF(File file, Localidades localidades, Utilizadores utilizadores){
+	PrintWriter pw;
+	try {
+	    pw = new PrintWriter(file);
+
+	    pw.append("Localidades\n");
+	    pw.append(localidades.escritaLocalidades());
+
+
+	    pw.close();
+	} catch (FileNotFoundException ex) {
+	    //ficheiro nao encontrado
+	}
     }
 }

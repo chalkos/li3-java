@@ -1,9 +1,11 @@
 package utilizador;
 
+import java.io.Serializable;
+
 /**
  * Classe que permite gerir um utilizador
  */
-public class Utilizador {
+public class Utilizador implements Serializable{
     private String nome;
     private String morada;
     private String nif;

@@ -1,12 +1,11 @@
 package localidade;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  * Localidade
  */
-public class Localidade {
+public class Localidade implements Serializable {
     public static final int LIGACOES_ARRAYLIST = 0;
     public static final int LIGACOES_HASHSET = 1;
     public static final int LIGACOES_HASHMAP = 2;
@@ -54,6 +53,10 @@ public class Localidade {
         StringBuilder str = new StringBuilder(50);
         str.append(this.getNome()).append("\n").append(this.ligacoes.toString());
         return str.toString();
+    }
+    
+    public String toSDOString(){
+        return this.getNome();
     }
     
     public String[][] listaLigacoes(){

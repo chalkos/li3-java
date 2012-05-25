@@ -1,11 +1,12 @@
 package localidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class LigacoesHashMap extends Ligacoes{
+public class LigacoesHashMap extends Ligacoes implements Serializable{
     private HashMap<String, Ligacao> ligacoes;
 
     LigacoesHashMap(){

@@ -1,11 +1,12 @@
 package utilizador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class UtilizadoresHashMap extends Utilizadores{
+public class UtilizadoresHashMap extends Utilizadores implements Serializable{
     HashMap<String, Utilizador> nif;
     HashMap<String, Utilizador> nome;
     

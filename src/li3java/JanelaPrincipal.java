@@ -1,7 +1,10 @@
 package li3java;
 
-import java.awt.Component;
 import java.awt.Dimension;
+import java.io.*;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -88,6 +91,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jBlistarOrigensLigs = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jLcaminhoOrigem = new javax.swing.JList();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jLcaminhoDestino = new javax.swing.JList();
+        jTFcaminhoOrigem = new javax.swing.JTextField();
+        jTFcaminhoDestino = new javax.swing.JTextField();
+        jBcalculaCaminho = new javax.swing.JButton();
+        jLdistancia = new javax.swing.JLabel();
+        jBcaminhoOrigem = new javax.swing.JButton();
+        jBcaminhoDestino = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -700,16 +715,131 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jTPane.addTab("Listar Ligações", jPanel1);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
+        jPanel4Layout.columnWidths = new int[] {280, 5, 280};
+        jPanel4Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 300, 5, 0};
         jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
-        );
+
+        jLabel16.setText("Origem");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        jPanel4.add(jLabel16, gridBagConstraints);
+
+        jLabel17.setText("Destino");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        jPanel4.add(jLabel17, gridBagConstraints);
+
+        jScrollPane6.setPreferredSize(new java.awt.Dimension(280, 300));
+
+        jLcaminhoOrigem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane6.setViewportView(jLcaminhoOrigem);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jScrollPane6, gridBagConstraints);
+
+        jScrollPane7.setPreferredSize(new java.awt.Dimension(280, 300));
+
+        jLcaminhoDestino.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane7.setViewportView(jLcaminhoDestino);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jScrollPane7, gridBagConstraints);
+
+        jTFcaminhoOrigem.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFcaminhoOrigemChanged();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFcaminhoOrigemChanged();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
+        jTFcaminhoOrigem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFcaminhoOrigemFocusGained(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(jTFcaminhoOrigem, gridBagConstraints);
+
+        jTFcaminhoDestino.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFcaminhoDestinoChanged();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFcaminhoDestinoChanged();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
+        jTFcaminhoDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFcaminhoDestinoFocusGained(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(jTFcaminhoDestino, gridBagConstraints);
+
+        jBcalculaCaminho.setText("Calcular Caminho Mais Curto");
+        jBcalculaCaminho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBcalculaCaminhoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        jPanel4.add(jBcalculaCaminho, gridBagConstraints);
+
+        jLdistancia.setText("0 localidades de distância");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        jPanel4.add(jLdistancia, gridBagConstraints);
+
+        jBcaminhoOrigem.setText("Listar Todas as Origens");
+        jBcaminhoOrigem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBcaminhoOrigemActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(jBcaminhoOrigem, gridBagConstraints);
+
+        jBcaminhoDestino.setText("Listar Todos os Destinos");
+        jBcaminhoDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBcaminhoDestinoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(jBcaminhoDestino, gridBagConstraints);
 
         jTPane.addTab("Calcular Caminhos", jPanel4);
 
@@ -719,6 +849,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Guardar...");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -759,7 +894,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTPane)
+                .addComponent(jTPane, javax.swing.GroupLayout.PREFERRED_SIZE, 605, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -970,6 +1105,60 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jTFpesquisarLigsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFpesquisarLigsFocusGained
 	selectAllOnTextFieldFocus(evt);
     }//GEN-LAST:event_jTFpesquisarLigsFocusGained
+
+    private void jTFcaminhoOrigemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFcaminhoOrigemFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFcaminhoOrigemFocusGained
+
+    private void jTFcaminhoDestinoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFcaminhoDestinoFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFcaminhoDestinoFocusGained
+
+    private void jBcaminhoOrigemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcaminhoOrigemActionPerformed
+	jTFcaminhoOrigem.setText("[todas]");
+	jTFcaminhoOrigemChanged();
+    }//GEN-LAST:event_jBcaminhoOrigemActionPerformed
+
+    private void jBcaminhoDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcaminhoDestinoActionPerformed
+	jTFcaminhoDestino.setText("[todas]");
+	jTFcaminhoDestinoChanged();
+    }//GEN-LAST:event_jBcaminhoDestinoActionPerformed
+
+    private void jBcalculaCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcalculaCaminhoActionPerformed
+	String text = " localidades de distância";
+	int nlocs = 0;
+	
+	if( jLcaminhoOrigem.getSelectedIndices().length != 1 || jLcaminhoDestino.getSelectedIndices().length != 1 ){
+	    JOptionPane.showMessageDialog(this, msgDialog.seleccioneOrigemEDestino_msg, msgDialog.seleccioneOrigemEDestino_titulo, msgDialog.seleccioneOrigemEDestino_tipo);
+	}else{
+	    //calcular caminho
+	}
+	
+	jLdistancia.setText(nlocs + text);
+    }//GEN-LAST:event_jBcalculaCaminhoActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+	JFileChooser fc = new JFileChooser(".");
+	fc.setAcceptAllFileFilterUsed(false);
+	fc.addChoosableFileFilter(new FileFilterStreamsDeObjecto());
+	fc.addChoosableFileFilter(new FileFilterEscritaFormatada());
+
+	int retrival = fc.showSaveDialog(null);
+
+	if (retrival == JFileChooser.APPROVE_OPTION) {
+	    String ext = "";
+	    String extension = fc.getFileFilter().getDescription();
+	    File file = fc.getSelectedFile();
+	    if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
+		GregorianCalendar gc = new GregorianCalendar();
+		Ficheiro.escreverSDO(file, localidades, utilizadores);
+		JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+	    }else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
+		Ficheiro.escreverEF(file, localidades, utilizadores);
+		    
+	    }
+	}
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     private void jTFpesquisarUtilizadoresChanged(){
 	Object [][]dados;
@@ -1147,17 +1336,54 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	tf.selectAll();
     }
     
-    private boolean validarConteudoDeTextFieldIsDouble( JTextField tf, String append ){
-	if( tf.getText().isEmpty() )
-	    return false;
+    private void jTFcaminhoOrigemChanged(){
+	String []dados;
 	
-	Double d = Double.parseDouble(tf.getText());
-	if( d.isInfinite() || d.isNaN() ){
-	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + append, msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
-	    return false;
+	String texto = jTFcaminhoOrigem.getText();
+        
+	DefaultListModel tmpModel = new DefaultListModel();
+	DefaultListModel model = new DefaultListModel();
+	jLcaminhoOrigem.setModel(tmpModel);
+	
+	
+        if( jTFcaminhoOrigem.getText().isEmpty() )
+            return;
+	
+	tmpModel.addElement("... Aguarde ...");
+        
+	if (texto.equals(jTFcaminhoOrigem.getText())){
+	    dados = localidades.contains( jTFcaminhoOrigem.getText() );
+
+	    for( String str : dados )
+		model.addElement(str);
+
+	    jLcaminhoOrigem.setModel(model);
 	}
-	    
-	return true;  
+    }
+    
+    private void jTFcaminhoDestinoChanged(){
+	String []dados;
+	
+	String texto = jTFcaminhoDestino.getText();
+        
+	DefaultListModel tmpModel = new DefaultListModel();
+	DefaultListModel model = new DefaultListModel();
+	jLcaminhoDestino.setModel(tmpModel);
+	
+	
+        if( jTFcaminhoDestino.getText().isEmpty() )
+            return;
+	
+	tmpModel.addElement("... Aguarde ...");
+        
+	if (texto.equals(jTFcaminhoDestino.getText())){
+	    dados = localidades.contains( jTFcaminhoDestino.getText() );
+
+	    for( String str : dados )
+		model.addElement(str);
+
+	    jLcaminhoDestino.setModel(model);
+	}
     }
     
     /**
@@ -1214,6 +1440,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBadicionarLocalidade;
     private javax.swing.JButton jBadicionarUtilizador;
     private javax.swing.JButton jBapagarUtilizadores;
+    private javax.swing.JButton jBcalculaCaminho;
+    private javax.swing.JButton jBcaminhoDestino;
+    private javax.swing.JButton jBcaminhoOrigem;
     private javax.swing.JButton jBlistarOrigensLigs;
     private javax.swing.JButton jBlistarTodasLocalidades;
     private javax.swing.JButton jBlistarTodosUtilizadores;
@@ -1225,6 +1454,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1233,6 +1464,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jLcaminhoDestino;
+    private javax.swing.JList jLcaminhoOrigem;
+    private javax.swing.JLabel jLdistancia;
     private javax.swing.JList jLlocDestino;
     private javax.swing.JList jLlocListarOrigem;
     private javax.swing.JList jLlocOrigem;
@@ -1255,11 +1489,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFadicionarLocalidade;
+    private javax.swing.JTextField jTFcaminhoDestino;
+    private javax.swing.JTextField jTFcaminhoOrigem;
     private javax.swing.JTextField jTFcusto;
     private javax.swing.JTextField jTFdistancia;
     private javax.swing.JTextField jTFmorada;

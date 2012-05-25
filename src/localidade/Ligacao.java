@@ -1,9 +1,11 @@
 package localidade;
 
+import java.io.Serializable;
+
 /**
  * Ligações entre localidades
  */
-public class Ligacao {
+public class Ligacao implements Serializable {
     String nome;
     double custo;
     double distancia;

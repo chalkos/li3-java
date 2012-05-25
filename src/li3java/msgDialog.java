@@ -34,7 +34,7 @@ public class msgDialog {
     public static final int stringToDouble_tipo = JOptionPane.WARNING_MESSAGE;
     
     // não introduziu origem e/ou destino
-    public static final String seleccioneOrigemEDestino_msg = "Deve seleccionar uma origem e\num destino para adicionar uma ligação.";
+    public static final String seleccioneOrigemEDestino_msg = "Deve seleccionar uma origem e\num destino.";
     public static final String seleccioneOrigemEDestino_titulo = "Dados insuficientes";
     public static final int seleccioneOrigemEDestino_tipo = JOptionPane.WARNING_MESSAGE;
     

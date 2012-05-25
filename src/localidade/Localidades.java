@@ -1,6 +1,9 @@
 package localidade;
 
-public abstract class Localidades {
+import java.io.Serializable;
+import java.util.HashMap;
+
+public abstract class Localidades implements Serializable {
     int numDados;
     
     Localidades(){
@@ -49,4 +52,7 @@ public abstract class Localidades {
     
     public abstract String[] contains(String value);
     public abstract String[][] listaLigacoes(String origem);
+    abstract HashMap<String, Localidade> getLocalidades();
+    public abstract String escritaLocalidades();
+    public abstract String escritaLigacoes();
 }

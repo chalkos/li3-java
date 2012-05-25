@@ -1,6 +1,8 @@
 package utilizador;
 
-public abstract class Utilizadores {
+import java.io.Serializable;
+
+public abstract class Utilizadores implements Serializable{
     public static final int CAMPO_NIF = 0;
     public static final int CAMPO_NOME = 1;
     private int numDados;
