@@ -1,11 +1,12 @@
 package li3java;
 
+import java.awt.Component;
 import java.awt.Dimension;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import localidade.Ligacao;
 import localidade.Localidades;
 import localidade.LocalidadesHashMap;
 import utilizador.Utilizador;
@@ -56,7 +57,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jBlistarTodosUtilizadores = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTFadicionarLocalidade = new javax.swing.JTextField();
+        jBadicionarLocalidade = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jBadicionarLigacao = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jTFdistancia = new javax.swing.JTextField();
+        jTFcusto = new javax.swing.JTextField();
+        jTFpesquisarLocalidadesOrigem = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jLlocOrigem = new javax.swing.JList();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jLlocDestino = new javax.swing.JList();
+        jBlistarTodasLocalidades = new javax.swing.JButton();
+        jTFpesquisarLocalidadesDestino = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jTFpesquisarLigs = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jLlocListarOrigem = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTlocListarDestino = new li3java.CustomJTable();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jBlistarOrigensLigs = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -79,6 +109,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
             public void ancestorResized(java.awt.event.HierarchyEvent evt) {
                 formAncestorResized(evt);
+            }
+        });
+
+        jTPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTPaneStateChanged(evt);
             }
         });
 
@@ -145,6 +181,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jTFmorada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFmoradaActionPerformed(evt);
+            }
+        });
+        jTFmorada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFmoradaKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFmoradaKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -217,6 +261,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
             @Override
             public void changedUpdate(DocumentEvent e) {}
+        });
+        jTFpesquisarUtilizadores.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFpesquisarUtilizadoresFocusGained(evt);
+            }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -312,19 +361,337 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(jBlistarTodosUtilizadores, gridBagConstraints);
 
-        jTPane.addTab("Utilizadores", jPanel2);
+        jTPane.addTab("Gerir Utilizadores", jPanel2);
 
-        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridBagLayout jPanel3Layout = new java.awt.GridBagLayout();
+        jPanel3Layout.columnWidths = new int[] {0, 5, 110, 5, 110, 5, 110, 5, 110};
+        jPanel3Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 240, 5, 0, 5, 0};
+        jPanel3.setLayout(jPanel3Layout);
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 1, 15)); // NOI18N
+        jLabel6.setText("Adicionar Localidade");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel3.add(jLabel6, gridBagConstraints);
+
+        jTFadicionarLocalidade.setNextFocusableComponent(jBadicionarLocalidade);
+        jTFadicionarLocalidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFadicionarLocalidadeKeyReleased(evt);
             }
         });
-        jPanel3.add(jButton4);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jTFadicionarLocalidade, gridBagConstraints);
 
-        jTPane.addTab("Localidades", jPanel3);
+        jBadicionarLocalidade.setText("Adicionar Localidade");
+        jBadicionarLocalidade.setNextFocusableComponent(jBlistarTodasLocalidades);
+        jBadicionarLocalidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBadicionarLocalidadeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel3.add(jBadicionarLocalidade, gridBagConstraints);
+
+        jLabel7.setText("Origem");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 3;
+        jPanel3.add(jLabel7, gridBagConstraints);
+
+        jLabel8.setText("Destino");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 3;
+        jPanel3.add(jLabel8, gridBagConstraints);
+
+        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 15)); // NOI18N
+        jLabel9.setText("Adicionar Ligações a Localidades");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel3.add(jLabel9, gridBagConstraints);
+
+        jLabel10.setText("Distância");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel3.add(jLabel10, gridBagConstraints);
+
+        jLabel11.setText("Custo");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel3.add(jLabel11, gridBagConstraints);
+
+        jBadicionarLigacao.setText("Adicionar Ligação");
+        jBadicionarLigacao.setNextFocusableComponent(jTPane);
+        jBadicionarLigacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBadicionarLigacaoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel3.add(jBadicionarLigacao, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jSeparator2, gridBagConstraints);
+
+        jTFdistancia.setNextFocusableComponent(jTFcusto);
+        jTFdistancia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFdistanciaFocusGained(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jTFdistancia, gridBagConstraints);
+
+        jTFcusto.setNextFocusableComponent(jBadicionarLigacao);
+        jTFcusto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFcustoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFcustoFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jTFcusto, gridBagConstraints);
+
+        jTFpesquisarLocalidadesOrigem.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFpesquisarLocalidadesChangedOrigem();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFpesquisarLocalidadesChangedOrigem();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
+        jTFpesquisarLocalidadesOrigem.setNextFocusableComponent(jTFpesquisarLocalidadesDestino);
+        jTFpesquisarLocalidadesOrigem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFpesquisarLocalidadesOrigemFocusGained(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jTFpesquisarLocalidadesOrigem, gridBagConstraints);
+
+        jLabel12.setText("Pesquisar");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel3.add(jLabel12, gridBagConstraints);
+
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(225, 240));
+
+        jLlocOrigem.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jLlocOrigem.setNextFocusableComponent(jLlocDestino);
+        jScrollPane3.setViewportView(jLlocOrigem);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel3.add(jScrollPane3, gridBagConstraints);
+
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(225, 240));
+
+        jLlocDestino.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jLlocDestino.setNextFocusableComponent(jTFdistancia);
+        jScrollPane4.setViewportView(jLlocDestino);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel3.add(jScrollPane4, gridBagConstraints);
+
+        jBlistarTodasLocalidades.setText("Listar Todas");
+        jBlistarTodasLocalidades.setNextFocusableComponent(jTFpesquisarLocalidadesOrigem);
+        jBlistarTodasLocalidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBlistarTodasLocalidadesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel3.add(jBlistarTodasLocalidades, gridBagConstraints);
+
+        jTFpesquisarLocalidadesDestino.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFpesquisarLocalidadesChangedDestino();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFpesquisarLocalidadesChangedDestino();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
+        jTFpesquisarLocalidadesDestino.setNextFocusableComponent(jLlocOrigem);
+        jTFpesquisarLocalidadesDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFpesquisarLocalidadesDestinoFocusGained(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jTFpesquisarLocalidadesDestino, gridBagConstraints);
+
+        jTPane.addTab("Adicionar Localidades", jPanel3);
+
+        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+        jPanel1Layout.columnWidths = new int[] {200, 5, 300};
+        jPanel1Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 350};
+        jPanel1.setLayout(jPanel1Layout);
+
+        jTFpesquisarLigs.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jTFpesquisarLigsChanged();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jTFpesquisarLigsChanged();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {}
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(jTFpesquisarLigs, gridBagConstraints);
+
+        jLabel13.setFont(new java.awt.Font("DejaVu Sans", 1, 15)); // NOI18N
+        jLabel13.setText("Pesquisar");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jLabel13, gridBagConstraints);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(200, 350));
+
+        jLlocListarOrigem.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jLlocListarOrigemValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jLlocListarOrigem);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel1.add(jScrollPane1, gridBagConstraints);
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(250, 350));
+
+        jTlocListarDestino.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Distância", "Custo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTlocListarDestino);
+        jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(30);
+        jTlocListarDestino.getColumnModel().getColumn(2).setPreferredWidth(30);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel1.add(jScrollPane2, gridBagConstraints);
+
+        jLabel14.setText("Origem");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        jPanel1.add(jLabel14, gridBagConstraints);
+
+        jLabel15.setText("Destinos (ligações directas)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        jPanel1.add(jLabel15, gridBagConstraints);
+
+        jBlistarOrigensLigs.setText("Listar Todas as Origens");
+        jBlistarOrigensLigs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBlistarOrigensLigsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel1.add(jBlistarOrigensLigs, gridBagConstraints);
+
+        jTPane.addTab("Listar Ligações", jPanel1);
 
         jMenu1.setText("Ficheiro");
 
@@ -394,10 +761,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jTutilizadores.selectAll();
     }//GEN-LAST:event_jBseleccionarUtilizadoresActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(this);
@@ -439,8 +802,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBadicionarUtilizadorActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        this.revalidate();
-        this.repaint();
+
     }//GEN-LAST:event_formComponentResized
 
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
@@ -461,17 +823,129 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jBapagarUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBapagarUtilizadoresActionPerformed
 	int []seleccionadas = jTutilizadores.getSelectedRows();
+	String texto = " utilizadores?";
 	
-	for(int row : seleccionadas)
-	    //utilizadores.remove( (String)jTutilizadores.getCellEditor(row, 1).getCellEditorValue() );
-	    utilizadores.remove( (String)jTutilizadores.getValueAt(row, 1) );
+	if( seleccionadas.length == 0 )
+	    return;
 	
-	jTFpesquisarUtilizadoresChanged();
+	if( seleccionadas.length == 1 )
+	    texto = " utilizador?";
+	
+	if( JOptionPane.showConfirmDialog(this, "Apagar " + seleccionadas.length + " utilizadores?", "Confirmação", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION ){
+	    for(int row : seleccionadas)
+		//utilizadores.remove( (String)jTutilizadores.getCellEditor(row, 1).getCellEditorValue() );
+		utilizadores.remove( (String)jTutilizadores.getValueAt(row, 1) );
+	
+	    jTFpesquisarUtilizadoresChanged();
+	}
     }//GEN-LAST:event_jBapagarUtilizadoresActionPerformed
 
     private void jBlistarTodosUtilizadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlistarTodosUtilizadoresActionPerformed
 	jTFpesquisarUtilizadores.setText("[todos]");
     }//GEN-LAST:event_jBlistarTodosUtilizadoresActionPerformed
+
+    private void jBadicionarLocalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBadicionarLocalidadeActionPerformed
+	adicionarLocalidade();
+    }//GEN-LAST:event_jBadicionarLocalidadeActionPerformed
+
+    private void jBlistarTodasLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlistarTodasLocalidadesActionPerformed
+	jTFpesquisarLocalidadesOrigem.setText("[todas]");
+	jTFpesquisarLocalidadesDestino.setText("[todas]");
+        jTFpesquisarLocalidadesChangedOrigem();
+        jTFpesquisarLocalidadesChangedDestino();
+    }//GEN-LAST:event_jBlistarTodasLocalidadesActionPerformed
+
+    private void jTFmoradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFmoradaKeyTyped
+	
+    }//GEN-LAST:event_jTFmoradaKeyTyped
+
+    private void jTFmoradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFmoradaKeyReleased
+	
+    }//GEN-LAST:event_jTFmoradaKeyReleased
+
+    private void jTFadicionarLocalidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFadicionarLocalidadeKeyReleased
+	if( evt.getKeyCode() == 10 ) //se pressionou enter
+	    adicionarLocalidade();
+    }//GEN-LAST:event_jTFadicionarLocalidadeKeyReleased
+
+    private void jTFdistanciaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFdistanciaFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFdistanciaFocusGained
+
+    private void jTFcustoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFcustoFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFcustoFocusGained
+
+    private void jTFcustoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFcustoFocusLost
+	// TODO add your handling code here:
+    }//GEN-LAST:event_jTFcustoFocusLost
+
+    private void jBadicionarLigacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBadicionarLigacaoActionPerformed
+	if( jLlocOrigem.getSelectedIndices().length == 0 || jLlocDestino.getSelectedIndices().length == 0 ){
+	    JOptionPane.showMessageDialog(this, msgDialog.seleccioneOrigemEDestino_msg, msgDialog.seleccioneOrigemEDestino_titulo, msgDialog.seleccioneOrigemEDestino_tipo);
+	    return;
+	}
+	
+	if( jTFdistancia.getText().isEmpty() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + " para a distância.", msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
+	    return;
+	}
+	
+	if( jTFcusto.getText().isEmpty() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + " para o custo.", msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
+	    return;
+	}
+	
+	Double distancia = Double.parseDouble(jTFdistancia.getText());
+	if( distancia.isInfinite() || distancia.isNaN() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + " para a distância.", msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
+	    return;
+	}
+	
+	Double custo = Double.parseDouble(jTFcusto.getText());
+	if( custo.isInfinite() || custo.isNaN() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + " para o custo.", msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
+	    return;
+	}
+	
+	if( jLlocOrigem.getSelectedIndex() == jLlocDestino.getSelectedIndex() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.origemEDestinoIguais_msg, msgDialog.origemEDestinoIguais_titulo, msgDialog.origemEDestinoIguais_tipo);
+	    return;
+	}
+	
+	if( localidades.insereLigacao(jLlocOrigem.getSelectedValue().toString(), new Ligacao(jLlocDestino.getSelectedValue().toString(), distancia, custo)) ){
+	    JOptionPane.showMessageDialog(this, msgDialog.sucessoInserirLigacao_msg, msgDialog.sucessoInserirLigacao_titulo, msgDialog.sucessoInserirLigacao_tipo);
+	}else
+	    JOptionPane.showMessageDialog(this, msgDialog.insucessoInserirLigacao_msg, msgDialog.insucessoInserirLigacao_titulo, msgDialog.insucessoInserirLigacao_tipo);
+	
+    }//GEN-LAST:event_jBadicionarLigacaoActionPerformed
+
+    private void jTFpesquisarLocalidadesOrigemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFpesquisarLocalidadesOrigemFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFpesquisarLocalidadesOrigemFocusGained
+
+    private void jTFpesquisarLocalidadesDestinoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFpesquisarLocalidadesDestinoFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFpesquisarLocalidadesDestinoFocusGained
+
+    private void jTFpesquisarUtilizadoresFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFpesquisarUtilizadoresFocusGained
+	selectAllOnTextFieldFocus(evt);
+    }//GEN-LAST:event_jTFpesquisarUtilizadoresFocusGained
+
+    private void jBlistarOrigensLigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlistarOrigensLigsActionPerformed
+	jTFpesquisarLigs.setText("[todas]");
+	jTFpesquisarLigsChanged();
+    }//GEN-LAST:event_jBlistarOrigensLigsActionPerformed
+
+    private void jTPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTPaneStateChanged
+        if( ((JTabbedPane)evt.getSource()).getSelectedComponent().equals(jPanel1) )
+	    jTFpesquisarLigsChanged();
+    }//GEN-LAST:event_jTPaneStateChanged
+
+    private void jLlocListarOrigemValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jLlocListarOrigemValueChanged
+	if( jLlocListarOrigem.getSelectedIndices().length == 1 )
+	    popularListaLigacoes();
+    }//GEN-LAST:event_jLlocListarOrigemValueChanged
     
     private void jTFpesquisarUtilizadoresChanged(){
 	Object [][]dados;
@@ -517,6 +991,153 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
+    private void jTFpesquisarLocalidadesChangedOrigem(){
+	String []dados;
+	
+	String texto = jTFpesquisarLocalidadesOrigem.getText();
+        
+	DefaultListModel tmpModel = new DefaultListModel();
+	DefaultListModel model = new DefaultListModel();
+	jLlocOrigem.setModel(tmpModel);
+	
+	
+        if( jTFpesquisarLocalidadesOrigem.getText().isEmpty() )
+            return;
+	
+	tmpModel.addElement("... Aguarde ...");
+        
+	if (texto.equals(jTFpesquisarLocalidadesOrigem.getText())){
+	    dados = localidades.contains( jTFpesquisarLocalidadesOrigem.getText() );
+
+	    for( String str : dados )
+		model.addElement(str);
+
+	    jLlocOrigem.setModel(model);
+	}
+    }
+    
+    private void jTFpesquisarLocalidadesChangedDestino(){
+	String []dados;
+	
+	String texto = jTFpesquisarLocalidadesDestino.getText();
+        
+	DefaultListModel tmpModel = new DefaultListModel();
+	DefaultListModel model = new DefaultListModel();
+	jLlocDestino.setModel(tmpModel);
+	
+	
+        if( jTFpesquisarLocalidadesDestino.getText().isEmpty() )
+            return;
+	
+	tmpModel.addElement("... Aguarde ...");
+        
+	if (texto.equals(jTFpesquisarLocalidadesDestino.getText())){
+	    dados = localidades.contains( jTFpesquisarLocalidadesDestino.getText() );
+
+	    for( String str : dados )
+		model.addElement(str);
+
+	    jLlocDestino.setModel(model);
+	}
+    }
+    
+    private void jTFpesquisarLigsChanged(){
+	String []dados;
+	
+	String texto = jTFpesquisarLigs.getText();
+        
+	DefaultListModel tmpModel = new DefaultListModel();
+	DefaultListModel model = new DefaultListModel();
+	jLlocListarOrigem.setModel(tmpModel);
+	
+	
+        if( jTFpesquisarLigs.getText().isEmpty() )
+            return;
+	
+	tmpModel.addElement("... Aguarde ...");
+        
+	if (texto.equals(jTFpesquisarLigs.getText())){
+	    dados = localidades.contains( jTFpesquisarLigs.getText() );
+
+	    for( String str : dados )
+		model.addElement(str);
+
+	    jLlocListarOrigem.setModel(model);
+	}
+    }
+    
+    private void popularListaLigacoes(){
+	Object [][]dados;
+	
+	String texto = jLlocListarOrigem.getSelectedValue().toString();
+        
+        String []nomesColunas = new String[jTlocListarDestino.getModel().getColumnCount()];
+        for(int i=0; i<nomesColunas.length; i++)
+            nomesColunas[i] = jTlocListarDestino.getModel().getColumnName(i);
+        
+
+	
+        
+        DefaultTableModel tmpModel = new DefaultTableModel(null, nomesColunas);
+	DefaultTableModel model;
+        jTlocListarDestino.setModel(tmpModel);
+        
+	jTlocListarDestino.getColumnModel().getColumn(0).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTlocListarDestino.getColumnModel().getColumn(1).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTlocListarDestino.getColumnModel().getColumn(1).setPreferredWidth(30);
+	jTlocListarDestino.getColumnModel().getColumn(2).setCellRenderer(new StatusColumnCellRenderer(0));
+	jTlocListarDestino.getColumnModel().getColumn(2).setPreferredWidth(30);
+	
+        tmpModel.addRow(new Object[]{"... Aguarde ...","...","..."});
+        
+	if (texto.equals(jLlocListarOrigem.getSelectedValue().toString())){
+	    dados = localidades.listaLigacoes(texto);
+
+	    model = new DefaultTableModel(dados, nomesColunas);
+
+	    jTlocListarDestino.setModel(model);
+	}
+	
+	jTlocListarDestino.setPreferredSize( new Dimension(jTlocListarDestino.getPreferredSize().width,
+		jTlocListarDestino.getRowCount()*jTlocListarDestino.getRowHeight()) );
+        
+        
+    }
+    
+    private void adicionarLocalidade(){
+	if( jTFadicionarLocalidade.getText().isEmpty() )
+	    return;
+	
+	if( localidades.insere(new localidade.Localidade(jTFadicionarLocalidade.getText()) ) ){
+            JOptionPane.showMessageDialog(this, msgDialog.localidade_novo_sucesso_msg, msgDialog.localidade_novo_sucesso_titulo, msgDialog.localidade_novo_sucesso_tipo);
+            jTFadicionarLocalidade.setText("");
+        }else
+            JOptionPane.showMessageDialog(this, msgDialog.localidade_novo_insucesso_msg, msgDialog.localidade_novo_insucesso_titulo, msgDialog.localidade_novo_insucesso_tipo);
+        
+        jTFadicionarLocalidade.requestFocusInWindow();
+        
+        jTFpesquisarLocalidadesChangedOrigem();
+        jTFpesquisarLocalidadesChangedDestino();
+    }
+    
+    private void selectAllOnTextFieldFocus(java.awt.event.FocusEvent evt){
+	JTextField tf = (JTextField)evt.getComponent();
+	tf.selectAll();
+    }
+    
+    private boolean validarConteudoDeTextFieldIsDouble( JTextField tf, String append ){
+	if( tf.getText().isEmpty() )
+	    return false;
+	
+	Double d = Double.parseDouble(tf.getText());
+	if( d.isInfinite() || d.isNaN() ){
+	    JOptionPane.showMessageDialog(this, msgDialog.stringToDouble_msg + append, msgDialog.stringToDouble_titulo, msgDialog.stringToDouble_tipo);
+	    return false;
+	}
+	    
+	return true;  
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -553,7 +1174,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
          */
         
         utilizadores = new UtilizadoresHashMap(20);
-        localidades = new LocalidadesHashMap(20, localidade.Localidade.LIGACOES_HASHMAP);
+        localidades = new LocalidadesHashMap(20);
         
         /*
          * Create and display the form
@@ -567,16 +1188,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup NomeOuNif;
+    private javax.swing.JButton jBadicionarLigacao;
+    private javax.swing.JButton jBadicionarLocalidade;
     private javax.swing.JButton jBadicionarUtilizador;
     private javax.swing.JButton jBapagarUtilizadores;
+    private javax.swing.JButton jBlistarOrigensLigs;
+    private javax.swing.JButton jBlistarTodasLocalidades;
     private javax.swing.JButton jBlistarTodosUtilizadores;
     private javax.swing.JButton jBseleccionarUtilizadores;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jLlocDestino;
+    private javax.swing.JList jLlocListarOrigem;
+    private javax.swing.JList jLlocOrigem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -585,17 +1222,31 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRBnif;
     private javax.swing.JRadioButton jRBnome;
     private javax.swing.JScrollPane jSPutilizadores;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTFNome;
+    private javax.swing.JTextField jTFadicionarLocalidade;
+    private javax.swing.JTextField jTFcusto;
+    private javax.swing.JTextField jTFdistancia;
     private javax.swing.JTextField jTFmorada;
     private javax.swing.JTextField jTFnif;
+    private javax.swing.JTextField jTFpesquisarLigs;
+    private javax.swing.JTextField jTFpesquisarLocalidadesDestino;
+    private javax.swing.JTextField jTFpesquisarLocalidadesOrigem;
     private javax.swing.JTextField jTFpesquisarUtilizadores;
     private javax.swing.JTabbedPane jTPane;
+    private li3java.CustomJTable jTlocListarDestino;
     private li3java.CustomJTable jTutilizadores;
     // End of variables declaration//GEN-END:variables
 }

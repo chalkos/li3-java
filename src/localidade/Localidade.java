@@ -1,5 +1,8 @@
 package localidade;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Localidade
  */
@@ -18,21 +21,7 @@ public class Localidade {
     
     public Localidade(String nome){
         this.nome=nome;
-        this.ligacoes = null;
-    }
-    
-    public Localidade(String nome, int tipoLigs){
-        this.nome=nome;
-        this.ligacoes = null;
-        
-        if( tipoLigs == LIGACOES_ARRAYLIST )
-            this.ligacoes = new LigacoesArrayList();
-        else if( tipoLigs == LIGACOES_HASHSET )
-            this.ligacoes = new LigacoesHashSet();
-        else if( tipoLigs == LIGACOES_HASHMAP )
-            this.ligacoes = new LigacoesHashMap();
-        else if( tipoLigs == LIGACOES_TREEMAP )
-            this.ligacoes = new LigacoesTreeMap();
+        this.ligacoes = new LigacoesHashMap();
     }
     
     public Localidade(Localidade loc){
@@ -49,9 +38,11 @@ public class Localidade {
         return new Localidade(this);
     }
     
-    public void insereLigacao(Ligacao lig){
-        if( this.ligacoes.procura(nome) == null )
-            this.ligacoes.insere(lig.clone());
+    public boolean insereLigacao(Ligacao lig){
+        if( this.ligacoes.procura(nome) == null ){
+            return this.ligacoes.insere(lig.clone());
+	}
+	return false;
     }
     
     public Ligacao procuraLigacao(String nome){
@@ -63,5 +54,9 @@ public class Localidade {
         StringBuilder str = new StringBuilder(50);
         str.append(this.getNome()).append("\n").append(this.ligacoes.toString());
         return str.toString();
+    }
+    
+    public String[][] listaLigacoes(){
+	return ligacoes.listaLigacoes();
     }
 }

@@ -9,12 +9,49 @@ public class msgDialog {
     public static final int utilizador_novo_sucesso_tipo = JOptionPane.INFORMATION_MESSAGE;
     
     // erro ao inserir user
-    public static final String utilizador_novo_insucesso_msg = "Utilizador não inserido\nPode já existir um utilizador com o mesmo Nome ou Número de Contribuinte";
-    public static final String utilizador_novo_insucesso_titulo = "Insucesso";
+    public static final String utilizador_novo_insucesso_msg = "Utilizador não inserido\nPode já existir um utilizador com o mesmo Nome ou Número de Contribuinte.";
+    public static final String utilizador_novo_insucesso_titulo = "Erro ao inserir Utilizador";
     public static final int utilizador_novo_insucesso_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // inserido user
+    public static final String localidade_novo_sucesso_msg = "Localidade adicionada!";
+    public static final String localidade_novo_sucesso_titulo = "Sucesso";
+    public static final int localidade_novo_sucesso_tipo = JOptionPane.INFORMATION_MESSAGE;
+    
+    // erro ao inserir user
+    public static final String localidade_novo_insucesso_msg = "Localidade não inserida\nPode já existir uma localidade com o mesmo Nome.";
+    public static final String localidade_novo_insucesso_titulo = "Erro ao inserir Localidade";
+    public static final int localidade_novo_insucesso_tipo = JOptionPane.WARNING_MESSAGE;
     
     // não foi possível abrir o ficheiro
     public static final String ficheiro_abrir_erro_msg = "Não foi possível abrir o ficheiro.";
     public static final String ficheiro_abrir_erro_titulo = "Insucesso";
     public static final int ficheiro_abrir_erro_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // conversão de string para double falhou
+    public static final String stringToDouble_msg = "Deve introduzir um número real";
+    public static final String stringToDouble_titulo = "Erro de Valor";
+    public static final int stringToDouble_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // não introduziu origem e/ou destino
+    public static final String seleccioneOrigemEDestino_msg = "Deve seleccionar uma origem e\num destino para adicionar uma ligação.";
+    public static final String seleccioneOrigemEDestino_titulo = "Dados insuficientes";
+    public static final int seleccioneOrigemEDestino_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // seleccionou a mesma origem e destino
+    public static final String origemEDestinoIguais_msg = "A origem e destino devem ser localidades diferentes.";
+    public static final String origemEDestinoIguais_titulo = "Dados inválidos";
+    public static final int origemEDestinoIguais_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // inserir ligação: sucesso
+    public static final String sucessoInserirLigacao_msg = "Ligação criada!";
+    public static final String sucessoInserirLigacao_titulo = "Sucesso";
+    public static final int sucessoInserirLigacao_tipo = JOptionPane.INFORMATION_MESSAGE;
+    
+    // inserir ligação: sucesso
+    public static final String insucessoInserirLigacao_msg = "Ligação já existe.";
+    public static final String insucessoInserirLigacao_titulo = "Erro ao criar Ligação";
+    public static final int insucessoInserirLigacao_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    
 }

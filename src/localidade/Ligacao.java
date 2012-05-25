@@ -60,11 +60,15 @@ public class Ligacao {
         StringBuilder str = new StringBuilder();
         str.append("{ ")
                 .append(this.getNome())
-                .append("(nome), ")
+                .append(", ")
                 .append(this.getDistancia())
-                .append("(dist), ")
+                .append("km, €")
                 .append(this.getCusto())
-                .append("(custo) }");
+                .append(" }");
         return str.toString();
+    }
+    
+    public String[] toStringArray(){
+	return new String[]{ this.getNome(), Double.toString(this.getDistancia()), Double.toString(this.getCusto()) };
     }
 }

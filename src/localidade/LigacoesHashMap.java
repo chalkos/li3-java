@@ -1,6 +1,8 @@
 package localidade;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class LigacoesHashMap extends Ligacoes{
@@ -17,9 +19,12 @@ public class LigacoesHashMap extends Ligacoes{
     }
 
     @Override
-    public void insere(Ligacao lig) {
-        if( !this.ligacoes.containsKey(lig.getNome()) )
+    public boolean insere(Ligacao lig) {
+        if( !this.ligacoes.containsKey(lig.getNome()) ){
             this.ligacoes.put(lig.getNome(), lig.clone());
+	    return true;
+	}
+	return false;
     }
 
     @Override
@@ -42,6 +47,19 @@ public class LigacoesHashMap extends Ligacoes{
     @Override
     public Ligacoes clone() {
         return new LigacoesHashMap(this);
+    }
+
+    @Override
+    public String[][] listaLigacoes() {
+	ArrayList<String[]> strs = new ArrayList<String[]>(this.ligacoes.size());
+	Collection col = this.ligacoes.values();
+	
+	for( Object l : col )
+	    strs.add( ((Ligacao)l).toStringArray() );
+	
+	Collections.sort(strs, new ComparadorArrayLigacoes());
+	
+	return strs.toArray(new String[0][0]); //para o toArray dar strings e nao objects
     }
     
 }

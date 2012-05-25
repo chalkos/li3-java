@@ -2,33 +2,22 @@ package localidade;
 
 public abstract class Localidades {
     int numDados;
-    int tipoLigs;
     
     Localidades(){
         this.numDados = 5;
-        this.tipoLigs = 0;
     }
     
     Localidades(int numDados){
         this.numDados = numDados;
     }
     
-    Localidades(int numDados, int tipoLigacoes){
-        this.numDados = numDados;
-        this.tipoLigs = tipoLigacoes;
-    }
-    
     public int getNumDados(){
         return this.numDados;
     }
     
-    public int getTipoLigacoes(){
-        return this.tipoLigs;
-    }
-    
     public abstract boolean insere(Localidade novo);
     public boolean insere(String nome){
-        return this.insere( new Localidade(nome, this.getTipoLigacoes()));
+        return this.insere( new Localidade(nome));
     }
     public abstract boolean insereLigacao(Localidade loc, Ligacao lig);
     
@@ -57,4 +46,7 @@ public abstract class Localidades {
     
     @Override
     public abstract String toString();
+    
+    public abstract String[] contains(String value);
+    public abstract String[][] listaLigacoes(String origem);
 }
