@@ -62,7 +62,7 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
                 naOrla=buildPath(ligacao, proxVertice, naOrla);
             proxVertice.setEstado(VISITADO);
             naOrla--;
-        }while(naOrla>0 && (proxVertice.getNome().compareTo(nomeDestino))==0);
+        }while(naOrla>0 && (proxVertice.getNome().compareTo(nomeDestino))!=0);
   
         if(this.graph.containsKey(nomeDestino))
             return this.graph.get(nomeDestino).getDistancia();
