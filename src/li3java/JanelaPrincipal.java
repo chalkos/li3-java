@@ -106,6 +106,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -860,6 +861,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem6.setText("Camada de Persistência");
+        jMenu1.add(jMenuItem6);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Importar");
@@ -922,6 +926,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setMultiSelectionEnabled(false);
 	fc.setDialogTitle("Abrir ficheiro de Utilizadores");
         int returnVal = fc.showOpenDialog(this);
         
@@ -933,6 +938,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setMultiSelectionEnabled(false);
 	fc.setDialogTitle("Abrir ficheiro de Localidades");
         int returnVal = fc.showOpenDialog(this);
         
@@ -942,6 +948,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setMultiSelectionEnabled(false);
 	fc.setDialogTitle("Abrir ficheiro de Ligações");
         int returnVal = fc.showOpenDialog(this);
         
@@ -1562,6 +1569,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
