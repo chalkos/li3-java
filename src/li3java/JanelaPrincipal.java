@@ -846,6 +846,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Ficheiro");
 
         jMenuItem4.setText("Abrir...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Guardar...");
@@ -894,7 +899,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTPane, javax.swing.GroupLayout.PREFERRED_SIZE, 605, Short.MAX_VALUE)
+                .addComponent(jTPane, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -918,6 +923,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setDialogTitle("Abrir ficheiro de Utilizadores");
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
@@ -928,6 +934,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setDialogTitle("Abrir ficheiro de Localidades");
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
@@ -936,6 +943,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JFileChooser fc = new JFileChooser();
+	fc.setDialogTitle("Abrir ficheiro de Ligações");
         int returnVal = fc.showOpenDialog(this);
         
         if( returnVal == JFileChooser.APPROVE_OPTION )
@@ -1138,27 +1146,56 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBcalculaCaminhoActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+	abrirGuardar(false);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+	abrirGuardar(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    
+    private void abrirGuardar(boolean abrir){
 	JFileChooser fc = new JFileChooser(".");
 	fc.setAcceptAllFileFilterUsed(false);
 	fc.addChoosableFileFilter(new FileFilterStreamsDeObjecto());
 	fc.addChoosableFileFilter(new FileFilterEscritaFormatada());
+	int res;
+	
+	if( abrir ){
+	    res = fc.showOpenDialog(this);
 
-	int retrival = fc.showSaveDialog(null);
+	    if (res == JFileChooser.APPROVE_OPTION) {
+		String ext = "";
+		String extension = fc.getFileFilter().getDescription();
+		File file = fc.getSelectedFile();
+		if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
+		    GregorianCalendar gc = new GregorianCalendar();
+		    Dados d = Ficheiro.lerSDO(file, localidades, utilizadores);
+		    localidades = d.getLocalidades();
+		    utilizadores = d.getUtilizadores();
+		    JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+		}else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
+		    Ficheiro.lerEF(file, localidades, utilizadores);
 
-	if (retrival == JFileChooser.APPROVE_OPTION) {
-	    String ext = "";
-	    String extension = fc.getFileFilter().getDescription();
-	    File file = fc.getSelectedFile();
-	    if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
-		GregorianCalendar gc = new GregorianCalendar();
-		Ficheiro.escreverSDO(file, localidades, utilizadores);
-		JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
-	    }else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
-		Ficheiro.escreverEF(file, localidades, utilizadores);
-		    
+		}
+	    }
+	}else{
+	    res = fc.showSaveDialog(this);
+
+	    if (res == JFileChooser.APPROVE_OPTION) {
+		String ext = "";
+		String extension = fc.getFileFilter().getDescription();
+		File file = fc.getSelectedFile();
+		if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
+		    GregorianCalendar gc = new GregorianCalendar();
+		    Ficheiro.escreverSDO(file, localidades, utilizadores);
+		    JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+		}else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
+		    Ficheiro.escreverEF(file, localidades, utilizadores);
+
+		}
 	    }
 	}
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }
     
     private void jTFpesquisarUtilizadoresChanged(){
 	Object [][]dados;

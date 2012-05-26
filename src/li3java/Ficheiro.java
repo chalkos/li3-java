@@ -1,6 +1,7 @@
 package li3java;
 
 import java.io.*;
+import java.nio.file.Files;
 import localidade.Ligacao;
 import localidade.Localidade;
 import localidade.Localidades;
@@ -68,6 +69,15 @@ public class Ficheiro {
     public static void escreverSDO(File file, Localidades localidades, Utilizadores utilizadores){
 	ObjectOutputStream out;
 	FileOutputStream fos;
+	
+	String ext = "";
+	if( file.getName().lastIndexOf(".") != -1)
+	    ext = file.getName().substring(file.getName().lastIndexOf("."));
+	
+	if( !ext.equals(".SDO") && !ext.equals(".sdo") ){
+	    file = new File(file.getAbsolutePath() + ".sdo");
+	}
+	
 	try {
 	    fos = new FileOutputStream(file);
 	    out = new ObjectOutputStream(fos);
@@ -79,32 +89,53 @@ public class Ficheiro {
 	}
     }
     
-    public static void lerSDO(File file, Localidades localidades, Utilizadores utilizadores){
-	ObjectOutputStream out;
-	FileOutputStream fos;
+    public static Dados lerSDO(File file, Localidades localidades, Utilizadores utilizadores){
+	FileInputStream fis;
+	ObjectInputStream in;
+
+	Dados d = new Dados(localidades, utilizadores);
+
 	try {
-	    fos = new FileOutputStream(file);
-	    out = new ObjectOutputStream(fos);
-	    out.writeObject(localidades);
-	    out.writeObject(utilizadores);
-	    out.close();
-	} catch (IOException ex) {
+	    fis = new FileInputStream(file);
+	    in = new ObjectInputStream(fis);
 	    
+	    d.setLocalidades((Localidades) in.readObject());
+	    d.setUtilizadores((Utilizadores) in.readObject());
+	    in.close();
+	} catch (IOException ex) {
+	    ex.printStackTrace();
+	} catch (ClassNotFoundException ex) {
+	    ex.printStackTrace();
 	}
+	return d;
     }
     
     public static void escreverEF(File file, Localidades localidades, Utilizadores utilizadores){
 	PrintWriter pw;
+	
+	String ext = "";
+	if( file.getName().lastIndexOf(".") != -1)
+	    ext = file.getName().substring(file.getName().lastIndexOf("."));
+	
+	if( !ext.equals(".EF") && !ext.equals(".ef") ){
+	    file = new File(file.getAbsolutePath() + ".ef");
+	}
+	
 	try {
 	    pw = new PrintWriter(file);
-
+	    pw.append("valores, bues deles\n");
+	    pw.append('\b');
 	    pw.append("Localidades\n");
-	    pw.append(localidades.escritaLocalidades());
+	    //pw.append(localidades.escritaLocalidades());
 
 
 	    pw.close();
 	} catch (FileNotFoundException ex) {
 	    //ficheiro nao encontrado
 	}
+    }
+    
+    public static void lerEF(File file, Localidades localidades, Utilizadores utilizadores){
+	
     }
 }
