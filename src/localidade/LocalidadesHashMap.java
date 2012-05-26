@@ -108,10 +108,4 @@ public class LocalidadesHashMap extends Localidades implements Serializable{
     public boolean leituraLocalidades(String loc) {
 	return this.insere(new Localidade(loc));
     }
-
-    @Override
-    public int leituraLigacoes() {
-	throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
 }

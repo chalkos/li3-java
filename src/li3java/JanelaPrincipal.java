@@ -8,6 +8,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import localidade.Ligacao;
+import localidade.LocalidadeGraphAlg;
 import localidade.Localidades;
 import localidade.LocalidadesHashMap;
 import utilizador.Utilizador;
@@ -1137,7 +1138,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	if( jLcaminhoOrigem.getSelectedIndices().length != 1 || jLcaminhoDestino.getSelectedIndices().length != 1 ){
 	    JOptionPane.showMessageDialog(this, msgDialog.seleccioneOrigemEDestino_msg, msgDialog.seleccioneOrigemEDestino_titulo, msgDialog.seleccioneOrigemEDestino_tipo);
 	}else{
-	    //calcular caminho
+	    nlocs = (new LocalidadeGraphAlg()).buildGraph(localidades, jLcaminhoOrigem.getSelectedValue().toString(), jLcaminhoDestino.getSelectedValue().toString());
 	}
 	
 	jLdistancia.setText(nlocs + text);

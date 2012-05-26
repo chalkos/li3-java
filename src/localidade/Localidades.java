@@ -56,5 +56,4 @@ public abstract class Localidades implements Serializable {
     public abstract String escritaLocalidades();
     public abstract String escritaLigacoes();
     public abstract boolean leituraLocalidades(String loc);
-    public abstract int leituraLigacoes();
 }

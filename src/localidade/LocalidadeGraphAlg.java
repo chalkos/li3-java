@@ -7,14 +7,9 @@ import java.util.Iterator;
 
 public class LocalidadeGraphAlg extends LocalidadeGraph {
     HashMap<String, LocalidadeGraph> graph;
-    
-    private void criar()
-    {
-        this.graph = new HashMap<String,LocalidadeGraph>();
-    }
 
    public LocalidadeGraphAlg() {
-        criar();
+        this.graph = new HashMap<String,LocalidadeGraph>();
     }
    
    
@@ -51,9 +46,8 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
    }   
    
     
-    public int buildGraph(HashMap<String, Localidade> localidades, String nomeOrigem, String nomeDestino)
-    {
-        criar();
+    public int buildGraph(Localidades locs, String nomeOrigem, String nomeDestino){
+	HashMap<String, Localidade> localidades = locs.getLocalidades();
         LocalidadeGraph origem = new LocalidadeGraph(nomeOrigem);
         LocalidadeGraph proxVertice;
         this.graph.put(nomeOrigem, origem);
