@@ -53,5 +53,9 @@ public class msgDialog {
     public static final String insucessoInserirLigacao_titulo = "Erro ao criar Ligação";
     public static final int insucessoInserirLigacao_tipo = JOptionPane.WARNING_MESSAGE;
     
+    // ficheiro já existe, substituir?
+    public static final String ficheiroExiste_msg = "Ficheiro existe, substituir?";
+    public static final String ficheiroExiste_titulo = "Ficheiro já existe";
+    
     
 }

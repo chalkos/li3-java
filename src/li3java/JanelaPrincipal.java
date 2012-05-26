@@ -1156,6 +1156,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void abrirGuardar(boolean abrir){
 	JFileChooser fc = new JFileChooser(".");
 	fc.setAcceptAllFileFilterUsed(false);
+	fc.setMultiSelectionEnabled(false);
 	fc.addChoosableFileFilter(new FileFilterStreamsDeObjecto());
 	fc.addChoosableFileFilter(new FileFilterEscritaFormatada());
 	int res;
@@ -1179,20 +1180,31 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		}
 	    }
 	}else{
-	    res = fc.showSaveDialog(this);
+	    while(true){
+		res = fc.showSaveDialog(this);
+		if (res == JFileChooser.APPROVE_OPTION) {
+		    String ext = "";
+		    String extension = fc.getFileFilter().getDescription();
+		    File file = fc.getSelectedFile();
 
-	    if (res == JFileChooser.APPROVE_OPTION) {
-		String ext = "";
-		String extension = fc.getFileFilter().getDescription();
-		File file = fc.getSelectedFile();
-		if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
-		    GregorianCalendar gc = new GregorianCalendar();
-		    Ficheiro.escreverSDO(file, localidades, utilizadores);
-		    JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
-		}else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
-		    Ficheiro.escreverEF(file, localidades, utilizadores);
-
-		}
+		    if( file.exists() ){
+			int subst = JOptionPane.showConfirmDialog(this, msgDialog.ficheiroExiste_msg, msgDialog.ficheiroExiste_titulo, JOptionPane.YES_NO_CANCEL_OPTION);
+			if( subst == JOptionPane.YES_OPTION ){
+			    if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
+				GregorianCalendar gc = new GregorianCalendar();
+				Ficheiro.escreverSDO(file, localidades, utilizadores);
+				JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+			    }else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
+				Ficheiro.escreverEF(file, localidades, utilizadores);
+			    }
+			    break;
+			}else if( subst == JOptionPane.NO_OPTION ){
+			    //se repsondeu que não queria substituir, volta a mostrar o fileChooser
+			}else
+			    break; //se carregou cancelar, fechou a janela, etc. cancela a escrita de ficheiro imediatamente
+		    }
+		}else
+		    break;
 	    }
 	}
     }
