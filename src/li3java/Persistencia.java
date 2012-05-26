@@ -1,12 +1,18 @@
 package li3java;
 
 
+import java.awt.Cursor;
 import java.io.File;
-import java.util.Random;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.GregorianCalendar;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import localidade.Localidades;
+import localidade.LocalidadesHashMap;
 import utilizador.Utilizadores;
+import utilizador.UtilizadoresHashMap;
 
 public class Persistencia extends javax.swing.JFrame {
     private Task task;
@@ -15,6 +21,11 @@ public class Persistencia extends javax.swing.JFrame {
     private File fUsers;
     private File fLocs;
     private File fLigs;
+    private int[] patamares;
+    private int readOnly;
+    private int repeticoes;
+    private long temposSDO[][][];
+    private long temposEF[][][];
  
     class Task extends SwingWorker<Void, Void> {
         /*
@@ -22,20 +33,49 @@ public class Persistencia extends javax.swing.JFrame {
          */
         @Override
         public Void doInBackground() {
-            Random random = new Random();
-            int progress = 0;
-            //Initialize progress property.
-            setProgress(0);
-            while (progress < 100) {
-                //Sleep for up to one second.
-                try {
-                    Thread.sleep(random.nextInt(1000));
-                } catch (InterruptedException ignore) {}
-                //Make random progress.
-                progress += random.nextInt(10);
-                setProgress(Math.min(progress, 100));
-            }
-            return null;
+	    temposSDO = new long[repeticoes][patamares.length][readOnly];
+	    temposEF = new long[repeticoes][patamares.length][readOnly];
+	    
+	    GregorianCalendar inicio;
+	    
+	    Localidades[] locs = new LocalidadesHashMap[patamares.length];
+	    Utilizadores[] users = new UtilizadoresHashMap[patamares.length];
+	    for( int i=0; i<patamares.length; i++ ){
+		locs[i] = new LocalidadesHashMap();
+		Ficheiro.getLocalidades(locs[i], fLocs, patamares[i]);
+		Ficheiro.getLigacoes(locs[i], fLigs);
+		users[i] = new UtilizadoresHashMap();
+		Ficheiro.getUtilizadores(users[i], fUsers, patamares[i]);
+		doProgress();
+	    }
+	    for(int filetype = 0; filetype<2; filetype++)
+		for( int rep=0; rep<repeticoes; rep++ )
+		    for( int p = 0; p<patamares.length; p++){
+			inicio = new GregorianCalendar();
+			if( filetype == 0 ){
+			    Ficheiro.escreverSDO("tmp.sdo", locs[p], users[p]);
+			    temposSDO[rep][p][0] = (new GregorianCalendar()).getTimeInMillis() - inicio.getTimeInMillis();
+			    doProgress();
+			    if( readOnly == 2 ){
+				inicio = new GregorianCalendar();
+				Ficheiro.lerSDO("tmp.sdo", localidades, utilizadores);
+				temposSDO[rep][p][1] = (new GregorianCalendar()).getTimeInMillis() - inicio.getTimeInMillis();
+				doProgress();
+			    }
+			}else{
+			    Ficheiro.escreverEF("tmp.ef", locs[p], users[p]);
+			    temposEF[rep][p][0] = (new GregorianCalendar()).getTimeInMillis() - inicio.getTimeInMillis();
+			    doProgress();
+			    if( readOnly == 2 ){
+				inicio = new GregorianCalendar();
+				Ficheiro.lerEF("tmp.ef", localidades, utilizadores);
+				temposEF[rep][p][1] = (new GregorianCalendar()).getTimeInMillis() - inicio.getTimeInMillis();
+				doProgress();
+			    }
+			}
+			System.gc();
+		    }
+	    return null;
         }
  
         /*
@@ -43,9 +83,7 @@ public class Persistencia extends javax.swing.JFrame {
          */
         @Override
         public void done() {
-            //startButton.setEnabled(true);
-            //setCursor(null); //turn off the wait cursor
-            //taskOutput.append("Done!\n");
+            setCursor(null);
         }
     }
     
@@ -90,18 +128,11 @@ public class Persistencia extends javax.swing.JFrame {
         jPbar = new javax.swing.JProgressBar();
         jBiniciar = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jLpatamar = new javax.swing.JLabel();
-        jLaction = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jSreps = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Estatísticas da Camada de Persistência");
 
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
         jPanel1Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
@@ -295,6 +326,12 @@ public class Persistencia extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel1.add(jRBr, gridBagConstraints);
+
+        jPbar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jPbarStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 24;
@@ -321,81 +358,21 @@ public class Persistencia extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel1.add(jSeparator3, gridBagConstraints);
 
-        jLpatamar.setText("Operação");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel1.add(jLpatamar, gridBagConstraints);
-
-        jLaction.setText("Patamar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel1.add(jLaction, gridBagConstraints);
-
-        jLabel4.setText("Repetição");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel1.add(jLabel4, gridBagConstraints);
-
-        jLabel5.setText("Dados");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel1.add(jLabel5, gridBagConstraints);
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel1.add(jTextField1, gridBagConstraints);
-
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel1.add(jTextField2, gridBagConstraints);
-
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel1.add(jTextField3, gridBagConstraints);
-
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel1.add(jTextField4, gridBagConstraints);
-
         jLabel6.setText("Repetições");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 22;
         jPanel1.add(jLabel6, gridBagConstraints);
 
-        jTextField5.setColumns(4);
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("1");
+        jSreps.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(10), Integer.valueOf(0), null, Integer.valueOf(1)));
+        jSreps.setToolTipText("");
+        jSreps.setEditor(new javax.swing.JSpinner.NumberEditor(jSreps, ""));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 22;
-        jPanel1.add(jTextField5, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(jSreps, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -403,14 +380,14 @@ public class Persistencia extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -418,13 +395,85 @@ public class Persistencia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBiniciarActionPerformed
-	/*startButton.setEnabled(false);
+	jTFusers.setEnabled(false);
+	jTFlocs.setEnabled(false);
+	jTFligs.setEnabled(false);
+	
+	jBusers.setEnabled(false);
+	jBlocs.setEnabled(false);
+	jBligs.setEnabled(false);
+	
+	jCBusers.setEnabled(false);
+	jCBlocs.setEnabled(false);
+	jCBligs.setEnabled(false);
+	
+	jCBcinco.setEnabled(false);
+	jCBdez.setEnabled(false);
+	jCBquinze.setEnabled(false);
+	jCBdezoito.setEnabled(false);
+	
+	jRBr.setEnabled(false);
+	jRBrw.setEnabled(false);
+	
+	jSreps.setEnabled(false);
+	jBiniciar.setEnabled(false);
+	
+	/*
+	 * calcular alguns valores
+	 */
+	int pActivos = 0;
+	if( jCBcinco.isSelected() ) pActivos++;
+	if( jCBdez.isSelected() ) pActivos++;
+	if( jCBquinze.isSelected() ) pActivos++;
+	if( jCBdezoito.isSelected() ) pActivos++;
+	
+	patamares = new int[pActivos];
+	int j = 0;
+	if( jCBcinco.isSelected() ){
+	    patamares[j] = 5000;
+	    j++;
+	}
+	if( jCBdez.isSelected() ){
+	    patamares[j] = 10000;
+	    j++;
+	}
+	if( jCBquinze.isSelected() ){
+	    patamares[j] = 15000;
+	    j++;
+	}
+	if( jCBdezoito.isSelected() ){
+	    patamares[j] = 18000;
+	    j++;
+	}
+	
+	if(jRBr.isSelected()) readOnly = 1;
+	else readOnly = 2;
+	
+	repeticoes = Integer.parseInt(jSreps.getValue().toString());
+	
+	/*
+	 * preparar a barra de progresso
+	 */
+	int qtyDados = 0;
+	if( jCBusers.isSelected() ) qtyDados++;
+	if( jCBlocs.isSelected() ) qtyDados++;
+	//if( jCBligs.isSelected() ) qtyDados++;
+	
+	jPbar.setMinimum(0);
+	/*
+	 * Ler dados para os vários patamares
+	 * Para SDO e EF
+	 *     Fazer <repeticoes> vezes
+	 *             Fazer para cada patamar
+	 *	           Escrever
+	 *                 Ler
+	 */
+	jPbar.setMaximum( 2 * repeticoes * j * readOnly + j );
+	
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        //Instances of javax.swing.SwingWorker are not reusuable, so
-        //we create new instances as needed.
+	
         task = new Task();
-        task.addPropertyChangeListener(this);
-        task.execute();*/
+        task.execute();
     }//GEN-LAST:event_jBiniciarActionPerformed
 
     private void jBusersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBusersActionPerformed
@@ -453,6 +502,111 @@ public class Persistencia extends javax.swing.JFrame {
 	if( ((javax.swing.JCheckBox)evt.getSource()).isSelected() && jTFligs.getText().isEmpty())
 	    selectedFileLigs();
     }//GEN-LAST:event_jCBligsStateChanged
+
+    private void jPbarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jPbarStateChanged
+	javax.swing.JProgressBar bar = (javax.swing.JProgressBar)evt.getSource();
+	if(bar.getValue() == bar.getMaximum()){
+	    StringBuilder str = new StringBuilder();
+	    
+	    double medias[][] = new double[patamares.length][readOnly];
+	    double desvp[][] = new double[patamares.length][readOnly];
+	    
+	    int i,j,k;
+	    
+	    //somatório
+	    for( i=0; i<repeticoes; i++ )
+		for( j=0; j<patamares.length; j++ )
+		    for(k=0; k<readOnly;k++)
+			medias[j][k] += temposSDO[i][j][k];
+	    
+	    //dividir o somatório pelas repeticoes para obter as medias
+	    for(i=0; i<patamares.length; i++)
+		for(j=0; j<readOnly; j++)
+		    medias[i][j] /= repeticoes;
+	    
+	    //calcular somatório do quadrado da diferença entre um tempo e a média
+	    //  ( i1 - med )^2 + ( i2 - med )^2 + ...
+	    for(i=0; i<repeticoes; i++)
+		for(j=0; j<patamares.length; j++)
+		    for(k=0; k<readOnly;k++){
+			desvp[j][k] += Math.pow( temposSDO[i][j][k] - medias[j][k], 2);
+		    }
+	    
+	    //por fim, o desvio padrao
+	    for(i=0; i<patamares.length; i++)
+		for(j=0; j<readOnly; j++)
+		    desvp[i][j] = Math.sqrt( desvp[i][j]/repeticoes );
+	    
+	    //guardar as médias e desvios padrão de tempos de streams de objecto
+	    str.append("------[TemposSDO]------\n");
+	    for(i=0; i<patamares.length; i++){
+		str.append(patamares[i]).append("\n");
+		for(j=0; j<readOnly; j++){
+		    if( j==0 ) str.append("ESCRITA -> ");
+		    else       str.append("LEITURA -> ");
+		    str.append("med: ")
+			    .append(medias[i][j])
+			    .append(" dp: ")
+			    .append(desvp[i][j])
+			    .append("\n");
+		}
+	    }
+	    str.append("\n\n");
+	    
+	    // reiniciar os valores e calcular para os tempos de Escrita Formatada
+	    medias = new double[patamares.length][readOnly];
+	    desvp = new double[patamares.length][readOnly];
+	    
+	    //somatório
+	    for( i=0; i<repeticoes; i++ )
+		for( j=0; j<patamares.length; j++ )
+		    for(k=0; k<readOnly;k++)
+			medias[j][k] += temposEF[i][j][k];
+	    
+	    //dividir o somatório pelas repeticoes para obter as medias
+	    for(i=0; i<patamares.length; i++)
+		for(j=0; j<readOnly; j++)
+		    medias[i][j] /= repeticoes;
+	    
+	    //calcular somatório do quadrado da diferença entre um tempo e a média
+	    //  ( i1 - med )^2 + ( i2 - med )^2 + ...
+	    for(i=0; i<repeticoes; i++)
+		for(j=0; j<patamares.length; j++)
+		    for(k=0; k<readOnly;k++){
+			desvp[j][k] += Math.pow( temposEF[i][j][k] - medias[j][k], 2);
+		    }
+	    
+	    //por fim, o desvio padrao
+	    for(i=0; i<patamares.length; i++)
+		for(j=0; j<readOnly; j++)
+		    desvp[i][j] = Math.sqrt( desvp[i][j]/repeticoes );
+	    
+	    //guardar as médias e desvios padrão de tempos de escrita formatada
+	    str.append("------[TemposEF]------\n");
+	    for(i=0; i<patamares.length; i++){
+		str.append(patamares[i]).append("\n");
+		for(j=0; j<readOnly; j++){
+		    if( j==0 ) str.append("ESCRITA -> ");
+		    else       str.append("LEITURA -> ");
+		    str.append("med: ")
+			    .append(medias[i][j])
+			    .append(" dp: ")
+			    .append(desvp[i][j])
+			    .append("\n");
+		}
+	    }
+	    
+	    
+	    try {
+		PrintWriter pw = new PrintWriter("persistencia.txt");
+		pw.append(str.toString());
+		pw.close();
+	    } catch (FileNotFoundException ex) {}
+	    
+	    JOptionPane.showMessageDialog(this, "Processo concluído. As estatísticas estão no ficheiro\nestatísticas.txt, na mesma directoria da aplicação.\n\nClique OK para fechar a aplicação.", "Processo Concluído", JOptionPane.INFORMATION_MESSAGE);
+	    this.dispose();
+	}
+    }//GEN-LAST:event_jPbarStateChanged
     
     private void selectedFileUsers(){
 	JFileChooser fc = new JFileChooser();
@@ -494,6 +648,10 @@ public class Persistencia extends javax.swing.JFrame {
 	    jTFligs.setCaretPosition( jTFligs.getText().length() );
 	    jCBligs.setSelected(true);
 	}   
+    }
+    
+    private void doProgress(){
+	jPbar.setValue( jPbar.getValue()+1 );
     }
     
     /**
@@ -571,11 +729,7 @@ public class Persistencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLaction;
-    private javax.swing.JLabel jLpatamar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jPbar;
     private javax.swing.JRadioButton jRBr;
@@ -583,13 +737,9 @@ public class Persistencia extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSpinner jSreps;
     private javax.swing.JTextField jTFligs;
     private javax.swing.JTextField jTFlocs;
     private javax.swing.JTextField jTFusers;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

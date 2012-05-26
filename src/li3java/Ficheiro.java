@@ -67,6 +67,48 @@ public class Ficheiro {
         return c;
     }
     
+    public static int getUtilizadores(Utilizadores utilizadores, File ficheiro, int qty){
+        String []partes;
+        int c = 0;
+        
+        try {
+            FileReader fr = new FileReader(ficheiro);
+            BufferedReader br =  new BufferedReader(fr);
+            while( br.ready() && c < qty){
+                 partes = br.readLine().split(":");
+                 if( utilizadores.insere(new Utilizador(partes[0], partes[1], partes[2])) )
+                    c++;
+            }
+            fr.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return c;
+    }
+    
+    public static int getLocalidades(Localidades localidades, File ficheiro, int qty){
+        int c = 0;
+        try {
+            FileReader fr = new FileReader(ficheiro);
+            BufferedReader br =  new BufferedReader(fr);
+            while( br.ready() && c < qty){
+                 if( localidades.insere(new Localidade(br.readLine())))
+                    c++;
+            }
+            fr.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return c;
+    }
+    
+    public static boolean escreverSDO(String filename, Localidades localidades, Utilizadores utilizadores){
+	return escreverSDO(new File(filename), localidades, utilizadores);
+    }
+
+    
     public static boolean escreverSDO(File file, Localidades localidades, Utilizadores utilizadores){
 	boolean res = true;
 	ObjectOutputStream out;
@@ -92,6 +134,10 @@ public class Ficheiro {
 	return res;
     }
     
+    public static Dados lerSDO(String filename, Localidades localidades, Utilizadores utilizadores){
+	return lerSDO(new File(filename), localidades, utilizadores);
+    }
+    
     public static Dados lerSDO(File file, Localidades localidades, Utilizadores utilizadores){
 	FileInputStream fis;
 	ObjectInputStream in;
@@ -111,6 +157,10 @@ public class Ficheiro {
 	    ex.printStackTrace();
 	}
 	return d;
+    }
+    
+    public static boolean escreverEF(String filename, Localidades localidades, Utilizadores utilizadores){
+	return escreverEF( new File(filename), localidades, utilizadores);
     }
     
     public static boolean escreverEF(File file, Localidades localidades, Utilizadores utilizadores){
@@ -140,6 +190,10 @@ public class Ficheiro {
 	    res = false;
 	}
 	return res;
+    }
+    
+    public static Dados lerEF(String filename, Localidades localidades, Utilizadores utilizadores){
+	return lerEF(new File(filename), localidades, utilizadores);
     }
     
     public static Dados lerEF(File file, Localidades localidades, Utilizadores utilizadores){
