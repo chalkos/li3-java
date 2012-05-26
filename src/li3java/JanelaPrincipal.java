@@ -1,10 +1,8 @@
 package li3java;
 
 import java.awt.Dimension;
-import java.io.*;
+import java.io.File;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
