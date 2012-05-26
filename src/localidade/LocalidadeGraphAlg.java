@@ -22,8 +22,9 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
    {
        for (LocalidadeGraph localidade : this.graph.values())
        {
-           if((localidade.getEstado()!=VISITADO && (proxVertice==null))|| localidade.getDistancia()< proxVertice.getDistancia())
-               proxVertice=localidade.clone();       
+           
+           if(localidade.getEstado()!=VISITADO && ((proxVertice==null)|| localidade.getDistancia()< proxVertice.getDistancia()))
+                proxVertice=localidade.clone();    
        }  
        return proxVertice;
    }
@@ -60,14 +61,17 @@ public class LocalidadeGraphAlg extends LocalidadeGraph {
         do{
             proxVertice = chooseNextVertice(null);
 	    for (Iterator<Ligacao> it = localidades.get(proxVertice.getNome()).Ligacoes().getLigacoes().iterator(); it.hasNext();)
-		naOrla=buildPath(it.next(), proxVertice, naOrla);
-            proxVertice.setEstado(VISITADO);
+                naOrla=buildPath(it.next(), proxVertice, naOrla);
+            this.graph.get(proxVertice.getNome()).setEstado(VISITADO);
             naOrla--;
         }while(naOrla>0 && (proxVertice.getNome().compareTo(nomeDestino))!=0);
   
         if(this.graph.containsKey(nomeDestino))
-            return this.graph.get(nomeDestino).getDistancia();
+            return this.graph.get(nomeDestino).getDistancia()-1;
         return 0;
 
-    }
+    }    
+    
 }
+
+
