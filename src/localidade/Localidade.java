@@ -1,6 +1,7 @@
 package localidade;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * Localidade
@@ -55,8 +56,30 @@ public class Localidade implements Serializable {
         return str.toString();
     }
     
-    public String toSDOString(){
+    public String toEFString(){
         return this.getNome();
+    }
+    
+    public String toLigacoesEFString(){
+	StringBuilder str = new StringBuilder(20);
+	Collection<Ligacao> ligs = this.ligacoes.getLigacoes();
+	
+	for( Ligacao l : ligs ){
+	    str.append(this.nome)
+		    .append(":")
+		    .append(l.nome) //nome da localidade de destino
+		    .append(":")
+		    .append(l.distancia)
+		    .append(":")
+		    .append(l.custo)
+		    .append("\n");
+	}
+	
+	return str.toString();
+    }
+    
+    public boolean fromEFString(String nome, double distancia, double custo){
+	return this.insereLigacao(new Ligacao(nome, distancia, custo));
     }
     
     public String[][] listaLigacoes(){

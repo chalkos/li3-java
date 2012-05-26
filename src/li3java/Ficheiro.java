@@ -1,12 +1,13 @@
 package li3java;
 
 import java.io.*;
-import java.nio.file.Files;
 import localidade.Ligacao;
 import localidade.Localidade;
 import localidade.Localidades;
+import localidade.LocalidadesHashMap;
 import utilizador.Utilizador;
 import utilizador.Utilizadores;
+import utilizador.UtilizadoresHashMap;
 
 public class Ficheiro {
     public static int getUtilizadores(Utilizadores utilizadores, File ficheiro){
@@ -66,7 +67,8 @@ public class Ficheiro {
         return c;
     }
     
-    public static void escreverSDO(File file, Localidades localidades, Utilizadores utilizadores){
+    public static boolean escreverSDO(File file, Localidades localidades, Utilizadores utilizadores){
+	boolean res = true;
 	ObjectOutputStream out;
 	FileOutputStream fos;
 	
@@ -85,8 +87,9 @@ public class Ficheiro {
 	    out.writeObject(utilizadores);
 	    out.close();
 	} catch (IOException ex) {
-	    
+	    res = false;
 	}
+	return res;
     }
     
     public static Dados lerSDO(File file, Localidades localidades, Utilizadores utilizadores){
@@ -110,10 +113,11 @@ public class Ficheiro {
 	return d;
     }
     
-    public static void escreverEF(File file, Localidades localidades, Utilizadores utilizadores){
+    public static boolean escreverEF(File file, Localidades localidades, Utilizadores utilizadores){
+	boolean res = true;
 	PrintWriter pw;
-	
 	String ext = "";
+	
 	if( file.getName().lastIndexOf(".") != -1)
 	    ext = file.getName().substring(file.getName().lastIndexOf("."));
 	
@@ -123,19 +127,90 @@ public class Ficheiro {
 	
 	try {
 	    pw = new PrintWriter(file);
-	    pw.append("valores, bues deles\n");
-	    pw.append('\b');
-	    pw.append("Localidades\n");
-	    //pw.append(localidades.escritaLocalidades());
+	    pw.append("\bLocalidades\n");
+	    pw.append(localidades.escritaLocalidades());
+	    pw.append("\bLigações\n");
+	    pw.append(localidades.escritaLigacoes());
+	    pw.append("\bUtilizadores\n");
+	    pw.append(utilizadores.escritaUtilizadores());
 
 
 	    pw.close();
 	} catch (FileNotFoundException ex) {
-	    //ficheiro nao encontrado
+	    res = false;
 	}
+	return res;
     }
     
-    public static void lerEF(File file, Localidades localidades, Utilizadores utilizadores){
+    public static Dados lerEF(File file, Localidades localidades, Utilizadores utilizadores){
+	/*
+	 * indica se se está a ler localidades, ligações ou utilizadores
+	 */
+	int fase = 0;
+	String []partes;
+	String linha;
 	
+	Dados d = new Dados(localidades, utilizadores);
+	
+	Localidades locs = new LocalidadesHashMap();
+	Utilizadores users = new UtilizadoresHashMap();
+	
+	/*
+	 * quantidades:
+	 * [0] - localidades inseridas
+	 * [1] - localidades totais
+	 * [2] - ligações inseridas
+	 * [3] - ligações totais
+	 * [4] - utilizadores inseridos
+	 * [5] - utilizadores totais
+	 */
+	int[] qtd = new int[6]; //inicializa tudo a zero
+	
+	try {
+            FileReader fr = new FileReader(file);
+            BufferedReader br =  new BufferedReader(fr);
+            while( br.ready() ){
+		linha = br.readLine();
+		if( linha.charAt(0) == '\b' ){
+		    if( linha.equals("\bLocalidades") )
+			fase = 1;
+		    else if( linha.equals("\bLigações") )
+			fase = 2;
+		    else if( linha.equals("\bUtilizadores") )
+			fase = 3;
+		}else{
+		    switch(fase){
+			case 1:
+			    if( locs.insere(new Localidade(linha)))
+				qtd[0]++;
+			    qtd[1]++;
+			    break;
+			case 2:
+			    partes = linha.split(":");
+			    if( locs.insereLigacao(partes[0], new Ligacao(partes[1], Double.parseDouble(partes[2]), Double.parseDouble(partes[3]))) )
+				qtd[2]++;
+			    qtd[3]++;
+			    break;
+			case 3:
+			    partes = linha.split(":");
+			    if( users.insere(new Utilizador(partes[0], partes[1], partes[2])) )
+				qtd[4]++;
+			    qtd[5]++;
+			    break;
+		    }
+		}
+            }
+            fr.close();
+        } catch (java.io.FileNotFoundException ex) {
+            d.quantidades = new int[1]; //para reportar o erro
+	    return d;
+        } catch (Exception ex){
+	    d.quantidades = new int[2]; //para reportar o erro
+	    return d;
+	}
+	
+	d = new Dados(locs, users);
+	d.quantidades = qtd;
+	return d;
     }
 }

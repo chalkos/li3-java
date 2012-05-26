@@ -26,7 +26,7 @@ public class msgDialog {
     // não foi possível abrir o ficheiro
     public static final String ficheiro_abrir_erro_msg = "Não foi possível abrir o ficheiro.";
     public static final String ficheiro_abrir_erro_titulo = "Insucesso";
-    public static final int ficheiro_abrir_erro_tipo = JOptionPane.WARNING_MESSAGE;
+    public static final int ficheiro_abrir_erro_tipo = JOptionPane.ERROR_MESSAGE;
     
     // conversão de string para double falhou
     public static final String stringToDouble_msg = "Deve introduzir um número real";
@@ -48,10 +48,25 @@ public class msgDialog {
     public static final String sucessoInserirLigacao_titulo = "Sucesso";
     public static final int sucessoInserirLigacao_tipo = JOptionPane.INFORMATION_MESSAGE;
     
+    // ficheiro criado com sucesso
+    public static final String sucessoEscreverDados_msg = "Dados guardados!";
+    public static final String sucessoEscreverDados_titulo = "Sucesso";
+    public static final int sucessoEscreverDados_tipo = JOptionPane.INFORMATION_MESSAGE;
+    
+    // não foi possível guardar os dados
+    public static final String insucessoEscreverDados_msg = "Não foi possível guardar os dados.";
+    public static final String insucessoEscreverDados_titulo = "Erro ao guardar dados";
+    public static final int insucessoEscreverDados_tipo = JOptionPane.ERROR_MESSAGE;
+    
     // inserir ligação: sucesso
     public static final String insucessoInserirLigacao_msg = "Ligação já existe.";
     public static final String insucessoInserirLigacao_titulo = "Erro ao criar Ligação";
     public static final int insucessoInserirLigacao_tipo = JOptionPane.WARNING_MESSAGE;
+    
+    // abrir ficheiro EF, ficheiro corrompido
+    public static final String EF_corrompido_msg = "Ficheiro corrompido, não é possível importar";
+    public static final String EF_corrompido_titulo = "Ficheiro corrompido";
+    public static final int EF_corrompido_tipo = JOptionPane.ERROR_MESSAGE;
     
     // ficheiro já existe, substituir?
     public static final String ficheiroExiste_msg = "Ficheiro existe, substituir?";

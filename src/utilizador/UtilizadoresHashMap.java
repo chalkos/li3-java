@@ -142,5 +142,22 @@ public class UtilizadoresHashMap extends Utilizadores implements Serializable{
 	    this.nif.remove(nif);
 	}
     }
+
+    @Override
+    public String escritaUtilizadores() {
+	StringBuilder str = new StringBuilder();
+	Collection<Utilizador> users = this.nif.values();
+	
+	for( Utilizador u : users ){
+	    str.append(u.getNif())
+		    .append(":")
+		    .append(u.getNome())
+		    .append(":")
+		    .append(u.getMorada())
+		    .append("\n");
+	}
+	
+	return str.toString();
+    }
     
 }

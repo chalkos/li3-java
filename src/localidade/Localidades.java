@@ -55,4 +55,6 @@ public abstract class Localidades implements Serializable {
     abstract HashMap<String, Localidade> getLocalidades();
     public abstract String escritaLocalidades();
     public abstract String escritaLigacoes();
+    public abstract boolean leituraLocalidades(String loc);
+    public abstract int leituraLigacoes();
 }

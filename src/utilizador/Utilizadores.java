@@ -26,4 +26,5 @@ public abstract class Utilizadores implements Serializable{
     public abstract StringBuilder toStringNome();
     public abstract String[][] contains(String valor, int campo);
     public abstract void remove(String nif);
+    public abstract String escritaUtilizadores();
 }

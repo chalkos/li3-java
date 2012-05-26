@@ -994,7 +994,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	if( seleccionadas.length == 1 )
 	    texto = " utilizador?";
 	
-	if( JOptionPane.showConfirmDialog(this, "Apagar " + seleccionadas.length + " utilizadores?", "Confirmação", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION ){
+	if( JOptionPane.showConfirmDialog(this, "Apagar " + seleccionadas.length + texto, "Confirmação", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION ){
 	    for(int row : seleccionadas)
 		//utilizadores.remove( (String)jTutilizadores.getCellEditor(row, 1).getCellEditorValue() );
 		utilizadores.remove( (String)jTutilizadores.getValueAt(row, 1) );
@@ -1169,14 +1169,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		String extension = fc.getFileFilter().getDescription();
 		File file = fc.getSelectedFile();
 		if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
-		    GregorianCalendar gc = new GregorianCalendar();
 		    Dados d = Ficheiro.lerSDO(file, localidades, utilizadores);
 		    localidades = d.getLocalidades();
 		    utilizadores = d.getUtilizadores();
-		    JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+		    JOptionPane.showMessageDialog(this, "Todos os dados foram importados com sucesso.", "Dados importados", JOptionPane.INFORMATION_MESSAGE);
 		}else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
-		    Ficheiro.lerEF(file, localidades, utilizadores);
-
+		    Dados d = Ficheiro.lerEF(file, localidades, utilizadores);
+		    
+		    switch( d.quantidades.length ){
+			case 1:
+			    JOptionPane.showMessageDialog(this, msgDialog.ficheiro_abrir_erro_msg, msgDialog.ficheiro_abrir_erro_titulo, msgDialog.ficheiro_abrir_erro_tipo);
+			    break;
+			case 2:
+			    JOptionPane.showMessageDialog(this, msgDialog.EF_corrompido_msg, msgDialog.EF_corrompido_titulo, msgDialog.EF_corrompido_tipo);
+			    break;
+			case 6:
+			    localidades = d.getLocalidades();
+			    utilizadores = d.getUtilizadores();
+			    JOptionPane.showMessageDialog(this,
+				    String.format("Dados importados:\nLocalidades (%d de %d)\nLigações (%d de %d)\nUtilizadores (%d de %d)",
+					d.quantidades[0],
+					d.quantidades[1],
+					d.quantidades[2],
+					d.quantidades[3],
+					d.quantidades[4],
+					d.quantidades[5]),
+				    "Dados importados",
+				    JOptionPane.INFORMATION_MESSAGE
+				    );
+			    break;
+		    }
 		}
 	    }
 	}else{
@@ -1190,18 +1212,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 		    if( file.exists() ){
 			int subst = JOptionPane.showConfirmDialog(this, msgDialog.ficheiroExiste_msg, msgDialog.ficheiroExiste_titulo, JOptionPane.YES_NO_CANCEL_OPTION);
 			if( subst == JOptionPane.YES_OPTION ){
-			    if (extension.equals( FileFilterStreamsDeObjecto.descricao )) {
-				GregorianCalendar gc = new GregorianCalendar();
-				Ficheiro.escreverSDO(file, localidades, utilizadores);
-				JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
-			    }else if (extension.equals(FileFilterEscritaFormatada.descricao)) {
-				Ficheiro.escreverEF(file, localidades, utilizadores);
+			    GregorianCalendar gc = new GregorianCalendar();
+			    if (extension.equals( FileFilterStreamsDeObjecto.descricao )){
+				if(Ficheiro.escreverSDO(file, localidades, utilizadores))
+				    JOptionPane.showMessageDialog(this, msgDialog.sucessoEscreverDados_msg, msgDialog.sucessoEscreverDados_titulo, msgDialog.sucessoEscreverDados_tipo);
+				else
+				    JOptionPane.showMessageDialog(this, msgDialog.insucessoEscreverDados_msg, msgDialog.insucessoEscreverDados_titulo, msgDialog.insucessoEscreverDados_tipo);
+			    }else if (extension.equals(FileFilterEscritaFormatada.descricao)){
+				if( Ficheiro.escreverEF(file, localidades, utilizadores) )
+				    JOptionPane.showMessageDialog(this, msgDialog.sucessoEscreverDados_msg, msgDialog.sucessoEscreverDados_titulo, msgDialog.sucessoEscreverDados_tipo);
+				else
+				    JOptionPane.showMessageDialog(this, msgDialog.insucessoEscreverDados_msg, msgDialog.insucessoEscreverDados_titulo, msgDialog.insucessoEscreverDados_tipo);
 			    }
+			    
 			    break;
 			}else if( subst == JOptionPane.NO_OPTION ){
 			    //se repsondeu que não queria substituir, volta a mostrar o fileChooser
 			}else
 			    break; //se carregou cancelar, fechou a janela, etc. cancela a escrita de ficheiro imediatamente
+		    }else{
+			GregorianCalendar gc = new GregorianCalendar();
+			if (extension.equals( FileFilterStreamsDeObjecto.descricao ))
+			    Ficheiro.escreverSDO(file, localidades, utilizadores);
+			else if (extension.equals(FileFilterEscritaFormatada.descricao))
+			    Ficheiro.escreverEF(file, localidades, utilizadores);
+			JOptionPane.showMessageDialog(this, "Done, demorou " + ((new GregorianCalendar()).getTimeInMillis() - gc.getTimeInMillis()) + "ms");
+			break;
 		    }
 		}else
 		    break;

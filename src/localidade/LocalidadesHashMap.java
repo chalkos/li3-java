@@ -90,13 +90,27 @@ public class LocalidadesHashMap extends Localidades implements Serializable{
     public String escritaLocalidades() {
 	StringBuilder str = new StringBuilder(50);
 	for(Localidade l:localidades.values()){
-	    str.append(l.toSDOString()).append("\n");
+	    str.append(l.toEFString()).append("\n");
 	}
 	return str.toString();
     }
 
     @Override
     public String escritaLigacoes() {
+	StringBuilder str = new StringBuilder(50);
+	for(Localidade l:localidades.values()){
+	    str.append(l.toLigacoesEFString());
+	}
+	return str.toString();
+    }
+
+    @Override
+    public boolean leituraLocalidades(String loc) {
+	return this.insere(new Localidade(loc));
+    }
+
+    @Override
+    public int leituraLigacoes() {
 	throw new UnsupportedOperationException("Not supported yet.");
     }
     
