@@ -813,7 +813,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         jPanel4.add(jBcalculaCaminho, gridBagConstraints);
 
-        jLdistancia.setText("0 localidades de distância");
+        jLdistancia.setText("- localidades de distância");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
@@ -1082,7 +1082,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	    return;
 	}
 	
-	if( jLlocOrigem.getSelectedIndex() == jLlocDestino.getSelectedIndex() ){
+	if( jLlocOrigem.getSelectedValue().equals(jLlocDestino.getSelectedValue()) ){
 	    JOptionPane.showMessageDialog(this, msgDialog.origemEDestinoIguais_msg, msgDialog.origemEDestinoIguais_titulo, msgDialog.origemEDestinoIguais_tipo);
 	    return;
 	}
@@ -1145,15 +1145,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jBcalculaCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcalculaCaminhoActionPerformed
 	String text = " localidades de distância";
+	String pre = "-";
 	int nlocs = 0;
 	
 	if( jLcaminhoOrigem.getSelectedIndices().length != 1 || jLcaminhoDestino.getSelectedIndices().length != 1 ){
 	    JOptionPane.showMessageDialog(this, msgDialog.seleccioneOrigemEDestino_msg, msgDialog.seleccioneOrigemEDestino_titulo, msgDialog.seleccioneOrigemEDestino_tipo);
 	}else{
 	    nlocs = (new LocalidadeGraphAlg()).buildGraph(localidades, jLcaminhoOrigem.getSelectedValue().toString(), jLcaminhoDestino.getSelectedValue().toString());
+	    pre = nlocs + "";
 	}
 	
-	jLdistancia.setText(nlocs + text);
+	jLdistancia.setText(pre + text);
     }//GEN-LAST:event_jBcalculaCaminhoActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed

@@ -102,7 +102,7 @@ Hash
 \section{Resumo}
 Neste relatório encontram-se explicitadas de forma detalhada as decisões e implementações feitas neste projecto tendo em conta as análises de performance das estruturas de dados do \textit{Java Collections Framework} feita na etapa anterior. É também abordada a construção de uma interface gráfica em \textit{Swing} de forma a ser possível efectuar mudanças no estado da aplicação por parte do utilizador e garantir a usabilidade e acessibilidade na sua utilização.
 
-Relativamente à aplicação em si, esta tem de garantir o manuseio de estruturas para o armazenamento de dados raltivamente a utilizadores do serviço de transportes e das localidades onde existe possibilidade de efectuar serviço, a escolha da estrutura a usar recaiu sobre o HashMap. 
+Relativamente à aplicação em si, esta tem de garantir o manuseio de estruturas para o armazenamento de dados relativamente a utilizadores do serviço de transportes e das localidades onde existe possibilidade de efectuar serviço, a escolha da estrutura a usar recaiu sobre o HashMap. 
 
 No seguimento deste relatório é explicado o porquê dessa escolha assim como informações da implementação do código com a interface gráfica e as opções tomadas relativamente a ambas, assim como outras decisões relevantes para o funcionamento da aplicação.
 
@@ -169,19 +169,72 @@ e uma estrutura auxiliar em LinkedList para a ordenação por nif;}
 Na etapa anterior deste projecto, chegou-se à conclusão, através de análises à performance das estrututras de dados do Java Collections Framework, que a melhor forma de implementar a base de dados de utilizadores na aplicação seria feita recorrendo a duas estruturas HashMap, uma usando o nome do utilizador como chave e a outra usando o NIF. A vantagem do HashMap relativamente a outras configurações nota-se sobretudo em termos de inserção e procura. Tanto o ArrayList como o TreeMap tornam-se soluções menos óptimos, um pela sua falta de performance e a outra pela complexidade de inserção/remoção.
 
 \subsubsection{Localidades}
-De forma equivalente à decisão tomada sobre a estrutura para utilizadores, a escolha para a manipulação de dados relativos a localidades recai também sobre duas estruturas HashMap, sendo uma delas para localidades e a outra para as ligações entre localidades. Isto deve-se igualmente aos utilizadores à rapidez apresentada por esta estrutura na implementação sobre este tipo concreto de dados.
+De forma equivalente à decisão tomada sobre a estrutura para utilizadores, a escolha para a manipulação de dados relativos a localidades recai também sobre duas estruturas HashMap, sendo uma delas para localidades e a outra para as suas ligações. Isto deve-se igualmente à rapidez apresentada por esta estrutura na implementação sobre este tipo concreto de dados.
 \clearpage
 \newpage
 
 \subsection{Interface gráfica}
 A interface gráfica foi feita para ser concisa e simples de utilizar.
 
-Existe um menu com opções que permitem guardar e carregar o estado da aplicação ou importar dados de um ficheiro.
+Descrevem-se agora algumas funcionalidades da interface gráfica.
+\begin{itemize}
+\item{Existe um menu com opções que permitem guardar e carregar o estado da aplicação ou importar dados de um ficheiro.}
 
-As várias operações sobre utilizadores ou localidades estão distribuídas por separadores. No primeiro separador, Utilizadores, pode-se adicionar novos utilizadores, listar utilizadores existentes e remover utilizadores. No segundo separador, 
+
+\item{As várias operações sobre utilizadores ou localidades estão distribuídas por separadores. No primeiro separador, \emph{Gerir Utilizadores}, pode-se adicionar novos utilizadores, listar utilizadores existentes e remover utilizadores. No segundo separador, \emph{Adicionar Localidades}, pode-se adicionar localidades e ligações. No terceiro separador, \emph{Listar Ligações}, apenas de listam as ligações da localidade seleccionada. No quarto e último separador, \emph{Calcular Caminhos}, calcula-se o caminho mais curto entre duas localidades.}
+
+\item{Todas as caixas de texto de pesquisa de utilizadores ou localidades funcionam num esquema de pesquisa instantânea, isto é, assim que o utilizador começa a escrever o nome de um utilizador ou localidade, os resultados começam a aparecer.}
+
+\item{As caixas de texto de pesquisa de utilizadores ou localidades são acompanhadas de um botão que lista todos os itens.}
+
+\item{Na tabela de utilizadores, existe um botão que permite seleccionar todos os utilizadores e um botão que apaga os utilizadores seleccionados. Antes de apagar utilizadores, é pedido ao utilizador que confirme que quer remover os utilizadores seleccionados.}
+
+\item{No separador \emph{Adicionar Localidades}, para adicionar uma nova localidade, pode-se carregar na tecla ENTER em vez de carregar no botão \emph{Adicionar Localidade}.}
+\end{itemize}
+
+Seguem-se algumas imagens ilustrativas dos pontos acima, assim como do resto da interface gráfica.
+
 \clearpage
+\onecolumn
 \newpage
+\begin{figure}[h!b!t!]
+    \caption[Utilizadores importados]{Utilizadores importados}
+    \centering
+        \includegraphics[width=330pt]{interface_1.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Utilizadores: Pesquisa]{Pesquisa de Utilizadores}
+    \centering
+        \includegraphics[width=330pt]{interface_2.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Utilizadores: Listar Todos]{Listar todos os Utilizadores}
+    \centering
+        \includegraphics[width=330pt]{interface_3.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Utilizadores: Eliminar]{Remover Utilizadores}
+    \centering
+        \includegraphics[width=330pt]{interface_4.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Nova Ligação]{Adicionar nova ligação}
+    \centering
+        \includegraphics[width=330pt]{interface_5.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Listar Ligações]{Listar Ligações de Localidades}
+    \centering
+        \includegraphics[width=330pt]{interface_6.png}
+\end{figure}
+\begin{figure}[h!b!t!]
+    \caption[Calcular Caminho mais Curto]{Calcular o caminho mais curto entre duas localidades}
+    \centering
+        \includegraphics[width=330pt]{interface_7.png}
+\end{figure}
 
+\newpage
+\twocolumn
 \subsection{Camada de Persistência}
 Relativamente à camada de persistência, foi pedido que se estudasse o desempenho de duas soluções distintas: streams de texto e streams de objectos.
 
@@ -277,7 +330,7 @@ Nos testes, o ficheiro que continha 18000 utilizadores e 18000 localidades, cada
 \newpage
 \twocolumn
 \subsubsection{Comparação}
-De ambas as configurações testadas, usar streams de texto para assegurar persistência é a mais rápida.
+De ambas as configurações testadas, usar streams de texto para assegurar persistência é a mais rápida, como se pode verificar nos gráficos abaixo.
 \clearpage
 \onecolumn
 \begin{figure}[h!b!t!]
@@ -294,18 +347,10 @@ De ambas as configurações testadas, usar streams de texto para assegurar persi
 \newpage
 \twocolumn
 
-
-
-
-
-
-
 \clearpage
 \section{Conclusão}
-
-
-
-
+Depois da criação desta aplicação aprendemos a manusear a biblioteca Swing do java.
+Também concluímos pelos testes de persistência de dados que fizemos, que utilizar a serialização fornecida pelo java será, na grande maioria das vezes, mais lento que assegurar persistência usando streams de texto.
 
 
 \clearpage
