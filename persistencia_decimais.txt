@@ -1,0 +1,28 @@
+------[TemposSDO]------
+5000
+ESCRITA -> med: 1182.88 dp: 122.67
+LEITURA -> med: 398.6 dp: 43.55
+10000
+ESCRITA -> med: 3347.88 dp: 233.58
+LEITURA -> med: 1026.92 dp: 92.12
+15000
+ESCRITA -> med: 6560.54 dp: 356.50
+LEITURA -> med: 1976.44 dp: 234.84
+18000
+ESCRITA -> med: 9128.06 dp: 428.50
+LEITURA -> med: 2674.32 dp: 357.76
+
+
+------[TemposEF]------
+5000
+ESCRITA -> med: 31.46 dp: 28.47
+LEITURA -> med: 27.2 dp: 10.89
+10000
+ESCRITA -> med: 91.74 dp: 20.38
+LEITURA -> med: 91.32 dp: 20.18
+15000
+ESCRITA -> med: 181.16 dp: 21.31
+LEITURA -> med: 270.72 dp: 24.60
+18000
+ESCRITA -> med: 290.7 dp: 36.56
+LEITURA -> med: 274.06 dp: 44.35
